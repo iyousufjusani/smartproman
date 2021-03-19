@@ -13,6 +13,24 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
+
+
 Route::get('/', function () {
-    return view('welcome');
+    $title = 'Smart Pro Man Club';
+    $subtitle = 'HVAC Engineering Professional Club';
+    return view('index', compact('title','subtitle'));
+
 });
+
+//Route::get('/welcome', function (){
+//    return "Laravel app";
+//});
+//
+//
+//Route::get('/home/{name?}', function ($name="Guest"){
+//    return "Welcome, " . $name;
+//});
+
+//Route::redirect('/','home');
+//Route::view('/','welcome');
