@@ -19,7 +19,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     $title = 'Smart Pro Man Club';
     $subtitle = 'HVAC Engineering Professional Club';
-    return view('index', compact('title','subtitle'));
+    return view('home', compact('title','subtitle'));
 
 });
 

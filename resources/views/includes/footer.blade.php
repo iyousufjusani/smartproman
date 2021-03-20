@@ -71,7 +71,7 @@
             </div>
         </div>
     </div>
-    <div class='subfooter'>
+    <div class='subfooter' style="text-align: center">
         <div class='row m-2-hor'>
             <div class='col-md-6'>
                 <div class='content'>© Copyrights 2020 {{config('app.name','SmartProMan')}} All rights reserved.</div>
@@ -79,4 +79,9 @@
         </div>
     </div>
 </footer>
+
+<!-- ScrolltoTop -->
+<div id="totop" class="init">
+    <i class="fa fa-chevron-up"></i>
+</div>
 

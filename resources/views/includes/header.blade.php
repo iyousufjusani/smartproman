@@ -13,9 +13,9 @@
                 </a>
                 <!-- logo end -->
 
-                <div class="social-icons-subnav">
-                    <span>Call Us: (+92) 000 888 999</span>
-                </div>
+                {{--<div class="social-icons-subnav">--}}
+                    {{--<span>Call Us: (+92) 000 888 999</span>--}}
+                {{--</div>--}}
 
             </div>
         </div>

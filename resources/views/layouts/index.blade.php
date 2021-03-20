@@ -60,10 +60,6 @@
 @include('includes.footer')
 <!-- footer end -->
 
-    <!-- ScrolltoTop -->
-    <div id="totop" class="init">
-        <i class="fa fa-chevron-up"></i>
-    </div>
 
 </div>
 <!-- content-wrapper end -->
