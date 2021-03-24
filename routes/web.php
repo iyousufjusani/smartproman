@@ -23,6 +23,11 @@ Route::get('/', function () {
 
 });
 
+Route::get('/dashboard', function () {
+    return view('Admin.dashboard');
+
+});
+
 //Route::get('/welcome', function (){
 //    return "Laravel app";
 //});
