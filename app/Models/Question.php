@@ -13,4 +13,11 @@ class Question extends Model
     {
         return $this->belongsTo(Topic::class);
     }
+
+    public function options()
+    {
+        return $this->hasMany(Option::class);
+    }
+
+
 }
