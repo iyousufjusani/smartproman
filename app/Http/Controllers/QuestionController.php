@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Question;
 use App\Models\Topic;
-use App\Models\Video;
+use http\QueryString;
 use Illuminate\Http\Request;
 
-class VideoController extends Controller
+class QuestionController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,8 +17,8 @@ class VideoController extends Controller
     public function index()
     {
         $topics = Topic::all();
-        $videos = Video::all();
-        return view('Admin.topics.index', compact('topics','videos'));
+        $questions = Question::all();
+        return view('Admin.topics.index', compact('topics','questions'));
     }
 
     /**
@@ -44,10 +45,10 @@ class VideoController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Video  $video
+     * @param  \App\Models\Question  $question
      * @return \Illuminate\Http\Response
      */
-    public function show(Video $video)
+    public function show(Question $question)
     {
         //
     }
@@ -55,10 +56,10 @@ class VideoController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Video  $video
+     * @param  \App\Models\Question  $question
      * @return \Illuminate\Http\Response
      */
-    public function edit(Video $video)
+    public function edit(Question $question)
     {
         //
     }
@@ -67,10 +68,10 @@ class VideoController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Video  $video
+     * @param  \App\Models\Question  $question
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Video $video)
+    public function update(Request $request, Question $question)
     {
         //
     }
@@ -78,10 +79,10 @@ class VideoController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Video  $video
+     * @param  \App\Models\Question  $question
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Video $video)
+    public function destroy(Question $question)
     {
         //
     }

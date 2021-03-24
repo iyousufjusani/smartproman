@@ -23,4 +23,10 @@ class Topic extends Model
         return $this->hasMany(Video::class);
     }
 
+    public function questions()
+    {
+        return $this->hasMany(Question::class);
+    }
+
+
 }
