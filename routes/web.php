@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -32,6 +32,9 @@ Route::get('/admin-login',function(){
     return view('Admin.admin-login');
 });
 
+//Route::resource('topics', 'TopicController');
+
+
 //Route::get('/welcome', function (){
 //    return "Laravel app";
 //});
@@ -46,3 +49,7 @@ Route::get('/admin-login',function(){
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::resource('types', 'TypeController');
+Route::resource('topics', 'TopicsController');
+
