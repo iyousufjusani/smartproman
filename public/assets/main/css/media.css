@@ -1,0 +1,74 @@
+@media only screen and (max-width: 1199px) {
+  
+}
+@media only screen and (max-width: 1024px) {
+  body{
+    width: 100%;
+    position: relative;
+    overflow-x: hidden;
+  }
+  .rightmenu{
+  	right: 4%;
+  }
+  section {
+  	padding: 60px 0;
+  }
+  .slickproject .item .icon, .slickteam .item .icon{
+  	opacity: 1;
+  	bottom: 15px;
+  }
+  .slick .item .desc .content{
+  	opacity: 1;
+  	margin-bottom: 0px;
+  }
+  .projectbig img{
+  	height: 100% !important;
+  }
+  .comment-info{
+  	margin-left: 60px;
+  }
+  .comment-info .c-date{
+  	float: unset;
+  }
+  #blog-comment > ul ul{
+  	padding-left: 0;
+  }
+}
+@media only screen and (max-width: 768px) {
+ .social-icons-subnav{
+  display: none;
+ }
+ .col-home .thumb{
+ 	width: 100%;
+ 	margin-bottom: 30px;
+ }
+ .m-2-hor{
+ 	padding: 0 2%;
+ }
+ .o-button.-square{
+ 	width: 10px;
+ }
+ .slideshow-slide-caption-title{
+ 	font-size: 46px;
+ }
+ .slideshow-sub-title{
+ 	font-size: 38px;
+ }
+ .text-side .address{
+ 	padding-bottom: 15px;
+ }
+}
+@media only screen and (max-width: 660px) {
+ 
+}
+@media(max-width:414px) {
+ .whitepage-menu{
+ 	width: 100%;
+ }
+}
+@media(max-width:360px) {
+
+}
+@media(max-width:320px) {
+  
+}
