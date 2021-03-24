@@ -16,16 +16,20 @@ use Illuminate\Support\Facades\Route;
 
 
 
-Route::get('/', function () {
-    $title = 'Smart Pro Man Club';
-    $subtitle = 'HVAC Engineering Professional Club';
-    return view('home', compact('title','subtitle'));
-
-});
+//Route::get('/', function () {
+//    $title = 'Smart Pro Man Club';
+//    $subtitle = 'HVAC Engineering Professional Club';
+//    return view('home', compact('title','subtitle'));
+//
+//});
 
 Route::get('/dashboard', function () {
     return view('Admin.dashboard');
 
+});
+
+Route::get('/admin-login',function(){
+    return view('Admin.admin-login');
 });
 
 //Route::get('/welcome', function (){
@@ -39,3 +43,6 @@ Route::get('/dashboard', function () {
 
 //Route::redirect('/','home');
 //Route::view('/','welcome');
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
