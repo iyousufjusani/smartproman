@@ -50,6 +50,7 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
+
 Route::resource('types', 'TypeController');
-Route::resource('topics', 'TopicsController');
+Route::resource('topics', 'TopicController');
 

@@ -38,6 +38,21 @@
                 </a>
             </li>
 
+            <li>
+                <a href="{{ route('topics.index') }}">
+                    <i class="ti-crown"></i><span class="badge badge-custom pull-right">10</span>
+                    <span> Topics </span>
+                </a>
+            </li>
+
+            <li>
+                <a href="{{ route('types.index') }}">
+                    <i class="ti-agenda"></i><span class="badge badge-custom pull-right">10</span>
+                    <span> Types </span>
+                </a>
+            </li>
+
+
             <!--            <li>-->
             <!--                <a href="ui-elements.html">-->
             <!--                    <i class="ti-paint-bucket"></i><span class="badge badge-custom pull-right">11</span> <span> UI Elements </span>-->
@@ -82,14 +97,7 @@
             </li>
 
 
-            <li>
 
-
-                <a href="pages-view-topics.php">
-                    <i class="ti-crown"></i><span class="badge badge-custom pull-right">10</span>
-                    <span> Topics </span>
-                </a>
-            </li>
 
 
             <li>

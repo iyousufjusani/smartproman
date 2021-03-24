@@ -20,59 +20,59 @@
 
 
                 <div class="row">
+                    @foreach ($topics as $topic)
 
+                        <div class="col-md-4">
+                            <div class="text-center card-box">
+                                <div class="member-card mt-4">
+                                    <span class="user-badge bg-warning">Topic</span>
+                                    <!--                                    <div class="thumb-xl member-thumb m-b-10 center-page">-->
+                                    <!--                                        <img src="../topics/--><?php //echo $row['topic_image'] ?><!--"-->
+                                    <!--                                             class="rounded-circle img-thumbnail"-->
+                                    <!--                                             alt="profile-image">-->
+                                    <!--                                    </div>-->
 
-                    <div class="col-md-4">
-                        <div class="text-center card-box">
-                            <div class="member-card mt-4">
-                                <span class="user-badge bg-warning">Topic</span>
-                                <!--                                    <div class="thumb-xl member-thumb m-b-10 center-page">-->
-                                <!--                                        <img src="../topics/--><?php //echo $row['topic_image'] ?><!--"-->
-                                <!--                                             class="rounded-circle img-thumbnail"-->
-                                <!--                                             alt="profile-image">-->
-                                <!--                                    </div>-->
+                                    <div class="">
+                                        <h4 class="m-b-5 mt-2 center-page">{{ $topic -> title }}</h4>
+                                        <!--                                        <h6 class="text-muted">@-->
+                                        <!--                                            --><?php //echo $row['topic_tagline'] ?>
+                                    <!--                                        </h6>-->
+                                    </div>
 
-                                <div class="">
-                                    <h4 class="m-b-5 mt-2 center-page">Topic Title</h4>
-                                    <!--                                        <h6 class="text-muted">@-->
-                                    <!--                                            --><?php //echo $row['topic_tagline'] ?>
-                                <!--                                        </h6>-->
+                                    <!--                                    <p class="text-muted font-13">-->
+                                    <!--                                        Hi I'm Dummy Text, has been the industry's standard dummy text ever since the-->
+                                    <!--                                        1500s, when an unknown printer took a galley of type.-->
+                                    <!--                                    </p>-->
+
+                                    <!--                                    <button type="button" class="btn btn-default btn-sm m-t-10">Message</button>-->
+                                    <!--                                    <button type="button" class="btn btn-default btn-sm m-t-10">View Profile</button>-->
+                                    <!---->
+                                    <!--                                    <ul class="social-links list-inline m-t-30">-->
+                                    <!--                                        <li class="list-inline-item">-->
+                                    <!--                                            <a title="" data-placement="top" data-toggle="tooltip" class="tooltips"-->
+                                    <!--                                               href=""-->
+                                    <!--                                               data-original-title="Facebook"><i class="fa fa-facebook"></i></a>-->
+                                    <!--                                        </li>-->
+                                    <!--                                        <li class="list-inline-item">-->
+                                    <!--                                            <a title="" data-placement="top" data-toggle="tooltip" class="tooltips"-->
+                                    <!--                                               href=""-->
+                                    <!--                                               data-original-title="Twitter"><i class="fa fa-twitter"></i></a>-->
+                                    <!--                                        </li>-->
+                                    <!--                                                                            <li class="list-inline-item">-->
+                                    <!--                                                                                <a title="" data-placement="top" data-toggle="tooltip" class="tooltips"-->
+                                    <!--                                                                                   href=""-->
+                                    <!--                                                                                   data-original-title="Skype"><i class="fa fa-skype"></i></a>-->
+                                    <!--                                                                            </li>-->
+                                    <!--                                    </ul>-->
+
                                 </div>
-
-                                <!--                                    <p class="text-muted font-13">-->
-                                <!--                                        Hi I'm Dummy Text, has been the industry's standard dummy text ever since the-->
-                                <!--                                        1500s, when an unknown printer took a galley of type.-->
-                                <!--                                    </p>-->
-
-                                <!--                                    <button type="button" class="btn btn-default btn-sm m-t-10">Message</button>-->
-                                <!--                                    <button type="button" class="btn btn-default btn-sm m-t-10">View Profile</button>-->
-                                <!---->
-                                <!--                                    <ul class="social-links list-inline m-t-30">-->
-                                <!--                                        <li class="list-inline-item">-->
-                                <!--                                            <a title="" data-placement="top" data-toggle="tooltip" class="tooltips"-->
-                                <!--                                               href=""-->
-                                <!--                                               data-original-title="Facebook"><i class="fa fa-facebook"></i></a>-->
-                                <!--                                        </li>-->
-                                <!--                                        <li class="list-inline-item">-->
-                                <!--                                            <a title="" data-placement="top" data-toggle="tooltip" class="tooltips"-->
-                                <!--                                               href=""-->
-                                <!--                                               data-original-title="Twitter"><i class="fa fa-twitter"></i></a>-->
-                                <!--                                        </li>-->
-                                <!--                                                                            <li class="list-inline-item">-->
-                                <!--                                                                                <a title="" data-placement="top" data-toggle="tooltip" class="tooltips"-->
-                                <!--                                                                                   href=""-->
-                                <!--                                                                                   data-original-title="Skype"><i class="fa fa-skype"></i></a>-->
-                                <!--                                                                            </li>-->
-                                <!--                                    </ul>-->
 
                             </div>
 
                         </div>
 
-                    </div>
-                    <!-- end col -->
 
-
+                    @endforeach
                 </div>
                 <!-- end row -->
 
@@ -80,7 +80,7 @@
                 <div class="row">
                     <div class="col-sm-12 text-center">
                         <button class="btn btn-primary btn-rounded btn-lg m-b-30" data-toggle="modal"
-                                data-target="#add-admin">Add Topic
+                                data-target="#add-topic">Add Topic
                         </button>
                     </div><!-- end col -->
                 </div>
@@ -105,75 +105,98 @@
 
 @section('admin-modal')
 
-<!-- sample modal content -->
-<div id="add-admin" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="add-contactLabel"
-     aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title" id="add-contactLabel">Add Topic</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-            </div>
-            <div class="modal-body">
-                <form role="form" method="post" action="" enctype="multipart/form-data">
+    <!-- sample modal content -->
+    <div id="add-topic" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="add-contactLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="add-contactLabel">Add Topic</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                </div>
+                <div class="modal-body">
+                    <form role="form" method="post" action="" enctype="multipart/form-data">
 
-                    <div class="form-group">
-                        <label for="name">Topic Name<span
-                                    class="text-danger">*</span></label>
-                        <input type="text" class="form-control" id="name" placeholder="Enter name" name="name"
-                               required>
-                    </div>
+                        <div class="form-group">
+                            <label for="title">Topic Name<span
+                                        class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="title" placeholder="Enter Topic Title"
+                                   name="title"
+                                   required value="{{ old('title') }}">
+                        </div>
 
-                    <!--                    <div class="form-group">-->
-                    <!--                        <label for="inputimage">topic Logo Image<span-->
-                    <!--                                    class="text-danger">*</span></label>-->
-                    <!--                        <input type="file" id="inputimage" name="image" class="form-control-file" required>-->
-                    <!--                    </div>-->
-                    <!--                    -->
-                    <!--                    <div class="form-group">-->
-                    <!--                        <label for="tagline">topic Tagline<span-->
-                    <!--                                    class="text-danger">*</span></label>-->
-                    <!--                        <input type="text" class="form-control" id="tagline" placeholder="Enter tagline" name="tagline"-->
-                    <!--                               required>-->
-                    <!--                    </div>-->
+                        <div class="form-group">
+                            <label for="image">Topic Image</label>
+
+                            <input id="image" type="file" style="padding: 3px"
+                                   class="form-control" name="image" required value="{{ old('image') }}">
+                        </div>
 
 
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default " data-dismiss="modal">Cancel</button>
-                        <input type="submit" class="btn btn-primary " name="btn-add-topic" value="Add">
-                    </div>
+                        <div class="form-group">
+                            <label for="topic">Topic Type</label>
 
-                    <!--                    --><?php
-                //                    if (isset($_POST['btn-add-topic'])) {
-                //                        if (move_uploaded_file($_FILES['image']['tmp_name'], $target)) { ?>
-                <!---->
-                    <!--                            <div class="alert alert-success alert-dismissible fade in" role="alert">-->
-                    <!--                                <button type="button" class="close" data-dismiss="alert"-->
-                    <!--                                        aria-label="Close">-->
-                    <!--                                    <span aria-hidden="true">&times;</span>-->
-                    <!--                                </button>-->
-                    <!--                                <strong>SUCCESS!</strong> topic Successfully Added-->
-                    <!--                            </div>-->
-                    <!--                        --><?php //} else { ?>
-                <!--                            <div class="alert alert-danger alert-dismissible fade in" role="alert">-->
-                    <!--                                <button type="button" class="close" data-dismiss="alert"-->
-                    <!--                                        aria-label="Close">-->
-                    <!--                                    <span aria-hidden="true">&times;</span>-->
-                    <!--                                </button>-->
-                    <!--                                <strong>Oh snap!</strong> topic Addition Failed-->
-                    <!--                            </div>-->
+                            <select class="form-control" id="type" name="type_id" required>
+                                <option selected hidden>Select type</option>
+                                @foreach($types as $type)
+                                    <option value="{{ $type->id }}" {{ old('type_id') == $type->id ? 'selected' : ''}}>{{
+                                    $type->title }} </option>
+                                @endforeach
+                            </select>
+
+                        </div>
+
+
+                        <!--                    <div class="form-group">-->
+                        <!--                        <label for="inputimage">topic Logo Image<span-->
+                        <!--                                    class="text-danger">*</span></label>-->
+                        <!--                        <input type="file" id="inputimage" name="image" class="form-control-file" required>-->
+                        <!--                    </div>-->
+                        <!--                    -->
+                        <!--                    <div class="form-group">-->
+                        <!--                        <label for="tagline">topic Tagline<span-->
+                        <!--                                    class="text-danger">*</span></label>-->
+                        <!--                        <input type="text" class="form-control" id="tagline" placeholder="Enter tagline" name="tagline"-->
+                        <!--                               required>-->
+                        <!--                    </div>-->
+
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default " data-dismiss="modal">Cancel</button>
+                            <input type="submit" class="btn btn-primary " name="btn-add-topic" value="Add">
+                        </div>
+
+                        <!--                    --><?php
+                    //                    if (isset($_POST['btn-add-topic'])) {
+                    //                        if (move_uploaded_file($_FILES['image']['tmp_name'], $target)) { ?>
                     <!---->
-                    <!---->
-                    <!--                        --><?php //}
-                    //                    }
-                    //                    ?>
-                </form>
-            </div>
+                        <!--                            <div class="alert alert-success alert-dismissible fade in" role="alert">-->
+                        <!--                                <button type="button" class="close" data-dismiss="alert"-->
+                        <!--                                        aria-label="Close">-->
+                        <!--                                    <span aria-hidden="true">&times;</span>-->
+                        <!--                                </button>-->
+                        <!--                                <strong>SUCCESS!</strong> topic Successfully Added-->
+                        <!--                            </div>-->
+                        <!--                        --><?php //} else { ?>
+                    <!--                            <div class="alert alert-danger alert-dismissible fade in" role="alert">-->
+                        <!--                                <button type="button" class="close" data-dismiss="alert"-->
+                        <!--                                        aria-label="Close">-->
+                        <!--                                    <span aria-hidden="true">&times;</span>-->
+                        <!--                                </button>-->
+                        <!--                                <strong>Oh snap!</strong> topic Addition Failed-->
+                        <!--                            </div>-->
+                        <!---->
+                        <!---->
+                        <!--                        --><?php //}
+                        //                    }
+                        //                    ?>
+                    </form>
+                </div>
 
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
-</div>
-<!-- /.modal -->
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
 
 
 @endsection
