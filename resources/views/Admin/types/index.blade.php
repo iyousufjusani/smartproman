@@ -31,7 +31,7 @@
                                     <tr>
                                         <td class="text-center">{{ $index + 1 }}</td>
                                         <td class="text-center">{{ $type -> title}}</td>
-                                        <td class="text-center"><img width="100"
+                                        <td class="text-center"><img width="150"
                                                                      src="uploads/{{ $type -> image }}"
                                                                      alt="type-img"></td>
                                         <td class="text-center">{{ $type -> created_at }}</td>
