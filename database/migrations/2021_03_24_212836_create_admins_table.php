@@ -22,6 +22,7 @@ class CreateAdminsTable extends Migration
             $table->boolean('is_super')->default(false);
             $table->boolean('is_active')->default(true);
             $table->boolean('is_deleted')->default(false);
+            $table->rememberToken();
             $table->timestamps();
         });
     }

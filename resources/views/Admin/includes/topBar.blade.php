@@ -5,9 +5,9 @@
 
     <!-- LOGO -->
     <div class="topbar-left">
-        <a href="index.php" class="logo">
+        <a href="{{route('dashboard')}}" class="logo">
                         <span>
-                            <img src="assets/images/favicon.ico" alt=""> SmartProMan
+                            <img src="{{asset('assets/Admin/images/favicon.ico')}}" alt=""> SmartProMan
                         </span>
         </a>
     </div>

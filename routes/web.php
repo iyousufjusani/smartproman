@@ -23,10 +23,7 @@ use App\Http\Controllers;
 //
 //});
 
-Route::get('/dashboard', function () {
-    return view('Admin.dashboard');
-
-});
+Route::get('/dashboard','DashboardController@index')->name('dashboard');
 
 Route::get('/admin-login',function(){
     return view('Admin.admin-login');
@@ -50,7 +47,8 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-
+Route::resource('admins', 'AdminController');
+Route::resource('users', 'UserController');
 Route::resource('types', 'TypeController');
 Route::resource('topics', 'TopicController');
 

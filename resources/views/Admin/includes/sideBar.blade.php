@@ -17,7 +17,7 @@
         <ul class="metismenu" id="side-menu">
             <li class="menu-title">Navigation</li>
             <li>
-                <a href="index.php">
+                <a href="{{route('dashboard')}}">
                     <i class="ti-home"></i><span> Dashboard </span>
                 </a>
             </li>
@@ -25,7 +25,7 @@
             <li>
 
 
-                <a href="pages-view-admin.php">
+                <a href="{{ route('admins.index') }}">
                     <i class="ti-stamp"></i><span class="badge badge-custom pull-right">10</span>
                     <span> Admins </span>
                 </a>
@@ -33,7 +33,7 @@
             <li>
 
 
-                <a href="pages-view-users.php">
+                <a href="{{ route('users.index') }}">
                     <i class="ti-user"></i><span class="badge badge-custom pull-right">10</span> <span> Users </span>
                 </a>
             </li>
