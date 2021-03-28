@@ -26,7 +26,7 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="m-b-20">
-                            <h5 class="font-14"><b>Videos Table</b></h5>
+
                             <table class="table table table-hover table-bordered">
                                 <thead>
                                 <tr>

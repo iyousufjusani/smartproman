@@ -77,18 +77,11 @@
             </li>
 
 
-
             <li>
-
-                <a href="javascript: void(0);"><i class="ti-files"></i> <span> Page Images </span> <span
-                            class="menu-arrow"></span></a>
-                <ul class="nav-second-level" aria-expanded="false">
-                    <li><a href="{{ route('pages.index') }}"><span
-                                    class="badge badge-custom pull-right">10</span> <span> VIEW </span>
-                    <li><a href="pages-add-images.php"> <span> ADD </span> </a></li>
-                    <!--                    <li><a href="components-icons.html">Update</a></li>-->
-                    <!--                    <li><a href="components-widgets.html">Delete</a></li>-->
-                </ul>
+                <a href="{{ route('pages.index') }}">
+                    <i class="ti-files"></i><span
+                            class="badge badge-custom pull-right">10</span> <span> Page Images </span>
+                </a>
             </li>
 
             <li>
