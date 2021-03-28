@@ -14,7 +14,7 @@ class TypeController extends Controller
      */
     public function index()
     {
-        $types = Type::all();
+        $types = Type::where('is_active', 1)->get();
         return view('Admin.types.index',compact('types'));
     }
 

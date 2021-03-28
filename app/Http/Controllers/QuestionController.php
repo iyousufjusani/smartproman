@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Option;
 use App\Models\Question;
 use App\Models\Topic;
 use http\QueryString;
@@ -16,10 +17,10 @@ class QuestionController extends Controller
      */
     public function index()
     {
-        $topics = Topic::all();
-        $questions = Question::all();
-        return view('Admin.topics.index', compact('topics','questions'));
+        $questions = Question::where('is_active', 1)->get();
+        return view('Admin.questions.index', compact('questions'));
     }
+
 
     /**
      * Show the form for creating a new resource.

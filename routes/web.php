@@ -51,4 +51,9 @@ Route::resource('admins', 'AdminController');
 Route::resource('users', 'UserController');
 Route::resource('types', 'TypeController');
 Route::resource('topics', 'TopicController');
+Route::resource('questions', 'QuestionController');
+Route::resource('options', 'OptionController');
+Route::resource('pages', 'PageController');
+Route::resource('videos', 'VideoController');
+
 

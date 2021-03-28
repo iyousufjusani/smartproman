@@ -15,8 +15,8 @@ class TopicController extends Controller
      */
     public function index()
     {
-        $types = Type::all();
-        $topics = Topic::all();
+        $types = Type::where('is_active', 1)->get();
+        $topics = Topic::where('is_active', 1)->get();
         return view('Admin.topics.index', compact('types','topics'));
 
     }

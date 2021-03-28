@@ -3,7 +3,7 @@
 <div class="left side-menu">
     <div class="user-details">
         <div class="pull-left">
-            <img src="uploads" alt="admin-img" class="thumb-md rounded-circle">
+            <img src="uploads/users/noImage.png" alt="admin-img" class="thumb-md rounded-circle">
         </div>
         <div class="user-info">
             <a href="#">Admin Name</a>
@@ -64,9 +64,9 @@
                 <a href="javascript: void(0);"><i class="ti-marker"></i> <span> Questions </span> <span
                             class="menu-arrow"></span></a>
                 <ul class="nav-second-level" aria-expanded="false">
-                    <li><a href="pages-view-questions.php"><span
+                    <li><a href="{{ route('questions.index') }}"><span
                                     class="badge badge-custom pull-right">10</span> <span> VIEW QUESTIONS</span>
-                    <li><a href="pages-view-options.php"><span> VIEW OPTIONS</span>
+                    <li><a href="{{ route('options.index') }}"><span> VIEW OPTIONS</span>
 
                     <li><a href="pages-add-questions.php"> <span> ADD </span> </a></li>
                     <!--                    <li><a href="pages-update-topics.php">Update</a></li>-->
@@ -74,21 +74,14 @@
                 </ul>
             </li>
 
-            <li>
 
-
-                <a href="pages-view-videos.php">
-                    <i class="ti-video-camera"></i><span
-                            class="badge badge-custom pull-right">10</span> <span> Videos </span>
-                </a>
-            </li>
 
             <li>
 
                 <a href="javascript: void(0);"><i class="ti-files"></i> <span> Page Images </span> <span
                             class="menu-arrow"></span></a>
                 <ul class="nav-second-level" aria-expanded="false">
-                    <li><a href="pages-view-images.php"><span
+                    <li><a href="{{ route('pages.index') }}"><span
                                     class="badge badge-custom pull-right">10</span> <span> VIEW </span>
                     <li><a href="pages-add-images.php"> <span> ADD </span> </a></li>
                     <!--                    <li><a href="components-icons.html">Update</a></li>-->
@@ -96,7 +89,12 @@
                 </ul>
             </li>
 
-
+            <li>
+                <a href="{{ route('videos.index') }}">
+                    <i class="ti-video-camera"></i><span
+                            class="badge badge-custom pull-right">10</span> <span> Videos </span>
+                </a>
+            </li>
 
 
 

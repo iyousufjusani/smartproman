@@ -40,26 +40,9 @@
                                     1500s, when an unknown printer took a galley of type.
                                 </p>
 
-                                <button type="button" class="btn btn-default btn-sm m-t-10">Message</button>
-                                <!--                                    <button type="button" class="btn btn-default btn-sm m-t-10">View Profile</button>-->
+                                <button type="button" class="btn btn-default btn-sm m-t-10">Edit</button>
+                                <button type="button" class="btn btn-default btn-sm m-t-10">Delete</button>
 
-                                <ul class="social-links list-inline m-t-30">
-                                    <li class="list-inline-item">
-                                        <a title="" data-placement="top" data-toggle="tooltip" class="tooltips"
-                                           href=""
-                                           data-original-title="Facebook"><i class="fa fa-facebook"></i></a>
-                                    </li>
-                                    <li class="list-inline-item">
-                                        <a title="" data-placement="top" data-toggle="tooltip" class="tooltips"
-                                           href=""
-                                           data-original-title="Twitter"><i class="fa fa-twitter"></i></a>
-                                    </li>
-                                    <li class="list-inline-item">
-                                        <a title="" data-placement="top" data-toggle="tooltip" class="tooltips"
-                                           href=""
-                                           data-original-title="Skype"><i class="fa fa-skype"></i></a>
-                                    </li>
-                                </ul>
 
                             </div>
 

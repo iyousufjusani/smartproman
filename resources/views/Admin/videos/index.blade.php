@@ -14,7 +14,11 @@
                         <h4 class="header-title m-t-0 m-b-20">VIDEOS</h4>
                     </div>
                     <div class="col-sm-12 text-center">
-
+                        <?php
+                        if (isset($msg)) {
+                            echo $msg;
+                        }
+                        ?>
 
                     </div>
                     <div class="col-lg-12">
@@ -27,43 +31,43 @@
                                     <th class="text-center">Video Title</th>
                                     <th class="text-center">Video Link</th>
                                     <th class="text-center">Topic ID</th>
-                                    <th class="text-center">Date</th>
+                                    <th class="text-center">Created Date</th>
                                     <!--                                    <th class="text-center">Edit</th>-->
-                                    <th class="text-center">Delete</th>
+                                    <th class="text-center">Action</th>
 
 
                                     <!--                                    <th class="text-center">REMOVE</th>-->
                                 </tr>
                                 </thead>
                                 <tbody>
-
-                                <tr>
-                                    <td class="text-center">videoID</td>
-                                    <td class="text-center">videoTitle']; ?></td>
-                                    <td class="text-center">videoLink</td>
-                                    <td class="text-center">topicID</td>
-                                    <td class="text-center">videoTimestamp</td>
-                                    <!--                                        <td class="text-center">-->
-                                    <!--                                            <button>Edit</button>-->
-                                    <!--                                        </td>-->
-                                    <!--                                        <td class="text-center">-->
-                                    <!--                                            <form action="scripts/videos-scripts.php?update=--><?php //echo $row['videoID']; ?><!--"-->
-                                    <!--                                                  method="post" enctype="multipart/form-data">-->
-                                    <!--                                                <button type="submit" class="btn btn-success btn-rounded"-->
-                                    <!--                                                        name="btn-update">Update-->
-                                    <!--                                                </button>-->
-                                    <!--                                            </form>-->
-                                    <!--                                        </td>-->
-                                    <td class="text-center">
-                                        <form action="scripts/videos-scripts.php?del=1"
-                                              method="post" enctype="multipart/form-data">
-                                            <button type="submit" class="btn btn-danger btn-rounded"
-                                                    name="btn-delete">Delete
-                                            </button>
-                                        </form>
-                                    </td>
-                                </tr>
-
+                                @foreach($videos as $video)
+                                    <tr>
+                                        <td class="text-center">{{ $video -> id }}</td>
+                                        <td class="text-center">{{ $video -> title }}</td>
+                                        <td class="text-center">{{ $video -> link }}</td>
+                                        <td class="text-center">{{ $video -> topic_id }}</td>
+                                        <td class="text-center">{{ $video -> created_at  }}</td>
+                                        <!--                                        <td class="text-center">-->
+                                        <!--                                            <button>Edit</button>-->
+                                        <!--                                        </td>-->
+                                        <!--                                        <td class="text-center">-->
+                                        <!--                                            <form action="scripts/videos-scripts.php?update=--><?php //echo $row['videoID']; ?><!--"-->
+                                        <!--                                                  method="post" enctype="multipart/form-data">-->
+                                        <!--                                                <button type="submit" class="btn btn-success btn-rounded"-->
+                                        <!--                                                        name="btn-update">Update-->
+                                        <!--                                                </button>-->
+                                        <!--                                            </form>-->
+                                        <!--                                        </td>-->
+                                        <td class="text-center">
+                                            <form action="scripts/videos-scripts.php?del={{ $video -> id }}"
+                                                  method="post" enctype="multipart/form-data">
+                                                <button type="submit" class="btn btn-danger btn-rounded"
+                                                        name="btn-delete">Delete
+                                                </button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                @endforeach
                                 </tbody>
                             </table>
                         </div>
@@ -89,11 +93,13 @@
 
         @include('Admin.includes.downBar')
 
+
         <!-- Down Bar End -->
 
         </div> <!-- content -->
 
     </div>
+
 
 @endsection
 
@@ -129,7 +135,10 @@
 
                             <select class="form-control" id="topic" name="topic_fk" required>
                                 <option selected disabled>Select topic</option>
-
+                                @foreach($topics as $topic)
+                                    <option name="topic_id"
+                                            value="{{ $topic -> id }}">{{ $topic -> title }}</option>
+                                @endforeach
                             </select>
 
                         </div>

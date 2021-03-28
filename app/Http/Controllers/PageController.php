@@ -15,9 +15,8 @@ class PageController extends Controller
      */
     public function index()
     {
-        $topics = Topic::all();
-        $pages = Page::all();
-        return view('Admin.topics.index', compact('topics','pages'));
+        $pages = Page::where('is_active', 1)->get();
+        return view('Admin.pages.index', compact('pages'));
     }
 
     /**
