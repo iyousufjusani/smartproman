@@ -14,7 +14,7 @@ class TypeController extends Controller
      */
     public function index()
     {
-        $types = Type::where('is_active', 1)->get();
+        $types = Type::where('is_active', 1)->paginate(10);
         return view('Admin.types.index',compact('types'));
     }
 
@@ -36,7 +36,20 @@ class TypeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'title' => 'required|unique:types,title',
+            //'image' => 'required',
+        ]);
+
+        Type::create([
+            'title' => $request['title'],
+//            'image' => $image,
+        ]);
+
+        if (!$request->ajax()) {
+            return redirect()->route('types.index')->with('success', 'Type Created Successfully!!!');
+        }
+
     }
 
     /**

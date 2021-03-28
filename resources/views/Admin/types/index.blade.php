@@ -7,11 +7,21 @@
         <div class="content">
             <div class="container-fluid">
 
+
                 <div class="row">
                     <div class="col-sm-12">
-                        <h4 class="header-title m-t-0 m-b-20" style="text-transform: uppercase;">TOPIC TYPES</h4>
+                        <div class="header-title m-t-0 m-b-20" style="display: flex; justify-content: space-between">
+                            <h4 class="">Topic Table</h4>
+                            <div class="text-right">
+                                <button class="btn btn-primary btn-rounded btn-lg m-b-30" data-toggle="modal"
+                                        data-target="#add-type">Add Type
+                                </button>
+                            </div>
+                        </div>
                     </div>
+                </div>
 
+                <div class="row">
                     <div class="col-lg-12">
                         <div class="m-b-20">
                             <h5 class="font-14"><b>Type Table</b></h5>
@@ -67,16 +77,8 @@
                         </div>
                     </div>
                 </div>
+                {{ $types->links('pagination::bootstrap-4') }}
 
-
-                <div class="row">
-
-                    <div class="col-sm-12 text-center">
-                        <button class="btn btn-primary btn-rounded btn-lg m-b-30 " data-toggle="modal"
-                                data-target="#add-type">Add Type
-                        </button>
-                    </div><!-- end col -->
-                </div>
 
             </div> <!-- container -->
 
@@ -103,8 +105,9 @@
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                 </div>
                 <div class="modal-body">
-                    <form role="form" method="post" action="" enctype="multipart/form-data">
-
+                    <form role="form" method="post" action="{{ route('types.store') }}" enctype="multipart/form-data">
+                        {{ csrf_field() }}
+                        {{ method_field('post') }}
                         <div class="form-group">
                             <label for="title">Type Title</label>
                             <input type="text" class="form-control" id="title" placeholder="Enter Type Title"
@@ -116,7 +119,7 @@
                             <label for="image">Type Image</label>
 
                             <input id="image" type="file" style="padding: 3px"
-                                   class="form-control" name="image" required value="{{ old('image') }}">
+                                   class="form-control" name="image" required>
                         </div>
 
 
