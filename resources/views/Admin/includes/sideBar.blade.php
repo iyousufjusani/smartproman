@@ -96,7 +96,7 @@
             <li>
 
 
-                <a href="pages-view-contact.php">
+                <a href="{{ route('messages.index') }}">
                     <i class="ti-email"></i><span class="badge badge-custom pull-right">
             0</span>
                     <span> Messages </span>

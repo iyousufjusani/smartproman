@@ -15,7 +15,7 @@
 
                 <div class="row">
                     <div class="col-lg-12">
-                        <div class="col-lg-6">
+                        <div class="col-lg-12">
                             <div class="p-20 m-b-20">
                                 <h4 class="header-title m-t-0">ADD QUESTIONS</h4>
                                 <p class="text-muted font-13 m-b-10">
@@ -23,7 +23,10 @@
                                 </p>
 
                                 <div class="m-b-20 ">
-                                    <form role="form" method="post" enctype="multipart/form-data">
+                                    <form role="form" method="post" action="{{ route('questions.store') }}" enctype="multipart/form-data">
+                                        {{ csrf_field() }}
+                                        {{ method_field('post') }}
+
                                         <div class="form-group row">
                                             <label for="question-name" class="col-sm-10 form-control-label">Question
                                                 <span class="text-danger">*</span></label>
@@ -173,7 +176,7 @@
                                                 </button>
                                                 <button type="reset"
                                                         class="btn btn-default waves-effect m-l-5">
-                                                    Cancel
+                                                    Clear
                                                 </button>
                                             </div>
                                         </div>

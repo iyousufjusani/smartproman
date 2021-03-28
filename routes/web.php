@@ -55,5 +55,7 @@ Route::resource('questions', 'QuestionController');
 Route::resource('options', 'OptionController');
 Route::resource('pages', 'PageController');
 Route::resource('videos', 'VideoController');
+Route::resource('messages', 'MessageController');
+
 
 
