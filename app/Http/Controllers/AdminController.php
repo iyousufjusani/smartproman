@@ -4,81 +4,80 @@ namespace App\Http\Controllers;
 
 use App\Models\Admin;
 use Illuminate\Http\Request;
+use Intervention\Image\ImageManagerStatic as Image;
+use Illuminate\Support\Facades\Hash;
+
 
 class AdminController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
-        $admins = Admin::where('is_active', 1)->get();
+        $admins = Admin::where('is_active', 1)->paginate(9);
         return view('Admin.admins.index', compact('admins'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function create()
     {
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'name' => 'required',
+            'email' => 'required|unique:admins',
+            'password' => 'required',
+            //'image' => 'required',
+        ]);
+
+        if ($request -> image) {
+            Image::make($request->image)
+                ->resize(160, 160, function ($constraint) {
+                    $constraint->aspectRatio();
+                })
+                ->save(
+                    public_path(
+                        'uploads/users/' .
+                        $request->image->hashName()
+                    )
+                );
+//            $image = $request->image->hashName();
+        }
+
+        Admin::create([
+            'name' => $request['name'],
+            'email' => $request['email'],
+            'password' => Hash::make($request['password']),
+//            'image' => $image,
+        ]);
+
+        if (!$request->ajax()) {
+            return redirect()->route('admins.index')->with('success', 'Admin Created Successfully!!!');
+        }
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Admin  $admin
-     * @return \Illuminate\Http\Response
-     */
+
     public function show(Admin $admin)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Admin  $admin
-     * @return \Illuminate\Http\Response
-     */
+
     public function edit(Admin $admin)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Admin  $admin
-     * @return \Illuminate\Http\Response
-     */
+
     public function update(Request $request, Admin $admin)
     {
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Admin  $admin
-     * @return \Illuminate\Http\Response
-     */
+
     public function destroy(Admin $admin)
     {
         //

@@ -39,18 +39,20 @@
             </li>
 
             <li>
+                <a href="{{ route('types.index') }}">
+                    <i class="ti-agenda"></i><span class="badge badge-custom pull-right">10</span>
+                    <span> Types </span>
+                </a>
+            </li>
+
+            <li>
                 <a href="{{ route('topics.index') }}">
                     <i class="ti-crown"></i><span class="badge badge-custom pull-right">10</span>
                     <span> Topics </span>
                 </a>
             </li>
 
-            <li>
-                <a href="{{ route('types.index') }}">
-                    <i class="ti-agenda"></i><span class="badge badge-custom pull-right">10</span>
-                    <span> Types </span>
-                </a>
-            </li>
+
 
 
             <!--            <li>-->

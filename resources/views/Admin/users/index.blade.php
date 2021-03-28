@@ -8,13 +8,22 @@
             <div class="container-fluid">
 
                 <div class="row">
-                    <div class="col-sm-12">
-                        <h4 class="header-title m-t-0 m-b-20">USERS</h4>
+                    <div class="col-sm-12" >
+                        <div class="header-title m-t-0 m-b-20" style="display: flex; justify-content: space-between">
+                            <h4 class="">Users Table</h4>
+                            <div class="text-right">
+                                <button class="btn btn-primary btn-rounded btn-lg m-b-30" data-toggle="modal"
+                                        data-target="#add-user">Add User
+                                </button>
+                            </div>
+                        </div>
                     </div>
-
+                </div>
+                @include('Admin.includes.message')
+                <div class="row">
                     <div class="col-lg-12">
                         <div class="m-b-20">
-                            <h5 class="font-14"><b>User Table</b></h5>
+
                             <table class="table table table-hover table-bordered">
                                 <thead>
                                 <tr>
@@ -53,13 +62,10 @@
                                 </tbody>
                             </table>
                         </div>
-                        <div class="row">
-                            <div class="col-sm-12 text-center">
-                                <button class="btn btn-primary btn-rounded btn-lg m-b-30" data-toggle="modal"
-                                        data-target="#add-user">Add User
-                                </button>
-                            </div><!-- end col -->
-                        </div>
+
+                        {{ $users->links('pagination::bootstrap-4') }}
+
+
                     </div>
 
                 </div>
@@ -89,16 +95,18 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title" id="add-contactLabel">Add User</h4>
+                    <h4 class="modal-title" id="add-contactLabel">Add New User</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                 </div>
                 <div class="modal-body">
-                    <form role="form" method="post" action="" enctype="multipart/form-data">
-
+                    <form role="form" method="post" action="{{ route('users.store') }}" enctype="multipart/form-data">
+                        {{ csrf_field() }}
+                        {{ method_field('post') }}
                         <div class="form-group">
                             <label for="name">User Full Name<span
                                         class="text-danger">*</span></label>
                             <input type="text" class="form-control" id="name" placeholder="Enter full name" name="name"
+                                   value="{{ old('name') }}"
                                    required>
                         </div>
 
@@ -106,7 +114,7 @@
                             <label for="email">User Email Address<span
                                         class="text-danger">*</span></label>
                             <input type="email" class="form-control" id="email" placeholder="Enter Email Password"
-                                   name="email"
+                                   name="email" value="{{ old('email') }}"
                                    required>
                         </div>
 
@@ -114,7 +122,7 @@
                             <label for="password">User Password<span
                                         class="text-danger">*</span></label>
                             <input type="password" class="form-control" id="password" placeholder="Enter User Password"
-                                   name="password"
+                                   name="password" value="{{ old('password') }}"
                                    required>
                         </div>
 
@@ -124,30 +132,6 @@
                             <input type="submit" class="btn btn-primary " name="btn-add-user" value="Add">
                         </div>
 
-                        <!--                    --><?php
-                    //                    if (isset($_POST['btn-add-user'])) {
-                    //                        if (move_uploaded_file($_FILES['image']['tmp_name'], $target)) { ?>
-                    <!---->
-                        <!--                            <div class="alert alert-success alert-dismissible fade in" role="alert">-->
-                        <!--                                <button type="button" class="close" data-dismiss="alert"-->
-                        <!--                                        aria-label="Close">-->
-                        <!--                                    <span aria-hidden="true">&times;</span>-->
-                        <!--                                </button>-->
-                        <!--                                <strong>SUCCESS!</strong> user Successfully Added-->
-                        <!--                            </div>-->
-                        <!--                        --><?php //} else { ?>
-                    <!--                            <div class="alert alert-danger alert-dismissible fade in" role="alert">-->
-                        <!--                                <button type="button" class="close" data-dismiss="alert"-->
-                        <!--                                        aria-label="Close">-->
-                        <!--                                    <span aria-hidden="true">&times;</span>-->
-                        <!--                                </button>-->
-                        <!--                                <strong>Oh snap!</strong> user Addition Failed-->
-                        <!--                            </div>-->
-                        <!---->
-                        <!---->
-                        <!--                        --><?php //}
-                        //                    }
-                        //                    ?>
                     </form>
                 </div>
 
