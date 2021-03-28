@@ -12,12 +12,11 @@
                     <div class="col-sm-12">
                         <h4 class="header-title m-t-0 m-b-20">TOPICS</h4>
                     </div>
-                    <div class="col-sm-12 text-center">
 
-                    </div>
                 </div>
                 <!-- end row -->
 
+                @include('Admin.includes.message')
 
                 <div class="row">
                     @foreach ($topics as $topic)
@@ -34,36 +33,9 @@
 
                                     <div class="">
                                         <h4 class="m-b-5 mt-2 center-page">{{ $topic -> title }}</h4>
-                                        <!--                                        <h6 class="text-muted">@-->
-                                        <!--                                            --><?php //echo $row['topic_tagline'] ?>
-                                    <!--                                        </h6>-->
+
                                     </div>
 
-                                    <!--                                    <p class="text-muted font-13">-->
-                                    <!--                                        Hi I'm Dummy Text, has been the industry's standard dummy text ever since the-->
-                                    <!--                                        1500s, when an unknown printer took a galley of type.-->
-                                    <!--                                    </p>-->
-
-                                    <!--                                    <button type="button" class="btn btn-default btn-sm m-t-10">Message</button>-->
-                                    <!--                                    <button type="button" class="btn btn-default btn-sm m-t-10">View Profile</button>-->
-                                    <!---->
-                                    <!--                                    <ul class="social-links list-inline m-t-30">-->
-                                    <!--                                        <li class="list-inline-item">-->
-                                    <!--                                            <a title="" data-placement="top" data-toggle="tooltip" class="tooltips"-->
-                                    <!--                                               href=""-->
-                                    <!--                                               data-original-title="Facebook"><i class="fa fa-facebook"></i></a>-->
-                                    <!--                                        </li>-->
-                                    <!--                                        <li class="list-inline-item">-->
-                                    <!--                                            <a title="" data-placement="top" data-toggle="tooltip" class="tooltips"-->
-                                    <!--                                               href=""-->
-                                    <!--                                               data-original-title="Twitter"><i class="fa fa-twitter"></i></a>-->
-                                    <!--                                        </li>-->
-                                    <!--                                                                            <li class="list-inline-item">-->
-                                    <!--                                                                                <a title="" data-placement="top" data-toggle="tooltip" class="tooltips"-->
-                                    <!--                                                                                   href=""-->
-                                    <!--                                                                                   data-original-title="Skype"><i class="fa fa-skype"></i></a>-->
-                                    <!--                                                                            </li>-->
-                                    <!--                                    </ul>-->
 
                                 </div>
 
@@ -75,6 +47,7 @@
                     @endforeach
                 </div>
                 <!-- end row -->
+                {{ $topics->links('pagination::bootstrap-4') }}
 
 
                 <div class="row">
@@ -115,8 +88,9 @@
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                 </div>
                 <div class="modal-body">
-                    <form role="form" method="post" action="" enctype="multipart/form-data">
-
+                    <form role="form" method="post" action="{{ route('topics.store') }}" enctype="multipart/form-data">
+                        {{ csrf_field() }}
+                        {{ method_field('post') }}
                         <div class="form-group">
                             <label for="title">Topic Name<span
                                         class="text-danger">*</span></label>
@@ -137,10 +111,14 @@
                             <label for="topic">Topic Type</label>
 
                             <select class="form-control" id="type" name="type_id" required>
-                                <option selected hidden>Select type</option>
+                                <option selected hidden value="1">Select type</option>
                                 @foreach($types as $type)
-                                    <option value="{{ $type->id }}" {{ old('type_id') == $type->id ? 'selected' : ''}}>{{
-                                    $type->title }} </option>
+
+                                    <option value="{{ $type->id }}"
+                                            {{ old('type_id') == $type->id ? 'selected' : ''}}>
+                                        {{$type->title }}
+                                    </option>
+
                                 @endforeach
                             </select>
 

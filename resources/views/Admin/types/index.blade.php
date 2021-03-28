@@ -20,6 +20,7 @@
                         </div>
                     </div>
                 </div>
+                @include('Admin.includes.message')
 
                 <div class="row">
                     <div class="col-lg-12">
@@ -119,7 +120,7 @@
                             <label for="image">Type Image</label>
 
                             <input id="image" type="file" style="padding: 3px"
-                                   class="form-control" name="image" required>
+                                   class="form-control" name="image" required value="{{ old('image') }}">
                         </div>
 
 

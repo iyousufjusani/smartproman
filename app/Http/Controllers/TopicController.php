@@ -16,8 +16,8 @@ class TopicController extends Controller
     public function index()
     {
         $types = Type::where('is_active', 1)->get();
-        $topics = Topic::where('is_active', 1)->get();
-        return view('Admin.topics.index', compact('types','topics'));
+        $topics = Topic::where('is_active', 1)->paginate(10);
+        return view('Admin.topics.index', compact('types', 'topics'));
 
     }
 
@@ -34,18 +34,36 @@ class TopicController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'title' => 'required|unique:topics,title',
+            'type_id' => 'required',
+            //'image' => 'required',
+        ]);
+
+        if($request['type_id'] == null){
+            $request['type_id'] = 1;
+        }
+
+        Topic::create([
+            'title' => $request['title'],
+            'type_id' => $request['type_id'],
+//            'image' => $image,
+        ]);
+
+        if (!$request->ajax()) {
+            return redirect()->route('topics.index')->with('success', 'Topic Created Successfully!!!');
+        }
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Topic  $topic
+     * @param  \App\Models\Topic $topic
      * @return \Illuminate\Http\Response
      */
     public function show(Topic $topic)
@@ -56,7 +74,7 @@ class TopicController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Topic  $topic
+     * @param  \App\Models\Topic $topic
      * @return \Illuminate\Http\Response
      */
     public function edit(Topic $topic)
@@ -67,8 +85,8 @@ class TopicController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Topic  $topic
+     * @param  \Illuminate\Http\Request $request
+     * @param  \App\Models\Topic $topic
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Topic $topic)
@@ -79,7 +97,7 @@ class TopicController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Topic  $topic
+     * @param  \App\Models\Topic $topic
      * @return \Illuminate\Http\Response
      */
     public function destroy(Topic $topic)
