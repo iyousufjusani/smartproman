@@ -24,7 +24,7 @@
 
                                     <div class="widget-inline-box text-center">
                                         <h3 class="m-t-10"><i class="text-primary mdi mdi-account"></i>
-                                            <b>12</b>
+                                            <b>{{$admins->count()}}</b>
                                         </h3>
                                         <p class="text-muted">Total Admins</p>
                                     </div>
@@ -33,8 +33,17 @@
                                 <div class="col-lg-3 col-sm-6">
 
                                     <div class="widget-inline-box text-center">
-                                        <h3 class="m-t-10"><i class="text-custom mdi mdi-shopping"></i>
-                                            <b>12</b></h3>
+                                        <h3 class="m-t-10"><i class="text-warning mdi mdi-account-box"></i>
+                                            <b>{{$users->count()}}</b></h3>
+                                        <p class="text-muted">Total Users</p>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-3 col-sm-6">
+
+                                    <div class="widget-inline-box text-center">
+                                        <h3 class="m-t-10"><i class="text-custom mdi mdi-table"></i>
+                                            <b>{{ $topics->count() }}</b></h3>
                                         <p class="text-muted">Total Topics</p>
                                     </div>
                                 </div>
@@ -43,22 +52,15 @@
                                 <div class="col-lg-3 col-sm-6">
                                     <div class="widget-inline-box text-center b-0">
 
-                                        <h3 class="m-t-10"><i class="text-danger mdi mdi-cellphone-link"></i>
-                                            <b>12</b>
+                                        <h3 class="m-t-10"><i class="text-danger mdi mdi-quicktime"></i>
+                                            <b>{{ $questions->count() }}</b>
                                         </h3>
                                         <p class="text-muted">Total Questions</p>
                                     </div>
                                 </div>
 
 
-                                <div class="col-lg-3 col-sm-6">
 
-                                    <div class="widget-inline-box text-center">
-                                        <h3 class="m-t-10"><i class="text-info mdi mdi-black-mesa"></i>
-                                            <b>12</b></h3>
-                                        <p class="text-muted">Total Users</p>
-                                    </div>
-                                </div>
 
 
                             </div>

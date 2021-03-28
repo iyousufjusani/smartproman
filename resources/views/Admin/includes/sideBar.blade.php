@@ -3,7 +3,7 @@
 <div class="left side-menu">
     <div class="user-details">
         <div class="pull-left">
-            <img src="uploads/users/noImage.png" alt="admin-img" class="thumb-md rounded-circle">
+            <img src="{{ asset("uploads/users/noImage.png")}}" alt="admin-img" class="thumb-md rounded-circle">
         </div>
         <div class="user-info">
             <a href="#">Admin Name</a>
@@ -26,7 +26,7 @@
 
 
                 <a href="{{ route('admins.index') }}">
-                    <i class="ti-stamp"></i><span class="badge badge-custom pull-right">10</span>
+                    <i class="ti-stamp"></i><span class="badge badge-custom pull-right">0</span>
                     <span> Admins </span>
                 </a>
             </li>
@@ -34,20 +34,20 @@
 
 
                 <a href="{{ route('users.index') }}">
-                    <i class="ti-user"></i><span class="badge badge-custom pull-right">10</span> <span> Users </span>
+                    <i class="ti-user"></i><span class="badge badge-custom pull-right">0</span> <span> Users </span>
                 </a>
             </li>
 
             <li>
                 <a href="{{ route('types.index') }}">
-                    <i class="ti-agenda"></i><span class="badge badge-custom pull-right">10</span>
+                    <i class="ti-agenda"></i><span class="badge badge-custom pull-right">0</span>
                     <span> Types </span>
                 </a>
             </li>
 
             <li>
                 <a href="{{ route('topics.index') }}">
-                    <i class="ti-crown"></i><span class="badge badge-custom pull-right">10</span>
+                    <i class="ti-crown"></i><span class="badge badge-custom pull-right">0</span>
                     <span> Topics </span>
                 </a>
             </li>
@@ -67,10 +67,10 @@
                             class="menu-arrow"></span></a>
                 <ul class="nav-second-level" aria-expanded="false">
                     <li><a href="{{ route('questions.index') }}"><span
-                                    class="badge badge-custom pull-right">10</span> <span> VIEW QUESTIONS</span>
+                                    class="badge badge-custom pull-right">0</span> <span> VIEW QUESTIONS</span>
                     <li><a href="{{ route('options.index') }}"><span> VIEW OPTIONS</span>
 
-                    <li><a href="pages-add-questions.php"> <span> ADD </span> </a></li>
+                    <li><a href="{{ route('questions.create') }}"> <span> ADD </span> </a></li>
                     <!--                    <li><a href="pages-update-topics.php">Update</a></li>-->
                     <!--                    <li><a href="components-widgets.html">Delete</a></li>-->
                 </ul>
@@ -80,14 +80,14 @@
             <li>
                 <a href="{{ route('pages.index') }}">
                     <i class="ti-files"></i><span
-                            class="badge badge-custom pull-right">10</span> <span> Page Images </span>
+                            class="badge badge-custom pull-right">0</span> <span> Page Images </span>
                 </a>
             </li>
 
             <li>
                 <a href="{{ route('videos.index') }}">
                     <i class="ti-video-camera"></i><span
-                            class="badge badge-custom pull-right">10</span> <span> Videos </span>
+                            class="badge badge-custom pull-right">0</span> <span> Videos </span>
                 </a>
             </li>
 
@@ -98,7 +98,7 @@
 
                 <a href="pages-view-contact.php">
                     <i class="ti-email"></i><span class="badge badge-custom pull-right">
-            10</span>
+            0</span>
                     <span> Messages </span>
                 </a>
             </li>

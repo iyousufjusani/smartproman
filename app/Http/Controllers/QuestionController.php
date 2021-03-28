@@ -29,7 +29,9 @@ class QuestionController extends Controller
      */
     public function create()
     {
-        //
+        $topics = Topic::where('is_active', 1)->get();
+        return view('Admin.questions.create', compact('topics'));
+
     }
 
     /**

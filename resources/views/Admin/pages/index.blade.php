@@ -44,8 +44,8 @@
                                         <td class="text-center">{{ $page -> id }}</td>
                                         <td class="text-center">{{ $page -> title }}</td>
                                         <td class="text-center"><img width="200"
-                                                                     src="uploads/{{ $page -> image }}"
-                                                                     alt=""></td>
+                                                                     src="{{ url("uploads/" , $page -> image)}}"
+                                                                     alt="topic-page-img"></td>
                                         <td class="text-center">{{ $page -> topic_id }}</td>
                                         <td class="text-center">{{ $page -> created_at }}</td>
                                         <!--                                        <td class="text-center">-->

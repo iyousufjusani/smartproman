@@ -31,7 +31,7 @@
                                     </span>
 
                                     <div class="thumb-xl member-thumb m-b-10 center-page">
-                                        <img src="uploads/users/{{$admin -> image}}"
+                                        <img src="{{ url("uploads/users/" , $admin -> image)}}"
                                              class="rounded-circle img-thumbnail"
                                              alt="profile-image">
                                     </div>
