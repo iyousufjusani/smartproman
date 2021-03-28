@@ -11,16 +11,19 @@
 
                 <div class="row">
                     <div class="col-sm-12">
-                        <h4 class="header-title m-t-0 m-b-20">VIDEOS</h4>
+                        <div class="header-title m-t-0 m-b-20" style="display: flex; justify-content: space-between">
+                            <h4 class="">Videos Table</h4>
+                            <div class="text-right">
+                                <button class="btn btn-primary btn-rounded btn-lg m-b-30" data-toggle="modal"
+                                        data-target="#add-video">Add Video
+                                </button>
+                            </div>
+                        </div>
                     </div>
-                    <div class="col-sm-12 text-center">
-                        <?php
-                        if (isset($msg)) {
-                            echo $msg;
-                        }
-                        ?>
+                </div>
+                @include('Admin.includes.message')
 
-                    </div>
+                <div class="row">
                     <div class="col-lg-12">
                         <div class="m-b-20">
                             <h5 class="font-14"><b>Videos Table</b></h5>
@@ -74,16 +77,9 @@
                     </div>
                 </div>
 
+            {{ $videos->links('pagination::bootstrap-4') }}
 
-                <div class="row">
-
-                    <div class="col-sm-12 text-center">
-                        <button class="btn btn-primary btn-rounded btn-lg m-b-30 " data-toggle="modal"
-                                data-target="#add-admin">Add Video
-                        </button>
-                    </div><!-- end col -->
-                </div>
-                <!-- end row -->
+            <!-- end row -->
 
 
             </div> <!-- container -->
@@ -105,39 +101,43 @@
 
 @section('admin-modal')
     <!-- sample modal content -->
-    <div id="add-admin" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="add-contactLabel"
+    <div id="add-video" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="add-contactLabel"
          aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title" id="add-contactLabel">Add Video</h4>
+                    <h4 class="modal-title" id="add-contactLabel">Add Topic Video</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                 </div>
                 <div class="modal-body">
-                    <form role="form" method="post" action="" enctype="multipart/form-data">
-
+                    <form role="form" method="post" action="{{ route('videos.store') }}" enctype="multipart/form-data">
+                        {{ csrf_field() }}
+                        {{ method_field('post') }}
                         <div class="form-group">
-                            <label for="cname">Video Title</label>
-                            <input type="text" class="form-control" id="cname" placeholder="Enter Video Title"
-                                   name="vName"
+                            <label for="title">Video Title</label>
+                            <input type="text" class="form-control" id="title" placeholder="Enter Video Title"
+                                   name="title"
                                    required>
                         </div>
 
                         <div class="form-group">
-                            <label for="cname">Video Youtube Embed Link</label>
-                            <input type="text" class="form-control" id="cname" placeholder="Enter Video Link"
-                                   name="vLink"
+                            <label for="link">Video Youtube Embed Link</label>
+                            <input type="text" class="form-control" id="link" placeholder="Enter Video Link"
+                                   name="link"
                                    required>
                         </div>
 
                         <div class="form-group">
                             <label for="topic">Topic it belongs</label>
 
-                            <select class="form-control" id="topic" name="topic_fk" required>
-                                <option selected disabled>Select topic</option>
+                            <select class="form-control" id="topic" name="topic_id" required>
+                                <option selected hidden value="1">Select topic</option>
                                 @foreach($topics as $topic)
-                                    <option name="topic_id"
-                                            value="{{ $topic -> id }}">{{ $topic -> title }}</option>
+                                    <option value="{{ $topic->id }}"
+                                            {{ old('topic_id') == $topic->id ? 'selected' : ''}}>
+                                        {{$topic->title }}
+                                    </option>
+
                                 @endforeach
                             </select>
 

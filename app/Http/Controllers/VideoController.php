@@ -16,7 +16,7 @@ class VideoController extends Controller
     public function index()
     {
         $topics = Topic::where('is_active', 1)->get();
-        $videos = Video::where('is_active', 1)->get();
+        $videos = Video::where('is_active', 1)->paginate(10);
         return view('Admin.videos.index', compact('topics','videos'));
     }
 
@@ -38,7 +38,27 @@ class VideoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'title' => 'required|unique:videos,title',
+            'link' => 'required',
+            'topic_id' => 'required',
+            //'image' => 'required',
+        ]);
+
+        if($request['type_id'] == null){
+            $request['type_id'] = 1;
+        }
+
+        Video::create([
+            'title' => $request['title'],
+            'link' => $request['link'],
+            'topic_id' => $request['topic_id'],
+        ]);
+
+        if (!$request->ajax()) {
+            return redirect()->route('videos.index')->with('success', 'Video Added Successfully!!!');
+        }
+
     }
 
     /**
