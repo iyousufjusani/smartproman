@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Intervention\Image\ImageManagerStatic as Image;
 use Illuminate\Support\Facades\Hash;
 
@@ -32,5 +33,18 @@ class UserController extends Controller
         if (!$request->ajax()) {
             return redirect()->route('users.index')->with('success', 'Users Created Successfully!!!');
         }
+    }
+
+    public function destroy(User $user)
+    {
+        if ($user->image != 'noImage.png') {
+            Storage::disk('public_uploads')->delete(
+                '/user_images/' . $user->image
+            );
+        }
+
+        $user->delete();
+        return redirect()->route('users.index')->with('error', 'User Removed Successfully!!!');
+
     }
 }

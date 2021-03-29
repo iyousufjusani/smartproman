@@ -8,7 +8,7 @@
             <div class="container-fluid">
 
                 <div class="row">
-                    <div class="col-sm-12" >
+                    <div class="col-sm-12">
                         <div class="header-title m-t-0 m-b-20" style="display: flex; justify-content: space-between">
                             <h4 class="">Users Table</h4>
                             <div class="text-right">
@@ -55,7 +55,11 @@
                                             <button type="button" class="btn btn-custom btn-rounded">Update</button>
                                         </td>
                                         <td class="text-center">
-                                            <button type="button" class="btn btn-danger btn-rounded">Delete</button>
+                                            <form action="{{ route('users.destroy', $user -> id) }}" method="post">
+                                                {{ csrf_field() }}
+                                                {{ method_field('delete') }}
+                                                <button type="submit" class="btn btn-danger btn-rounded">Delete</button>
+                                            </form>
                                         </td>
                                     </tr>
                                 @endforeach

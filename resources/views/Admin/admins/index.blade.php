@@ -44,14 +44,21 @@
                                         </p>
                                     </div>
 
-                                    <p class="text-muted font-13">
-                                        Hi I'm Dummy Text, has been the industry's standard dummy text ever since the
-                                        1500s, when an unknown printer took a galley of type.
-                                    </p>
 
                                     {{--@if($admin -> is_super == 1)--}}
-                                    <button type="button" class="btn btn-info btn-sm m-t-10">Edit</button>
-                                    <button type="button" class="btn btn-danger btn-sm m-t-10">Delete</button>
+
+                                    <form action="{{ route('admins.destroy', $admin -> id) }}" method="post">
+                                        {{ csrf_field() }}
+                                        {{ method_field('delete') }}
+
+                                        <a href="{{ route('admins.index') }}" type="button"
+                                           class="btn btn-info btn-sm m-t-10">Edit</a>
+
+                                        <button type="submit" class="btn btn-danger btn-sm m-t-10">Delete
+                                        </button>
+
+                                    </form>
+
                                     {{--@endif--}}
 
 

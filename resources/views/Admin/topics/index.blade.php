@@ -134,7 +134,7 @@
                             <label for="image">Topic Image</label>
 
                             <input id="image" type="file" style="padding: 3px"
-                                   class="form-control" name="image" value="{{ old('image') }}">
+                                   class="form-control-file" name="image" value="{{ old('image') }}">
                         </div>
 
 

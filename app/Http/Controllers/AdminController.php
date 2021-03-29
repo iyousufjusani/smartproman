@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Admin;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Intervention\Image\ImageManagerStatic as Image;
 use Illuminate\Support\Facades\Hash;
 
@@ -28,7 +29,7 @@ class AdminController extends Controller
     {
         $this->validate($request, [
             'name' => 'required',
-            'email' => 'required|unique:admins',
+            'email' => 'required|unique:admins,email',
             'password' => 'required',
             //'image' => 'required',
         ]);
@@ -40,7 +41,7 @@ class AdminController extends Controller
                 })
                 ->save(
                     public_path(
-                        'uploads/users/' .
+                        'uploads/user_images/' .
                         $request->image->hashName()
                     )
                 );
@@ -80,6 +81,13 @@ class AdminController extends Controller
 
     public function destroy(Admin $admin)
     {
-        //
+        if ($admin->image != 'noImage.png') {
+            Storage::disk('public_uploads')->delete(
+                '/user_images/' . $admin->image
+            );
+        }
+
+        $admin->delete();
+        return redirect()->route('admins.index')->with('error', 'Admin Removed Successfully!!!');
     }
 }
