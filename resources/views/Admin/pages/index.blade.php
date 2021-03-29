@@ -34,7 +34,7 @@
                                     <th class="text-center">Image</th>
                                     <th class="text-center">Topic ID</th>
                                     <th class="text-center">Created At</th>
-                                    <th class="text-center" colspan="2">Action</th>
+                                    <th class="text-center" >Action</th>
 
                                 </tr>
                                 </thead>
@@ -49,15 +49,20 @@
                                         <td class="text-center">{{ $page -> topic_id }}</td>
                                         <td class="text-center">{{ $page -> created_at }}</td>
 
+                                        {{--<td class="text-center">--}}
+                                            {{--<button type="submit" class="btn btn-custom btn-rounded"--}}
+                                                    {{--name="btn-update">Update--}}
+                                            {{--</button>--}}
+                                        {{--</td>--}}
                                         <td class="text-center">
-                                            <button type="submit" class="btn btn-custom btn-rounded"
-                                                    name="btn-update">Update
-                                            </button>
-                                        </td>
-                                        <td class="text-center">
-                                            <button type="submit" class="btn btn-danger btn-rounded"
-                                                    name="btn-delete">Delete
-                                            </button>
+                                            <form action="{{ route('pages.destroy', $page -> id) }}"
+                                                  method="post">
+                                                {{ csrf_field() }}
+                                                {{ method_field('delete') }}
+                                                <button type="submit" class="btn btn-danger btn-rounded"
+                                                        name="btn-delete">Delete
+                                                </button>
+                                            </form>
                                         </td>
                                     </tr>
                                 @endforeach

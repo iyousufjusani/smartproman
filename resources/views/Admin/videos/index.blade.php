@@ -62,8 +62,9 @@
                                         <!--                                            </form>-->
                                         <!--                                        </td>-->
                                         <td class="text-center">
-                                            <form action="scripts/videos-scripts.php?del={{ $video -> id }}"
-                                                  method="post" enctype="multipart/form-data">
+                                            <form action="{{ route('videos.destroy', $video -> id) }}" method="post">
+                                                {{ csrf_field() }}
+                                                {{ method_field('delete') }}
                                                 <button type="submit" class="btn btn-danger btn-rounded"
                                                         name="btn-delete">Delete
                                                 </button>

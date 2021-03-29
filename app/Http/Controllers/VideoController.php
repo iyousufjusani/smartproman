@@ -103,6 +103,7 @@ class VideoController extends Controller
      */
     public function destroy(Video $video)
     {
-        //
+        $video->delete();
+        return redirect()->route('videos.index')->with('error', 'Video Deleted Successfully!!!');
     }
 }

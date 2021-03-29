@@ -8,7 +8,7 @@
             <div class="container-fluid">
 
                 <div class="row">
-                    <div class="col-sm-12" >
+                    <div class="col-sm-12">
                         <div class="header-title m-t-0 m-b-20" style="display: flex; justify-content: space-between">
                             <h4 class="">Message Table</h4>
                         </div>
@@ -45,10 +45,14 @@
                                         <td class="text-center">{{ $message -> created_at }}</td>
 
                                         <td class="text-center">
-                                            <button type="button" class="btn btn-custom btn-rounded">Update</button>
+                                            <button type="button" class="btn btn-custom btn-rounded">View</button>
                                         </td>
                                         <td class="text-center">
-                                            <button type="button" class="btn btn-danger btn-rounded">Delete</button>
+                                            <form action="{{ route('messages.destroy', $message -> id) }}" method="post">
+                                                {{ csrf_field() }}
+                                                {{ method_field('delete') }}
+                                                <button type="submit" class="btn btn-danger btn-rounded">Delete</button>
+                                            </form>
                                         </td>
                                     </tr>
                                 @endforeach

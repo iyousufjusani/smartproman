@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Page;
 use App\Models\Topic;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class PageController extends Controller
 {
@@ -102,6 +103,13 @@ class PageController extends Controller
      */
     public function destroy(Page $page)
     {
-        //
+        if ($page->image != 'noImage.png') {
+            Storage::disk('public_uploads')->delete(
+                '/topics_images/' . $page->image
+            );
+        }
+
+        $page->delete();
+        return redirect()->route('pages.index')->with('error', 'Page Deleted Successfully!!!');
     }
 }
