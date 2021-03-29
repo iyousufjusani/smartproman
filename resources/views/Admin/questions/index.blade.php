@@ -21,11 +21,9 @@
                                     <th class="text-center">#ID</th>
                                     <th class="text-center">Question#</th>
                                     <th class="text-center">Question Test</th>
-                                    <!--                                    <th class="text-center">Price</th>-->
-                                    <th class="text-center">TopicID</th>
-                                    <!--                                    <th class="text-center"></th>-->
-                                    <th class="text-center">EDIT</th>
-                                    <th class="text-center">REMOVE</th>
+                                    <th class="text-center">Topic ID</th>
+                                    <th class="text-center">Created At</th>
+                                    <th class="text-center" colspan="3">Action</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -33,20 +31,25 @@
                                     <tr>
                                         <td class="text-center">{{ $question -> id }}</td>
                                         <td class="text-center">{{ $question -> number }}</td>
-                                        <td>{{ $question -> text }}</td>
+                                        <td class="text-justify">{{ $question -> text }}</td>
                                         <td class="text-center">{{ $question -> topic_id }}</td>
+                                        <td class="text-center">{{ $question -> created_at }}</td>
                                         <td class="text-center">
-
-                                            <form action="pages-update-question.php?update={{ $question -> id }}"
-                                                  method="post" enctype="multipart/form-data">
-                                                <button type="submit" class="btn btn-custom btn-rounded"
-                                                        name="btn-update">Update
-                                                </button>
-                                            </form>
+                                            <a href="{{ route('questions.show', $question -> id) }}" class="btn btn-primary btn-rounded"
+                                               name="btn-custom">View
+                                            </a>
                                         </td>
                                         <td class="text-center">
-                                            <form action="scripts/questions-scripts.php?delete={{ $question -> id }}"
-                                                  method="post" enctype="multipart/form-data">
+                                            <a href="{{ route('questions.edit', $question -> id) }}" class="btn btn-custom btn-rounded"
+                                               name="btn-update">Edit
+                                            </a>
+                                        </td>
+
+                                        <td class="text-center">
+                                            <form action="{{ route('questions.destroy', $question -> id) }}"
+                                                  method="post">
+                                                {{ csrf_field() }}
+                                                {{ method_field('delete') }}
                                                 <button type="submit" class="btn btn-danger btn-rounded"
                                                         name="btn-delete">Delete
                                                 </button>

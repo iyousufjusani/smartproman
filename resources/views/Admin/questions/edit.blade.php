@@ -19,7 +19,7 @@
                     <div class="col-lg-12">
                         <div class="p-20 m-b-20">
                             <div class="header-title m-t-0" style="display: flex; justify-content: space-between">
-                                <h4 >ADD QUESTIONS</h4>
+                                <h4 >EDIT QUESTIONS</h4>
                                 <a href="{{ route('questions.index') }}"
                                    class="btn btn-primary waves-effect m-l-5">
                                     Back to Questions table
@@ -27,17 +27,17 @@
                             </div>
                             <br>
                             <div class="m-b-20 ">
-                                <form role="form" method="post" action="{{ route('questions.store') }}"
+                                <form role="form" method="post" action="{{ route('questions.update', $question -> id ) }}"
                                       enctype="multipart/form-data">
                                     {{ csrf_field() }}
-                                    {{ method_field('post') }}
+                                    {{ method_field('put') }}
 
                                     <div class="form-group row">
                                         <label for="text" class="col-sm-10 form-control-label">Question Text
                                             <span class="text-danger">*</span></label>
                                         <div class="col-sm-12">
                                             <input type="text" id="text" required class="form-control"
-                                                   placeholder="Enter Question Text" name="text" value="{{ old('text') }}">
+                                                   placeholder="Enter Question Text" name="text" value="{{$question -> text}}">
                                         </div>
                                     </div>
 
@@ -46,7 +46,7 @@
                                             <span class="text-danger">*</span></label>
                                         <div class="col-sm-6">
                                             <input type="text" id="choice1" required class="form-control"
-                                                   placeholder="Enter option 1 text here" name="choice1" value="{{ old('choice1') }}" />
+                                                   placeholder="Enter option 1 text here" name="choice1" value="{{$question -> text}}"/>
                                         </div>
                                         <div class="col-sm-2">
                                             <input id="choice_radio" type="radio" required
@@ -60,7 +60,7 @@
                                             <span class="text-danger">*</span></label>
                                         <div class="col-sm-6">
                                             <input type="text" id="choice2" required class="form-control"
-                                                   placeholder="Enter option 2 text here " name="choice2" value="{{ old('choice2') }}"/>
+                                                   placeholder="Enter option 2 text here " name="choice2" value="{{$question -> text}}"/>
                                         </div>
                                         <div class="col-sm-2">
                                             <input id="choice_radio" type="radio" required
@@ -73,7 +73,7 @@
                                             <span class="text-danger">*</span></label>
                                         <div class="col-sm-6">
                                             <input type="text" id="choice3" required class="form-control"
-                                                   placeholder="Enter option 3 text here" name="choice3" value="{{ old('choice3') }}"/>
+                                                   placeholder="Enter option 3 text here" name="choice3" value="{{$question -> text}}" />
                                         </div>
                                         <div class="col-sm-2">
                                             <input id="choice_radio" type="radio" required
@@ -86,7 +86,7 @@
                                             <span class="text-danger">*</span></label>
                                         <div class="col-sm-6">
                                             <input type="text" id="choice4" required class="form-control"
-                                                   placeholder="Enter option 4 text here" name="choice4" value="{{ old('choice4') }}"/>
+                                                   placeholder="Enter option 4 text here" name="choice4" value="{{$question -> text}}"/>
                                         </div>
                                         <div class="col-sm-2">
                                             <input id="choice_radio" type="radio" required
@@ -101,10 +101,9 @@
                                         <label for="topic_id">Topic it belongs<span
                                                     class="text-danger">*</span></label>
                                         <select class="form-control" id="topic_id" name="topic_id" required>
-                                            <option selected hidden value="1">Select topic</option>
                                             @foreach($topics as $topic)
                                                 <option value="{{ $topic->id }}"
-                                                        {{ old('topic_id') == $topic->id ? 'selected' : ''}}>
+                                                        {{ $question -> topic_id == $topic->id ? 'selected' : ''}}>
                                                     {{$topic->title }}
                                                 </option>
                                             @endforeach

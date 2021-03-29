@@ -33,10 +33,11 @@
                                     <tr style="text-align: center">
                                         <td class="text-center">{{$option -> id}}</td>
                                         <td>{{$option -> text}}</td>
-                                        <td>@if($option -> is_correct == true)
-                                                {{ 'Right' }}
+                                        <td>
+                                            @if($option -> is_correct == true)
+                                                <span class="badge badge-custom" >correct</span>
                                             @else
-                                                {{ 'Wrong' }}
+                                                <span class="badge badge-danger" >incorrect</span>
                                             @endif
                                         </td>
                                         <td class="text-center">{{ $option -> question_id }}</td>

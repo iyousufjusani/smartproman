@@ -105,7 +105,7 @@
                         <div class="form-group">
                             <label for="title">Image Title</label>
                             <input type="text" class="form-control" id="title" placeholder="Enter Video Title"
-                                   name="title"
+                                   name="title" value="{{ old('title') }}"
                                    required>
                         </div>
 
