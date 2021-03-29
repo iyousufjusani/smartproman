@@ -45,7 +45,7 @@
                                     <?php //echo $row['customer_sno']?><!--</th>-->
                                         <td class="text-center">{{ $index + 1  }}</td>
                                         <td class="text-center"><img width="60"
-                                                                     src="{{ url("uploads/users/" , $user -> image)}}"
+                                                                     src="{{ url("uploads/user_images/" , $user -> image)}}"
                                                                      alt="type-img"></td>
                                         <td class="text-center">{{ $user -> name }}</td>
                                         <td class="text-center">{{ $user -> email }}</td>

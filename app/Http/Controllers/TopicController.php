@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Topic;
 use App\Models\Type;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class TopicController extends Controller
 {
@@ -16,7 +17,7 @@ class TopicController extends Controller
     public function index()
     {
         $types = Type::where('is_active', 1)->get();
-        $topics = Topic::where('is_active', 1)->paginate(10);
+        $topics = Topic::where('is_active', 1)->paginate(6);
         return view('Admin.topics.index', compact('types', 'topics'));
 
     }
@@ -41,6 +42,7 @@ class TopicController extends Controller
     {
         $this->validate($request, [
             'title' => 'required|unique:topics,title',
+            'description' => 'required',
             'type_id' => 'required',
             //'image' => 'required',
         ]);
@@ -51,12 +53,13 @@ class TopicController extends Controller
 
         Topic::create([
             'title' => $request['title'],
+            'description'=>$request['description'],
             'type_id' => $request['type_id'],
 //            'image' => $image,
         ]);
 
         if (!$request->ajax()) {
-            return redirect()->route('topics.index')->with('success', 'Topic Created Successfully!!!');
+            return redirect()->route('topics.index')->with('success', 'Topic Added Successfully!!!');
         }
 
     }
@@ -103,6 +106,14 @@ class TopicController extends Controller
      */
     public function destroy(Topic $topic)
     {
-        //
+        if ($topic->image != 'noImage.png') {
+            Storage::disk('public_uploads')->delete(
+                '/topic_images/' . $topic->image
+            );
+        }
+
+        $topic->delete();
+        return redirect()->route('topics.index')->with('error', 'Topic Deleted Successfully!!!');
+
     }
 }

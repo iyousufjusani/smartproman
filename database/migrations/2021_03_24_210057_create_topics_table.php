@@ -16,6 +16,7 @@ class CreateTopicsTable extends Migration
         Schema::create('topics', function (Blueprint $table) {
             $table->increments('id');
             $table->string('title')->unique();
+            $table->string('description');
             $table->string('image')->default('noImage.png');
             $table->integer('type_id')->unsigned();
             $table->boolean('is_active')->default(true);

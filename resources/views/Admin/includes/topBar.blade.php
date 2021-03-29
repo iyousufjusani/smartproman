@@ -40,7 +40,7 @@
                 <a class="nav-link dropdown-toggle waves-effect waves-light nav-user" data-toggle="dropdown"
                    href="#" role="button"
                    aria-haspopup="false" aria-expanded="false">
-                    <img src="{{ asset("uploads/users/noImage.png")}}" alt="admin-img" class="rounded-circle"> <span
+                    <img src="{{ asset("uploads/user_images/noImage.png")}}" alt="admin-img" class="rounded-circle"> <span
                             class="ml-1">Admin Name<i class="mdi mdi-chevron-down"></i> </span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right profile-dropdown ">

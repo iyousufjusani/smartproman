@@ -3,7 +3,7 @@
 <div class="left side-menu">
     <div class="user-details">
         <div class="pull-left">
-            <img src="{{ asset("uploads/users/noImage.png")}}" alt="admin-img" class="thumb-md rounded-circle">
+            <img src="{{ asset("uploads/user_images/noImage.png")}}" alt="admin-img" class="thumb-md rounded-circle">
         </div>
         <div class="user-info">
             <a href="#">Admin Name</a>

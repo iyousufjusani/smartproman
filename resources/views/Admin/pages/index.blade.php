@@ -34,8 +34,8 @@
                                     <th class="text-center">Image</th>
                                     <th class="text-center">Topic ID</th>
                                     <th class="text-center">Created At</th>
-                                    <!--                                    <th class="text-center">EDIT</th>-->
-                                    <!--                                    <th class="text-center">REMOVE</th>-->
+                                    <th class="text-center" colspan="2">Action</th>
+
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -48,31 +48,17 @@
                                                                      alt="topic-page-img"></td>
                                         <td class="text-center">{{ $page -> topic_id }}</td>
                                         <td class="text-center">{{ $page -> created_at }}</td>
-                                        <!--                                        <td class="text-center">-->
-                                        <!--                                            <button>Edit</button>-->
-                                        <!--                                        </td>-->
-                                        <!--                                        <td class="text-center">-->
-                                        <!--                                            <button>Delete</button>-->
-                                        <!--                                        </td>-->
 
-                                        <!--                                        <td class="text-center">-->
-                                        <!--                                            <form action="scripts/subcategory-scripts.php?update=-->
-                                    <?php //echo $row['subcategory_name']; ?><!--"-->
-                                        <!--                                                  method="post" enctype="multipart/form-data">-->
-                                        <!--                                                <button type="submit" class="btn btn-custom btn-rounded"-->
-                                        <!--                                                        name="btn-update">Update-->
-                                        <!--                                                </button>-->
-                                        <!--                                            </form>-->
-                                        <!--                                        </td>-->
-                                        <!--                                        <td class="text-center">-->
-                                        <!--                                            <form action="scripts/subcategory-scripts.php?delete=-->
-                                    <?php //echo $row['subcategory_name']; ?><!--"-->
-                                        <!--                                                  method="post" enctype="multipart/form-data">-->
-                                        <!--                                                <button type="submit" class="btn btn-danger btn-rounded"-->
-                                        <!--                                                        name="btn-delete">Delete-->
-                                        <!--                                                </button>-->
-                                        <!--                                            </form>-->
-                                        <!--                                        </td>-->
+                                        <td class="text-center">
+                                            <button type="submit" class="btn btn-custom btn-rounded"
+                                                    name="btn-update">Update
+                                            </button>
+                                        </td>
+                                        <td class="text-center">
+                                            <button type="submit" class="btn btn-danger btn-rounded"
+                                                    name="btn-delete">Delete
+                                            </button>
+                                        </td>
                                     </tr>
                                 @endforeach
                                 </tbody>

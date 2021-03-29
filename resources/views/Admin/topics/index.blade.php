@@ -25,18 +25,39 @@
                             <div class="text-center card-box">
                                 <div class="member-card mt-4">
                                     <span class="user-badge bg-warning">Topic</span>
-                                    <!--                                    <div class="thumb-xl member-thumb m-b-10 center-page">-->
-                                    <!--                                        <img src="../topics/--><?php //echo $row['topic_image'] ?><!--"-->
-                                    <!--                                             class="rounded-circle img-thumbnail"-->
-                                    <!--                                             alt="profile-image">-->
-                                    <!--                                    </div>-->
+                                    <div class="card center-page" style="width: 18rem;">
+                                        {{--<img src="{{url('uploads/noImage.png')}}"--}}
+                                        {{--class="rounded-circle img-thumbnail"--}}
+                                        {{--alt="profile-image">--}}
+                                        <img class="card-img-top" src="{{url('uploads/topic_images/noImage.png')}}"
+                                             alt="Card image cap">
+                                    </div>
 
                                     <div class="">
                                         <h4 class="m-b-5 mt-2 center-page">{{ $topic -> title }}</h4>
 
                                     </div>
 
+                                    <p class="text-muted font-13 text-justify">
+                                       {{ $topic -> description }}
+                                    </p>
 
+                                    {{--@if($admin -> is_super == 1)--}}
+
+
+                                    <form action="{{ route('topics.destroy', $topic -> id) }}" method="post">
+                                        {{ csrf_field() }}
+                                        {{ method_field('delete') }}
+
+                                        <a href="{{ route('topics.index') }}" type="button"
+                                           class="btn btn-info btn-sm m-t-10">Edit</a>
+
+                                        <button type="submit" class="btn btn-danger btn-sm m-t-10">Delete
+                                        </button>
+
+                                    </form>
+
+                                    {{--@endif--}}
                                 </div>
 
                             </div>
@@ -100,43 +121,36 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="image">Topic Image</label>
-
-                            <input id="image" type="file" style="padding: 3px"
-                                   class="form-control" name="image" required value="{{ old('image') }}">
+                            <label for="description">Topic Description<span
+                                        class="text-danger">*</span></label>
+                            <textarea type="text" class="form-control" id="description"
+                                      placeholder="Enter Topic Description"
+                                      name="description"
+                                      required>{{ old('description') }}</textarea>
                         </div>
 
 
                         <div class="form-group">
-                            <label for="topic">Topic Type</label>
+                            <label for="image">Topic Image</label>
 
-                            <select class="form-control" id="type" name="type_id" required>
+                            <input id="image" type="file" style="padding: 3px"
+                                   class="form-control" name="image" value="{{ old('image') }}">
+                        </div>
+
+
+                        <div class="form-group">
+                            <label for="type_id">Topic Type</label>
+                            <select class="form-control" id="type_id" name="type_id" required>
                                 <option selected hidden value="1">Select type</option>
                                 @foreach($types as $type)
-
                                     <option value="{{ $type->id }}"
                                             {{ old('type_id') == $type->id ? 'selected' : ''}}>
                                         {{$type->title }}
                                     </option>
-
                                 @endforeach
                             </select>
 
                         </div>
-
-
-                        <!--                    <div class="form-group">-->
-                        <!--                        <label for="inputimage">topic Logo Image<span-->
-                        <!--                                    class="text-danger">*</span></label>-->
-                        <!--                        <input type="file" id="inputimage" name="image" class="form-control-file" required>-->
-                        <!--                    </div>-->
-                        <!--                    -->
-                        <!--                    <div class="form-group">-->
-                        <!--                        <label for="tagline">topic Tagline<span-->
-                        <!--                                    class="text-danger">*</span></label>-->
-                        <!--                        <input type="text" class="form-control" id="tagline" placeholder="Enter tagline" name="tagline"-->
-                        <!--                               required>-->
-                        <!--                    </div>-->
 
 
                         <div class="modal-footer">
@@ -144,30 +158,6 @@
                             <input type="submit" class="btn btn-primary " name="btn-add-topic" value="Add">
                         </div>
 
-                        <!--                    --><?php
-                    //                    if (isset($_POST['btn-add-topic'])) {
-                    //                        if (move_uploaded_file($_FILES['image']['tmp_name'], $target)) { ?>
-                    <!---->
-                        <!--                            <div class="alert alert-success alert-dismissible fade in" role="alert">-->
-                        <!--                                <button type="button" class="close" data-dismiss="alert"-->
-                        <!--                                        aria-label="Close">-->
-                        <!--                                    <span aria-hidden="true">&times;</span>-->
-                        <!--                                </button>-->
-                        <!--                                <strong>SUCCESS!</strong> topic Successfully Added-->
-                        <!--                            </div>-->
-                        <!--                        --><?php //} else { ?>
-                    <!--                            <div class="alert alert-danger alert-dismissible fade in" role="alert">-->
-                        <!--                                <button type="button" class="close" data-dismiss="alert"-->
-                        <!--                                        aria-label="Close">-->
-                        <!--                                    <span aria-hidden="true">&times;</span>-->
-                        <!--                                </button>-->
-                        <!--                                <strong>Oh snap!</strong> topic Addition Failed-->
-                        <!--                            </div>-->
-                        <!---->
-                        <!---->
-                        <!--                        --><?php //}
-                        //                    }
-                        //                    ?>
                     </form>
                 </div>
 
