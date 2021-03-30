@@ -55,6 +55,11 @@
     bottom: 0;
     left: 0;
   }
+
+  .slideshow-slide-image{
+    background-image: none;
+  }
+
 }
 @media (min-width: 700px) {
   .slideshow .slideshow-slide {
@@ -64,6 +69,8 @@
     bottom: 0;
     left: 0;
   }
+
+
 }
 
 .slideshow-slide-background-load-wrap {

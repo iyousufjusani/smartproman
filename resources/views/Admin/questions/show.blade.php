@@ -27,7 +27,6 @@
                 <div class="row">
                     <div class="col-sm-12">
                         <b>Question ID : </b>{{$question -> id}}
-
                     </div>
                     <br>
                     <div class="col-sm-12">

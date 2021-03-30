@@ -16,12 +16,12 @@ use App\Http\Controllers;
 
 
 
-//Route::get('/', function () {
-//    $title = 'Smart Pro Man Club';
-//    $subtitle = 'HVAC Engineering Professional Club';
-//    return view('home', compact('title','subtitle'));
-//
-//});
+Route::get('/', function () {
+    $title = 'Smart Pro Man Club';
+    $subtitle = 'HVAC Engineering Professional Club';
+    return view('main', compact('title','subtitle'));
+
+});
 
 Route::get('/dashboard','DashboardController@index')->name('dashboard');
 
@@ -45,6 +45,7 @@ Route::get('/admin-login',function(){
 //Route::view('/','welcome');
 Auth::routes();
 
+//Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::resource('admins', 'AdminController');

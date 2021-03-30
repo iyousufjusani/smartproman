@@ -9,7 +9,6 @@
     <meta content="width=device-width, initial-scale=1, maximum-scale=1" name="viewport">
     <!-- icon -->
     <link href="{{asset('assets/main/img/favicon.gif')}}" rel="icon" sizes="32x32" type="image/png">
-    <link href="{{asset('assets/main/img/favicon.gif')}}" rel="icon" sizes="32x32" type="image/png">
     <!-- plugin css -->
     <link href="{{asset('assets/plugin/css/bootstrap.min.css')}}" rel="stylesheet">
     <link href="{{asset('assets/plugin/css/slidercss.css')}}" rel="stylesheet">
@@ -47,14 +46,13 @@
 @include('includes.header')
 <!-- header end -->
 
+
+
     <!-- main menu -->
 @include('includes.menu')
 <!-- main menu end -->
 
 
-    <!-- block-menu -->
-    <div class="block-main"></div>
-    <!-- block-menu end-->
 
 
 @yield('content')
@@ -77,7 +75,7 @@
 
 <!-- main js -->
 <script src="{{asset('assets/main/js/main.js')}}"></script>
-<script src="{{asset('assets/main/js/main.js')}}"></script>
+
 
 </body>
 </html>
