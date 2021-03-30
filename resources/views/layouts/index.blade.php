@@ -29,7 +29,9 @@
     <link href="{{asset('assets/main/css/main.css')}}" rel="stylesheet">
     <link href="{{asset('assets/main/css/media.css')}}" media="all" rel="stylesheet">
 </head>
-<body class="bg-init">
+
+
+<body class="@yield('header')">
 
 <!-- preloader -->
 <div id="preloader">
@@ -45,7 +47,6 @@
     <!-- header -->
 @include('includes.header')
 <!-- header end -->
-
 
 
     <!-- main menu -->

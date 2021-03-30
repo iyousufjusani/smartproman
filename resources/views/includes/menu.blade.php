@@ -17,7 +17,7 @@
                 @guest
                     <ul>
                         <li>
-                            <a class="animsition-link actived" data-animsition-out-class="overlay-slide-out-right"
+                            <a class="animsition-link" data-animsition-out-class="overlay-slide-out-right"
                                href="/">
                                 Home
                             </a>
@@ -71,11 +71,11 @@
                 @endguest
             </nav>
         </div>
-        <!--<div class="info">-->
-        <!--<span>(+6221) 000 888 999</span>-->
-        <!--<a class="link" href="#">support@SmartProMan.com</a>-->
-        <!--<span>129 Park street, New York 10903</span>-->
-        <!--</div>-->
+        {{--<div class="info">--}}
+        {{--<span>(+6221) 000 888 999</span>--}}
+        {{--<a class="link" href="#">support@SmartProMan.com</a>--}}
+        {{--<span>129 Park street, New York 10903</span>--}}
+        {{--</div>--}}
         <div class="share">
             <span class="share_title">Follow us : </span>
             <ul>

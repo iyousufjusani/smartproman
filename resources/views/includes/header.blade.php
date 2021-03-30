@@ -4,7 +4,6 @@
         <!-- container -->
         <div class="container-fluid">
             <div class="row p-4-vh">
-
                 <!-- logo -->
                 <a class="navbar-brand white animsition-link" data-animsition-out-class="overlay-slide-out-right"
                    href="/">

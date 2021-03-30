@@ -1,4 +1,5 @@
 @extends('layouts.index')
+@section('header', 'bg-init')
 
 @section('content')
     <!-- slider -->
@@ -14,7 +15,10 @@
                                     <style>
                                         .background-image {
                                             background-image: url('{{ asset("uploads/smartproman_bg.jpeg")}}');
+                                            background-repeat: no-repeat;
+                                            background-size: 100% 100%;
                                         }
+
                                         @media (max-width: 768px) {
                                             .background-image {
                                                 background-image: none;
