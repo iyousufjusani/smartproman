@@ -11,7 +11,7 @@
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="header-title m-t-0 m-b-20" style="display: flex; justify-content: space-between">
-                            <h4 class="">Topic Table</h4>
+                            <h4 class="">Types Table</h4>
                             <div class="text-right">
                                 <button class="btn btn-primary btn-rounded btn-lg m-b-30" data-toggle="modal"
                                         data-target="#add-type">Add Type
@@ -120,7 +120,7 @@
                             <label for="image">Type Image</label>
 
                             <input id="image" type="file" style="padding: 3px"
-                                   class="form-control" name="image" required value="{{ old('image') }}">
+                                   class="form-control" name="image" value="{{ old('image') }}">
                         </div>
 
 

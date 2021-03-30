@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Topic;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -23,11 +24,10 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $topics = Topic::all();
+        return view('home', compact('topics'));
     }
 
-    public function quiz(){
-        return view('quiz');
-    }
+
 
 }

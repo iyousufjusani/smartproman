@@ -29,7 +29,7 @@
                                         {{--<img src="{{url('uploads/noImage.png')}}"--}}
                                         {{--class="rounded-circle img-thumbnail"--}}
                                         {{--alt="profile-image">--}}
-                                        <img class="card-img-top" src="{{url('uploads/topic_images/noImage.png')}}"
+                                        <img class="card-img-top" src="{{ url("uploads/topic_images/" , $topic -> image)}}"
                                              alt="Card image cap">
                                     </div>
 
