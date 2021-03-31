@@ -22,7 +22,7 @@
     <!-- main css -->
     <link href="{{asset('assets/main/css/scroll.css')}}" rel="stylesheet">
     <link href="{{asset('assets/main/css/scroll.css')}}" rel="stylesheet">
-    <link href="{{asset('assets/main/css/animated-on3step.css')}}" rel="stylesheet">
+    <link href="{{asset('learning')}}" rel="stylesheet">
     <link href="{{asset('assets/main/css/animated-on3step.css')}}" rel="stylesheet">
     <link href="{{asset('assets/plugin/css/owl.carousel.css')}}" rel="stylesheet">
     <link href="{{asset('assets/plugin/css/owl.theme.css')}}" rel="stylesheet">
@@ -55,7 +55,7 @@
 
 
 
-
+@yield('css')
 @yield('content')
 @yield('script')
 

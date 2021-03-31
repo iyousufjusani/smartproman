@@ -1,6 +1,8 @@
 @extends('layouts.index')
 @section('header', 'bg-init bg')
 
+@section('css')
+@endsection
 @section('content')
 
     <div class="container">
@@ -20,12 +22,15 @@
                                     class="color">{{config('app.name', 'SmartProMan') . __('!') }}</span></h5>
 
                         <hr>
-                        {{ __('Following topics you learn here in HVAC Engineering Professional Club!')}}
-                        <ul>
+                        <p style="font-size: 1.4rem; text-align: justify">{{ __('Following topics you will learn in HVAC Engineering Professional Club!')}}</p>
+                        <ol style="font-size: 1.3rem; list-style: circle;">
                             @foreach($topics as $topic)
-                                <li><b>{{ $topic -> title }} </b></li>
+                                <li>
+                                    <b style="font-weight: 700;">{{ $topic -> title }}  </b>( {{ $topic->questions->count()  }}
+                                    Questions).
+                                </li>
                             @endforeach
-                        </ul>
+                        </ol>
 
                         <div class="text-center">
                             <a href="/learning" class="slideshow-slide-caption-subtitle -load o-hsub -link"

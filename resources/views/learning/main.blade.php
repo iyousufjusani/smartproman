@@ -8,7 +8,7 @@
     <br>
     <section aria-label="section" class="container-fluid text-center">
         <div>
-            <form method="POST" action="question_process.php" class="text-center">
+            <form method="POST" action="{{ route('checkAnswer') }}" class="text-center">
                 <div class="col-md-12 ">
                     <div class='dflex-center'>
                         <div class='col-home'>
@@ -21,11 +21,24 @@
                             </div>
 
                             <ul class='list-home option-container'>
-                                @foreach($options as $i => $option)
-                                    <li id="{{$i}}" value="{{ $option->is_correct }}"
-                                        class="option-list"
-                                        onclick="getResult('{{$i}}','{{ $topic->id }}')">
-                                        {{ $option->text }}
+                                @php
+                                    $collection =  $question->options->shuffle()
+                                @endphp
+                                @foreach( $collection as $i => $option)
+                                    <li id="{{$i}}" value="{{ $option->id }}"
+                                        class="-load o-hsub -link"
+                                        style="color: black !important; border-color: black !important;"
+                                        onclick="getResult('{{$option}}' , '{{$collection}}' )">
+                                        {{--onclick="getResult('{{$i}}','{{ $topic->id }}')">--}}
+                                        {{--onclick="window.location='{{ url("/learning/check") }}'">--}}
+                                        {{--@dd($question)--}}
+                                        <span class="shine"></span>
+                                        <span class="slideshow-slide-caption-subtitle-label">{{ $option->text }}</span>
+
+                                        <form action="">
+
+                                        </form>
+
                                     </li>
                                 @endforeach
                             </ul>
@@ -40,25 +53,25 @@
                 <div class="col-md-12 text-center">
                     <div style="display: flex; flex-direction: row; justify-content: center " class="text-center">
                         {{--<button name="previous-button"--}}
-                                {{--style="border: 3px solid black; padding: 10px; border-radius: 5px; color: white; background-color: red; font-weight: 600; width: 150px; text-align: center;">--}}
-                            {{--Previous--}}
+                        {{--style="border: 3px solid black; padding: 10px; border-radius: 5px; color: white; background-color: red; font-weight: 600; width: 150px; text-align: center;">--}}
+                        {{--Previous--}}
                         {{--</button>--}}
 
                         <button class="slideshow-slide-caption-subtitle -load o-hsub -link"
-                                style="background-color: #ffb41d;">
+                                style="background-color: red !important; border-color: red !important;">
                             <span class="shine"></span>
                             <span class="slideshow-slide-caption-subtitle-label">{{ __('Back') }}</span>
-                        </button>&nbsp;
+                        </button>&nbsp;&nbsp;
 
                         <button class="slideshow-slide-caption-subtitle -load o-hsub -link"
-                                style="background-color: #ffb41d;">
+                                style="background-color: red !important; border-color: red !important;">
                             <span class="shine"></span>
                             <span class="slideshow-slide-caption-subtitle-label">{{ __('Next') }}</span>
                         </button>
 
                         {{--<button name="next-button"--}}
-                                {{--style="border: 3px solid black; padding: 10px; border-radius: 5px; color: white; background-color: red; font-weight: 600; width: 150px; text-align: center">--}}
-                            {{--Next--}}
+                        {{--style="border: 3px solid black; padding: 10px; border-radius: 5px; color: white; background-color: red; font-weight: 600; width: 150px; text-align: center">--}}
+                        {{--Next--}}
                         {{--</button>--}}
 
 
@@ -70,7 +83,7 @@
 
     </section>
 
-
+    {{--related topic page image--}}
     <hr style="border-bottom: 4px solid red; margin: 50px">
 
 
@@ -117,7 +130,7 @@
 
     <hr style="border-bottom: 4px solid red; margin: 50px">
 
-    <!--related Videos Sections-->
+    {{--related Videos Sections--}}
     <section aria-label="section" class='container-fluid onStep' data-animation="fadeInUp" data-time="0">
         <div class='row m-2-hor'>
             <div class='col-12 mb-5'>
@@ -182,4 +195,45 @@
 
 
 @section('script')
+    <script type="text/javascript">
+        function getResult($option, $array) {
+
+            var options = JSON.parse($array);
+
+            // const total = options.length;
+            var option = $option;
+
+            // var result = [];
+
+            var result = options.filter(function (item) {
+                return item.is_correct == 1
+            });
+
+
+            var i;
+
+            for (i = 0; i < 4; i++) {
+
+                var ovalue = document.getElementById(i).value;
+                if(ovalue == result[0].id){
+                    var const_id = i;
+
+                }
+                document.getElementById(i).style.background = "red";
+                document.getElementById(i).style.color = "white";
+                console.log("Wrong Answer");
+                this.disabled = true;
+            }
+
+
+
+            document.getElementById(const_id).style.background = "green";
+            document.getElementById(const_id).style.color = "white";
+            console.log("Right Answer");
+
+
+        }
+
+
+    </script>
 @endsection

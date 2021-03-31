@@ -24,7 +24,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $topics = Topic::all();
+        $topics = Topic::with('questions')->where('is_active','=',1)->get();
         return view('home', compact('topics'));
     }
 

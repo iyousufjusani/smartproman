@@ -48,7 +48,11 @@ Auth::routes();
 
 Route::get('/home', [Controllers\HomeController::class, 'index'])->name('home');
 
-Route::get('/learning', 'MainController@index');
+//Route::middleware('auth')->group(function () {
+    Route::get('/learning', 'MainController@index')->name('learning');
+    Route::get('/learning/check', 'MainController@checkAnswer')->name('checkAnswer');
+
+//});
 
 Route::resource('admins', 'AdminController');
 Route::resource('users', 'UserController');
