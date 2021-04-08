@@ -33,8 +33,7 @@
                                     <th class="text-center">Title</th>
                                     <th class="text-center">Image</th>
                                     <th class="text-center">Created At</th>
-                                    <!--                                    <th class="text-center">EDIT</th>-->
-                                    <!--                                    <th class="text-center">REMOVE</th>-->
+                                    <th class="text-center">Action</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -46,31 +45,22 @@
                                                                      src="{{ url("uploads/" , $type -> image)}}"
                                                                      alt="type-img"></td>
                                         <td class="text-center">{{ $type -> created_at }}</td>
-                                        <!--                                        <td class="text-center">-->
-                                        <!--                                            <button>Edit</button>-->
-                                        <!--                                        </td>-->
-                                        <!--                                        <td class="text-center">-->
-                                        <!--                                            <button>Delete</button>-->
-                                        <!--                                        </td>-->
 
-                                        <!--                                        <td class="text-center">-->
-                                        <!--                                            <form action="scripts/subcategory-scripts.php?update=-->
-                                    <?php //echo $row['subcategory_name']; ?><!--"-->
-                                        <!--                                                  method="post" enctype="multipart/form-data">-->
-                                        <!--                                                <button type="submit" class="btn btn-custom btn-rounded"-->
-                                        <!--                                                        name="btn-update">Update-->
-                                        <!--                                                </button>-->
-                                        <!--                                            </form>-->
-                                        <!--                                        </td>-->
-                                        <!--                                        <td class="text-center">-->
-                                        <!--                                            <form action="scripts/subcategory-scripts.php?delete=-->
-                                    <?php //echo $row['subcategory_name']; ?><!--"-->
-                                        <!--                                                  method="post" enctype="multipart/form-data">-->
-                                        <!--                                                <button type="submit" class="btn btn-danger btn-rounded"-->
-                                        <!--                                                        name="btn-delete">Delete-->
-                                        <!--                                                </button>-->
-                                        <!--                                            </form>-->
-                                        <!--                                        </td>-->
+                                        @if($type->id != 1)
+                                            <td class="text-center">
+                                                <form action="{{ route('types.destroy', $type -> id) }}" method="post">
+                                                    {{ csrf_field() }}
+                                                    {{ method_field('delete') }}
+                                                    <button type="submit" class="btn btn-danger btn-rounded">Delete</button>
+                                                </form>
+                                            </td>
+                                            @else
+                                            <td class="text-center">
+                                                {{ __(' --- ')}}
+                                            </td>
+                                        @endif
+
+
                                     </tr>
                                 @endforeach
                                 </tbody>

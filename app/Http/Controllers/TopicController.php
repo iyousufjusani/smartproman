@@ -113,6 +113,7 @@ class TopicController extends Controller
         if (!$request->ajax()) {
             return redirect()->route('topics.index')->with('success', 'Topic Updated Successfully!!!');
         }
+
     }
 
     /**

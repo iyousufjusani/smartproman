@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Type;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class TypeController extends Controller
 {
@@ -15,7 +16,7 @@ class TypeController extends Controller
     public function index()
     {
         $types = Type::paginate(10);
-        return view('Admin.types.index',compact('types'));
+        return view('Admin.types.index', compact('types'));
     }
 
     /**
@@ -31,7 +32,7 @@ class TypeController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -55,7 +56,7 @@ class TypeController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Type  $type
+     * @param  \App\Models\Type $type
      * @return \Illuminate\Http\Response
      */
     public function show(Type $type)
@@ -66,7 +67,7 @@ class TypeController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Type  $type
+     * @param  \App\Models\Type $type
      * @return \Illuminate\Http\Response
      */
     public function edit(Type $type)
@@ -77,8 +78,8 @@ class TypeController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Type  $type
+     * @param  \Illuminate\Http\Request $request
+     * @param  \App\Models\Type $type
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Type $type)
@@ -89,12 +90,22 @@ class TypeController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Type  $type
+     * @param  \App\Models\Type $type
      * @return \Illuminate\Http\Response
      */
     public function destroy(Type $type)
     {
-        //
+        if ($type->image != 'noImage.png') {
+            Storage::disk('public_uploads')->delete(
+                '/topic_images/' . $type->image
+            );
+        }
+
+        if ($type->id != 1) {
+            $type->delete();
+
+        }
+        return redirect()->route('types.index')->with('error', 'Type Deleted Successfully!!!');
     }
 
 }
