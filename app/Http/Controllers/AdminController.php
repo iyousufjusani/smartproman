@@ -92,6 +92,8 @@ class AdminController extends Controller
             'email' => [
                 'email',
                 'required',
+                Rule::unique('users')->ignore($id)
+
             ],
             'password' => 'required|min:8',
         ]);

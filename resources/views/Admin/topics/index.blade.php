@@ -67,7 +67,7 @@
 
                         </div>
 
-                        <!-- sample modal content -->
+                        <!-- edit modal content -->
                         <div id="edit-topic{{$topic -> id}}" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="add-contactLabel"
                              aria-hidden="true">
                             <div class="modal-dialog">
@@ -98,13 +98,6 @@
 
 
                                             <div class="form-group">
-                                                <label for="image">Topic New Image</label>
-                                                <input id="image" type="file" style="padding: 3px"
-                                                       class="form-control-file" name="image" value="{{ $topic->image }}"  />
-                                            </div>
-
-
-                                            <div class="form-group">
                                                 <label for="type_id">Topic Type</label>
                                                 <select class="form-control" id="type_id" name="type_id" required>
                                                     <option selected hidden value="1">Select type</option>
@@ -118,6 +111,11 @@
 
                                             </div>
 
+                                            <div class="form-group">
+                                                <label for="image">Topic New Image</label>
+                                                <input id="image" type="file" style="padding: 3px"
+                                                       class="form-control-file" name="image" />
+                                            </div>
 
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-default " data-dismiss="modal">Cancel</button>

@@ -6,6 +6,8 @@ use App\Models\Topic;
 use App\Models\Type;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Intervention\Image\ImageManagerStatic as Image;
+use Illuminate\Validation\Rule;
 
 class TopicController extends Controller
 {
@@ -47,15 +49,29 @@ class TopicController extends Controller
             'image' => 'required',
         ]);
 
-        if($request['type_id'] == null){
+        if ($request['type_id'] == null) {
             $request['type_id'] = 1;
+        }
+
+        if ($request->image) {
+            Image::make($request->image)
+                ->resize(160, 160, function ($constraint) {
+                    $constraint->aspectRatio();
+                })
+                ->save(
+                    public_path(
+                        'uploads/topic_images/' .
+                        $request->image->hashName()
+                    )
+                );
+            $image = $request->image->hashName();
         }
 
         Topic::create([
             'title' => $request['title'],
-            'description'=>$request['description'],
+            'description' => $request['description'],
             'type_id' => $request['type_id'],
-//            'image' => $image,
+            'image' => $image,
         ]);
 
         if (!$request->ajax()) {
@@ -96,7 +112,10 @@ class TopicController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'title' => 'required|unique:topics,title',
+            'title' => [
+                'required',
+                Rule::unique('topics')->ignore($id)
+            ],
             'description' => 'required',
             'type_id' => 'required',
             //'image' => 'required',
@@ -107,6 +126,27 @@ class TopicController extends Controller
         $topic->title = $request['title'];
         $topic->description = $request['description'];
         $topic->type_id = $request['type_id'];
+
+        if ($request->image) {
+
+            if ($topic->image != 'noImage.png') {
+                Storage::disk('public_uploads')->delete(
+                    '/topic_images/' . $topic->image
+                );
+            }
+
+            Image::make($request->image)
+                ->resize(160, 160, function ($constraint) {
+                    $constraint->aspectRatio();
+                })
+                ->save(
+                    public_path(
+                        'uploads/topic_images/' .
+                        $request->image->hashName()
+                    )
+                );
+            $topic->image = $request->image->hashName();
+        }
 
         $topic->save();
 

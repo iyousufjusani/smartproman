@@ -13,8 +13,8 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        $admins = Admin::all();
-        $users = User::all();
+        $admins = User::where('is_admin', true)->get();
+        $users = User::where('is_admin', false)->get();
         $topics = Topic::all();
         $questions = Question::all();
 

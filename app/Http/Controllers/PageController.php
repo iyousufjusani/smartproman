@@ -6,6 +6,8 @@ use App\Models\Page;
 use App\Models\Topic;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Intervention\Image\ImageManagerStatic as Image;
+
 
 class PageController extends Controller
 {
@@ -43,16 +45,31 @@ class PageController extends Controller
             'title' => 'required|unique:pages,title',
             'image' => 'required',
             'topic_id' => 'required',
-            //'image' => 'required',
+            'image' => 'required',
         ]);
 
         if($request['type_id'] == null){
             $request['type_id'] = 1;
         }
 
+        if ($request->image) {
+            Image::make($request->image)
+                ->resize(160, 160, function ($constraint) {
+                    $constraint->aspectRatio();
+                })
+                ->save(
+                    public_path(
+                        'uploads/topic_images/' .
+                        $request->image->hashName()
+                    )
+                );
+            $image = $request->image->hashName();
+        }
+
+
         Page::create([
             'title' => $request['title'],
-//            'image' => $request['link'],
+            'image' => $image,
             'topic_id' => $request['topic_id'],
         ]);
 
@@ -105,7 +122,7 @@ class PageController extends Controller
     {
         if ($page->image != 'noImage.png') {
             Storage::disk('public_uploads')->delete(
-                '/topics_images/' . $page->image
+                '/topic_images/' . $page->image
             );
         }
 
