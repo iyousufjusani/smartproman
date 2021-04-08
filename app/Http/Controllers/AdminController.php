@@ -135,11 +135,9 @@ class AdminController extends Controller
 
         $user->save();
 
-
         if (!$request->ajax()) {
             return redirect()->route('admins.index')->with('success', 'Admin Updated Successfully!!!');
         }
-
 
     }
 
