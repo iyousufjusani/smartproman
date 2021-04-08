@@ -120,6 +120,10 @@
                                                        required>
                                             </div>
 
+                                            <div class="form-group">
+                                                <label for="image">Admin New Image</label>
+                                                <input type="file" id="image" name="image" class="form-control-file">
+                                            </div>
 
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-default "

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Type;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Intervention\Image\ImageManagerStatic as Image;
 
 class TypeController extends Controller
 {
@@ -39,12 +40,28 @@ class TypeController extends Controller
     {
         $this->validate($request, [
             'title' => 'required|unique:types,title',
-            //'image' => 'required',
+            'image' => 'required',
         ]);
+
+        $image = $request['image'];
+
+        if ($request->image) {
+            Image::make($request->image)
+                ->resize(160, 160, function ($constraint) {
+                    $constraint->aspectRatio();
+                })
+                ->save(
+                    public_path(
+                        'uploads/topic_images/' .
+                        $request->image->hashName()
+                    )
+                );
+            $image = $request->image->hashName();
+        }
 
         Type::create([
             'title' => $request['title'],
-//            'image' => $image,
+            'image' => $image,
         ]);
 
         if (!$request->ajax()) {

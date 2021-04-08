@@ -31,9 +31,9 @@ class AdminController extends Controller
     {
         $this->validate($request, [
             'name' => 'required',
-            'email' => 'required|unique:admins,email',
+            'email' => 'required|unique:users,email',
             'password' => 'required',
-            //'image' => 'required',
+            'image' => 'required',
         ]);
 
         if ($request->image) {
@@ -47,7 +47,7 @@ class AdminController extends Controller
                         $request->image->hashName()
                     )
                 );
-//            $image = $request->image->hashName();
+            $image = $request->image->hashName();
         }
 
         $admin = new User;
@@ -55,6 +55,7 @@ class AdminController extends Controller
         $admin->email = $request['email'];
         $admin->password = Hash::make($request['password']);
         $admin->is_admin = true;
+        $admin->image = $image;
         $admin->save();
 
 
@@ -91,14 +92,38 @@ class AdminController extends Controller
             'email' => [
                 'email',
                 'required',
-                Rule::unique('users')->ignore($id)
             ],
             'password' => 'required|min:8',
         ]);
 
+
         $user = User::find($id);
+//        dd($user);
         $user->name = $request['name'];
         $user->email = $request['email'];
+
+
+        if ($request->image) {
+
+            if ($user->image != 'noImage.png') {
+                Storage::disk('public_uploads')->delete(
+                    '/user_images/' . $user->image
+                );
+            }
+
+            Image::make($request->image)
+                ->resize(160, 160, function ($constraint) {
+                    $constraint->aspectRatio();
+                })
+                ->save(
+                    public_path(
+                        'uploads/user_images/' .
+                        $request->image->hashName()
+                    )
+                );
+            $user->image = $request->image->hashName();
+        }
+
 
         if ($user->password == $request['password']) {
 //            dd($request['password']);
