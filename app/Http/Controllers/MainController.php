@@ -11,70 +11,175 @@ use Illuminate\Http\Request;
 
 class MainController extends Controller
 {
-
-    public function index()
+    public function __construct()
     {
-        $topic = Topic::where('is_active', 1)->first();
+        $this->middleware('auth');
+    }
 
-        $topics = Topic::
+    public function index($topic_id, $question_id)
+    {
+        $topic = Topic::
             with('questions.options')
-            ->where('is_active', 1)
-            ->get();
-//        dd($topics);
-
-        $total_questions = Question::
-        where('is_active', 1)
-            ->where('topic_id', '=', $topic->id)
-            ->count();
-
-        $question = Question::
-        with('options')
-            ->where('is_active', 1)
-            ->where('topic_id', '=', $topic->id)
+            ->where('id', '=', $topic_id)
             ->first();
+
+//        $total_questions = Question::
+//            ->where('topic_id', '=', $topic->id)
+//            ->count();
+//        dd($topic);
+
+        if ($topic != null) {
+//            return 'No topics';
+
+            $question = Question::
+            with('options')
+                ->where('id', '=', $question_id)
+                ->where('topic_id', '=', $topic_id)
+                ->first();
+
 //        dd($question);
 
-//        $options = Option::where('is_active', 1)
+//        $options = Option::
 //            ->where('question_id', '=', $question->id)
 //            ->get();
 //        dd($options);
 
-        $pages = Page::where('is_active', 1)
-            ->where('topic_id', '=', $topic->id)
-            ->get();
+            if ($topic->questions->count() == 0) {
+                $topics = Topic::with('questions')->get();
+                return redirect()->route('home')->with('topics', $topics);
+            }
 
-        $videos = Video::where('is_active', 1)
-            ->where('topic_id', '=', $topic->id)
-            ->get();
+//        dd($topic);
+//        $topics = Topic::
+//            with('questions.options')
+//
+//            ->get();
+//        dd($topics);
 
-        if ($topic->type_id == 2) {
-            return view('learning.main2', compact('topic', 'total_questions', 'questions'));
+            $pages = Page::
+            where('topic_id', '=', $topic->id)
+                ->get();
+            $videos = Video::
+            where('topic_id', '=', $topic->id)
+                ->get();
+
+            $right = 0;
+            $wrong = 0;
+            $skip = 0;
+
+//            $right = Session::get('right');;
+//            $wrong = Session::get('wrong');;
+//            $skip = Session::get('skip');;
+
+//            Session::put('right', $right);
+//            Session::put('wrong', $wrong);
+//            Session::put('skip', $skip);
+
+
+            if ($topic->type_id == 2) {
+                return view('learning.main2', compact('topic', 'question'));
+            }
+            return view('learning.main', compact('topic', 'question', 'pages', 'videos', 'right', 'wrong', 'skip'));
+
         }
-        return view('learning.main', compact('topic', 'total_questions', 'question', 'pages', 'videos'));
 
-//        return view('learning.main', compact('topics'));
+        return view('learning.main', compact('topic'));
+    }
+
+    public function nextQuestion(Request $request)
+    {
+//        return $request;
+
+        if ($request['button'] == 'next') {
+            $this->validate($request, [
+                'option' => 'required',
+                'topic' => 'required',
+                'questionId' => 'required',
+                'number' => 'required',
+                'right' => 'required',
+                'wrong' => 'required',
+                'skip' => 'required',
+                'button' => 'required',
+            ]);
+        }
+
+
+        $number = $request['number'];
+        $topic_id = $request['topic'];
+        $question_id = $request['questionId'];
+        $option = $request['option'];
+        $next = $number + 1;
+
+        $right = $request['right'];
+        $wrong = $request['wrong'];
+        $skip = $request['skip'];
+
+        if ($request['button'] == 'skip') {
+            $skip += 1;
+        }
+
+//        return $next;
+
+        $topic = Topic::
+        where('id', '=', $topic_id)
+            ->first();
+        $total_questions = $topic->questions->count();
+//        dd($total_questions);
+
+        $correct = Option::
+        where('question_id', '=', $question_id)
+            ->where('is_correct', '=', 1)
+            ->first();
+        dd($correct);
+        if ($correct['id'] == $option && $request['button'] == 'next') {
+            $right += 1;
+        } else if ($correct['id'] != $option && $request['button'] == 'next') {
+            $wrong += 1;
+        }
+
+//        dd($number);
+//        dd($right);
+//        dd($wrong);
+
+        if ($number == $total_questions) {
+//            dd('hello');
+
+//            return redirect()->route('score')->with(['topic' => $topic, 'right' => $right, 'wrong' => $wrong, 'skip' => $skip]);
+
+            return view('learning.score', compact('topic', 'right', 'wrong', 'skip'));
+//            return 'Score is: '. $score;
+
+        }
+
+
+        return redirect()->route('main', [$topic_id, $next]);
+
+
+//        $question = Question::
+//        with('options')
+//            ->where('topic_id', '=', $topic->id)
+//            ->where('number', $next)
+//            ->first();
+//
+//        $pages = Page::
+//        where('topic_id', '=', $topic->id)
+//            ->get();
+//
+//        $videos = Video::
+//        where('topic_id', '=', $topic->id)
+//            ->get();
+//
+//        return view('learning.main', compact('topic', 'question', 'pages', 'videos', 'right', 'wrong', 'skip'));
 
     }
 
-    public function checkAnswer(Request $request)
+
+    public function nextTopic(Request $request, $topic_id)
     {
-        dd();
-        return 'check';
 
-    }
-
-    public function next($topic_id, $question_id)
-    {
-        $topic = Topic::where('is_active', 1)->where('id', '=', $topic_id)->first();
-        //        dd($topic);
-
-        $question = Question::where('is_active', 1)->where('topic_id', $topic->id)->first();
-        //        dd($questions);
-
-        $options = Option::where('is_active', 1)->where('question_id', '=', $question_id)->get();
-        //        dd($options);
-
-        return view('learning.main', compact('topic', 'question', 'options'));
+//        Session::put('right', 0);
+//        Session::put('wrong', 0);
+//        Session::put('skip', 0);
     }
 
 

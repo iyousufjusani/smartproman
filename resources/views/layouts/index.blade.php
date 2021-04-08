@@ -31,7 +31,7 @@
 </head>
 
 
-<body class="@yield('header')">
+<body class="@yield('header')" >
 
 <!-- preloader -->
 <div id="preloader">

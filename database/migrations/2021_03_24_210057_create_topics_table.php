@@ -19,8 +19,6 @@ class CreateTopicsTable extends Migration
             $table->string('description');
             $table->string('image')->default('noImage.png');
             $table->integer('type_id')->unsigned();
-            $table->boolean('is_active')->default(true);
-            $table->boolean('is_deleted')->default(false);
             $table->foreign('type_id')->references('id')->on('types')->onDelete('cascade');
             $table->timestamps();
         });

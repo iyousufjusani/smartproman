@@ -18,8 +18,6 @@ class CreatePagesTable extends Migration
             $table->string('title')->unique();
             $table->string('image')->default('noImage.png');
             $table->integer('topic_id')->unsigned();
-            $table->boolean('is_active')->default(true);
-            $table->boolean('is_deleted')->default(false);
             $table->foreign('topic_id')->references('id')->on('topics')->onDelete('cascade');
             $table->timestamps();
         });

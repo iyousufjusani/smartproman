@@ -18,8 +18,6 @@ class CreateOptionsTable extends Migration
             $table->string('text');
             $table->boolean('is_correct')->default(false);
             $table->integer('question_id')->unsigned();
-            $table->boolean('is_active')->default(true);
-            $table->boolean('is_deleted')->default(false);
             $table->foreign('question_id')->references('id')->on('questions')->onDelete('cascade');
             $table->timestamps();
         });

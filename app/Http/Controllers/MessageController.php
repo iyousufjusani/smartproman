@@ -14,7 +14,7 @@ class MessageController extends Controller
      */
     public function index()
     {
-        $messages = Message::where('is_active', 1)->paginate(10);
+        $messages = Message::paginate(10);
         return view('Admin.messages.index', compact('messages'));
     }
 

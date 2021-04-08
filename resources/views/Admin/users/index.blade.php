@@ -52,7 +52,9 @@
                                         <td class="text-center">{{ $user -> created_at }}</td>
 
                                         <td class="text-center">
-                                            <button type="button" class="btn btn-custom btn-rounded">Update</button>
+                                            <button type="button" class="btn btn-custom btn-rounded" data-toggle="modal"
+                                                    data-target="#edit-user{{$user -> id}}">Update
+                                            </button>
                                         </td>
                                         <td class="text-center">
                                             <form action="{{ route('users.destroy', $user -> id) }}" method="post">
@@ -62,6 +64,68 @@
                                             </form>
                                         </td>
                                     </tr>
+
+
+                                    <!-- Edit modal content -->
+                                    <div id="edit-user{{$user -> id}}" class="modal fade" tabindex="-1" role="dialog"
+                                         aria-labelledby="add-contactLabel"
+                                         aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h4 class="modal-title" id="add-contactLabel">Edit User</h4>
+                                                    <button type="button" class="close" data-dismiss="modal"
+                                                            aria-hidden="true">×
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form role="form" method="post"
+                                                          action="{{ route('users.update', $user->id) }}"
+                                                          enctype="multipart/form-data">
+                                                        {{ csrf_field() }}
+                                                        {{ method_field('put') }}
+                                                        <div class="form-group">
+                                                            <label for="name">Update User Full Name<span
+                                                                        class="text-danger">*</span></label>
+                                                            <input type="text" class="form-control" id="name"
+                                                                   value="{{ $user->name }}" name="name"
+                                                                   required>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label for="email">Update User Email Address<span
+                                                                        class="text-danger">*</span></label>
+                                                            <input type="email" class="form-control" id="email"
+                                                                   name="email" value="{{ $user->email }}"
+                                                                   required>
+                                                        </div>
+
+
+                                                        <div class="form-group">
+                                                            <label for="password">Update User Password<span
+                                                                        class="text-danger">*</span> (At least 8 Characters)</label>
+                                                            <input type="password" class="form-control" id="password"
+                                                                   placeholder="Change user password"
+                                                                   name="password" value="{{ $user->password }}"
+                                                            required>
+                                                        </div>
+
+
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-default "
+                                                                    data-dismiss="modal">Cancel
+                                                            </button>
+                                                            <input type="submit" class="btn btn-primary "
+                                                                   name="btn-add-user" value="Update">
+                                                        </div>
+
+                                                    </form>
+                                                </div>
+
+                                            </div><!-- /.modal-content -->
+                                        </div><!-- /.modal-dialog -->
+                                    </div>
+                                    <!-- /. end modal -->
                                 @endforeach
                                 </tbody>
                             </table>
@@ -141,6 +205,11 @@
 
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
-    </div><!-- /.modal -->
+    </div>
+
+    <!-- /. end modal -->
+
+
+
 @endsection
 

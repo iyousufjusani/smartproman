@@ -43,7 +43,7 @@
                     </ul>
                 @else
                     <ul>
-                        <span class="share_title">Welcome, <b class="color">{{ Auth::user()->name }}</b></span>
+                        <span class="share_title">Welcome, <b class="color text-capitalize">{{ Auth::user()->name }}</b></span>
                         <br><br><br>
                         <li>
                             <a class="animsition-link" data-animsition-out-class="overlay-slide-out-right"

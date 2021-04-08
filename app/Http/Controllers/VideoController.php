@@ -15,8 +15,8 @@ class VideoController extends Controller
      */
     public function index()
     {
-        $topics = Topic::where('is_active', 1)->get();
-        $videos = Video::where('is_active', 1)->paginate(10);
+        $topics = Topic::all();
+        $videos = Video::paginate(10);
         return view('Admin.videos.index', compact('topics','videos'));
     }
 

@@ -11,6 +11,7 @@
                     <div class="col-sm-12">
                         <h4 class="header-title m-t-0 m-b-20">Questions</h4>
                     </div>
+                    @include('Admin.includes.message')
 
                     <div class="col-lg-12">
                         <div class="m-b-20">
@@ -35,12 +36,14 @@
                                         <td class="text-center">{{ $question -> topic_id }}</td>
                                         <td class="text-center">{{ $question -> created_at }}</td>
                                         <td class="text-center">
-                                            <a href="{{ route('questions.show', $question -> id) }}" class="btn btn-primary btn-rounded"
+                                            <a href="{{ route('questions.show', $question -> id) }}"
+                                               class="btn btn-primary btn-rounded"
                                                name="btn-custom">View
                                             </a>
                                         </td>
                                         <td class="text-center">
-                                            <a href="{{ route('questions.edit', $question -> id) }}" class="btn btn-custom btn-rounded"
+                                            <a href="{{ route('questions.edit', $question -> id) }}"
+                                               class="btn btn-custom btn-rounded"
                                                name="btn-update">Edit
                                             </a>
                                         </td>

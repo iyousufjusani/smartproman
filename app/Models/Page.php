@@ -11,7 +11,7 @@ class Page extends Model
 
     public function topic()
     {
-        return $this->belongsTo(Topic::class);
+        return $this->belongsTo(Topic::class, 'topic_id');
     }
 
 }

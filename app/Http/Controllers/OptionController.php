@@ -14,7 +14,7 @@ class OptionController extends Controller
      */
     public function index()
     {
-        $options = Option::where('is_active', 1)->paginate(20);
+        $options = Option::paginate(20);
         return view('Admin.options.index', compact('options'));
     }
 

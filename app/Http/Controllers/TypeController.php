@@ -14,7 +14,7 @@ class TypeController extends Controller
      */
     public function index()
     {
-        $types = Type::where('is_active', 1)->paginate(10);
+        $types = Type::paginate(10);
         return view('Admin.types.index',compact('types'));
     }
 
@@ -96,4 +96,5 @@ class TypeController extends Controller
     {
         //
     }
+
 }

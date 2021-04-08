@@ -18,8 +18,6 @@ class CreateQuestionsTable extends Migration
             $table->integer('number')->unsigned();
             $table->string('text')->unique();
             $table->integer('topic_id')->unsigned();
-            $table->boolean('is_active')->default(true);
-            $table->boolean('is_deleted')->default(false);
             $table->foreign('topic_id')->references('id')->on('topics')->onDelete('cascade');
             $table->timestamps();
         });

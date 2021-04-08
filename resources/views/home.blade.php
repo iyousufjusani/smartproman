@@ -18,7 +18,7 @@
                                 {{ session('status') }}
                             </div>
                         @endif
-                        <h5 class="text-center"> {{ __('Welcome, ') . Auth::user()->name . __(' to ') }} <span
+                        <h5 class="text-center"> {{ __('Welcome, ') }} <span class="text-capitalize">{{ Auth::user()->name }}</span>{{ __(' to ') }} <span
                                     class="color">{{config('app.name', 'SmartProMan') . __('!') }}</span></h5>
 
                         <hr>
@@ -27,13 +27,15 @@
                             @foreach($topics as $topic)
                                 <li>
                                     <b style="font-weight: 700;">{{ $topic -> title }}  </b>( {{ $topic->questions->count()  }}
-                                    Questions).
+                                    Questions ).
                                 </li>
                             @endforeach
                         </ol>
+                        {{--@dd($topics)--}}
+                            {{--@dd($topics[0]->questions[0]->id)--}}
 
-                        <div class="text-center">
-                            <a href="/learning" class="slideshow-slide-caption-subtitle -load o-hsub -link"
+                            <div class="text-center">
+                            <a href="/learning/{{$topics[0]->id}}/{{$topics[0]->questions[0]->id }}" class="slideshow-slide-caption-subtitle -load o-hsub -link"
                                style="background-color: #ffb41d;">
                                 <span class="shine"></span>
                                 <span class="slideshow-slide-caption-subtitle-label">{{ __('Start Learning') }}</span>

@@ -17,7 +17,7 @@ class QuestionController extends Controller
      */
     public function index()
     {
-        $questions = Question::where('is_active', 1)->paginate(20);
+        $questions = Question::paginate(20);
         return view('Admin.questions.index', compact('questions'));
     }
 
@@ -29,7 +29,7 @@ class QuestionController extends Controller
      */
     public function create()
     {
-        $topics = Topic::where('is_active', 1)->get();
+        $topics = Topic::all();
         return view('Admin.questions.create', compact('topics'));
 
     }
@@ -120,7 +120,7 @@ class QuestionController extends Controller
      */
     public function edit(Question $question)
     {
-        $topics = Topic::where('is_active', 1)->get();
+        $topics = Topic::all();
 
         $question = Question::find($question['id']);
 

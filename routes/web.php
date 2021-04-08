@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,17 +15,15 @@ use App\Http\Controllers;
 */
 
 
-
-
 Route::get('/', function () {
     $title = 'Smart Pro Man Club';
     $subtitle = 'HVAC Engineering Professional Club';
-    return view('index', compact('title','subtitle'));
-});
+    return view('index', compact('title', 'subtitle'));
+})->middleware('guest');
 
-Route::get('/dashboard','DashboardController@index')->name('dashboard');
+Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
 
-Route::get('/admin-login',function(){
+Route::get('/admin-login', function () {
     return view('Admin.admin-login');
 });
 
@@ -42,15 +41,29 @@ Route::get('/admin-login',function(){
 
 //Route::redirect('/','home');
 //Route::view('/','welcome');
-Auth::routes();
+
 
 //Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::get('/home', [Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', 'HomeController@index')->name('home');
 
 //Route::middleware('auth')->group(function () {
-    Route::get('/learning', 'MainController@index')->name('learning');
-    Route::get('/learning/check', 'MainController@checkAnswer')->name('checkAnswer');
+
+//Route::get('/learning', 'MainController@')->name('main');
+
+Route::get('/learning/{topic}/{question}', 'MainController@index')->name('main');
+
+Route::post('/learning', 'MainController@nextQuestion')->name('nextQuestion');
+
+
+Route::get('/learning/score')->name('score');
+
+
+
+//Route::get('/score', 'ScoreController@nextTopic')->name('nextTopic');
+
+
+Route::post('/learning/complete', 'ScoreController@learningCompleted');
 
 //});
 
@@ -64,5 +77,5 @@ Route::resource('pages', 'PageController');
 Route::resource('videos', 'VideoController');
 Route::resource('messages', 'MessageController');
 
-
+Auth::routes();
 

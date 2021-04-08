@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Admin;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\ImageManagerStatic as Image;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rule;
 
 
 class AdminController extends Controller
@@ -14,7 +16,7 @@ class AdminController extends Controller
 
     public function index()
     {
-        $admins = Admin::where('is_active', 1)->paginate(9);
+        $admins = User::where('is_admin', true)->paginate(9);
         return view('Admin.admins.index', compact('admins'));
     }
 
@@ -34,7 +36,7 @@ class AdminController extends Controller
             //'image' => 'required',
         ]);
 
-        if ($request -> image) {
+        if ($request->image) {
             Image::make($request->image)
                 ->resize(160, 160, function ($constraint) {
                     $constraint->aspectRatio();
@@ -48,12 +50,21 @@ class AdminController extends Controller
 //            $image = $request->image->hashName();
         }
 
-        Admin::create([
-            'name' => $request['name'],
-            'email' => $request['email'],
-            'password' => Hash::make($request['password']),
-//            'image' => $image,
-        ]);
+        $admin = new User;
+        $admin->name = $request['name'];
+        $admin->email = $request['email'];
+        $admin->password = Hash::make($request['password']);
+        $admin->is_admin = true;
+        $admin->save();
+
+
+//        User::create([
+//            'name' => $request['name'],
+//            'email' => $request['email'],
+//            'password' => Hash::make($request['password']),
+//            'is_admin' => true,
+////            'image' => $image,
+//        ]);
 
         if (!$request->ajax()) {
             return redirect()->route('admins.index')->with('success', 'Admin Created Successfully!!!');
@@ -61,25 +72,54 @@ class AdminController extends Controller
     }
 
 
-    public function show(Admin $admin)
+    public function show(User $admin)
     {
         //
     }
 
 
-    public function edit(Admin $admin)
+    public function edit(User $admin)
     {
         //
     }
 
 
-    public function update(Request $request, Admin $admin)
+    public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'email' => [
+                'email',
+                'required',
+                Rule::unique('users')->ignore($id)
+            ],
+            'password' => 'required|min:8',
+        ]);
+
+        $user = User::find($id);
+        $user->name = $request['name'];
+        $user->email = $request['email'];
+
+        if ($user->password == $request['password']) {
+//            dd($request['password']);
+            $user->password = $request['password'];
+        } else {
+//            dd($request['password']);
+            $user->password = Hash::make($request['password']);
+        }
+
+        $user->save();
+
+
+        if (!$request->ajax()) {
+            return redirect()->route('admins.index')->with('success', 'Admin Updated Successfully!!!');
+        }
+
+
     }
 
 
-    public function destroy(Admin $admin)
+    public function destroy(User $admin)
     {
         if ($admin->image != 'noImage.png') {
             Storage::disk('public_uploads')->delete(

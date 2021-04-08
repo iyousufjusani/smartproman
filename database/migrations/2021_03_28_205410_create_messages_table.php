@@ -18,8 +18,6 @@ class CreateMessagesTable extends Migration
             $table->string('name');
             $table->string('email');
             $table->string('message');
-            $table->boolean('is_active')->default(true);
-            $table->boolean('is_deleted')->default(false);
             $table->timestamps();
         });
     }
