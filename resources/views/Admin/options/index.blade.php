@@ -24,8 +24,8 @@
                                     <th class="text-center">Correct</th>
                                     <th class="text-center">QuestionID</th>
                                     <th class="text-center">Created At</th>
-                                    <!--                                    <th class="text-center">EDIT</th>-->
-                                    <!--                                    <th class="text-center">REMOVE</th>-->
+                                    <th class="text-center">Action</th>
+
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -35,36 +35,73 @@
                                         <td>{{$option -> text}}</td>
                                         <td>
                                             @if($option -> is_correct == true)
-                                                <span class="badge badge-custom" >correct</span>
+                                                <span class="badge badge-custom">correct</span>
                                             @else
-                                                <span class="badge badge-danger" >incorrect</span>
+                                                <span class="badge badge-danger">incorrect</span>
                                             @endif
                                         </td>
                                         <td class="text-center">{{ $option -> question_id }}</td>
                                         <td class="text-center">{{ $option -> created_at }}</td>
 
-                                        <!--                                        <td class="text-center">-->
-                                        <!--                                            <button type="button" class="btn btn-dark btn-rounded">Inspect</button>-->
-                                        <!--                                        </td>-->
-                                        <!--                                        <td class="text-center">-->
-                                        <!--                                            <button>Update</button>-->
-                                        <!---->
-                                        <!--                                            <form action="pages-update-topics.php?update=--><?php //echo $row['questionID']; ?><!--"-->
-                                        <!--                                                  method="post" enctype="multipart/form-data">-->
-                                        <!--                                                <button type="submit" class="btn btn-custom btn-rounded"-->
-                                        <!--                                                        name="btn-update">Update-->
-                                        <!--                                                </button>-->
-                                        <!--                                            </form>-->
-                                        <!--                                        </td>-->
-                                        <!--                                        <td class="text-center">-->
-                                        <!--                                            <button>Delete</button>-->
-                                        <!--                                            <form action="scripts/questions-scripts.php?delete=--><?php //echo $row['questionID']; ?><!--"-->
-                                        <!--                                                  method="post" enctype="multipart/form-data">-->
-                                        <!--                                                <button type="submit" class="btn btn-danger btn-rounded"-->
-                                        <!--                                                        name="btn-delete">Delete-->
-                                        <!--                                                </button>-->
-                                        <!--                                            </form>-->
-                                        <!--                                        </td>-->
+                                        <td class="text-center">
+                                            <button type="button" class="btn btn-primary btn-rounded"
+                                                    data-toggle="modal"
+                                                    data-target="#edit-option{{$option -> id}}">Edit
+                                            </button>
+                                        </td>
+
+
+                                        <!-- Edit modal content -->
+                                        <div id="edit-option{{$option -> id}}" class="modal fade" tabindex="-1"
+                                             role="dialog"
+                                             aria-labelledby="add-contactLabel"
+                                             aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h4 class="modal-title" id="add-contactLabel">Edit Option</h4>
+                                                        <button type="button" class="close" data-dismiss="modal"
+                                                                aria-hidden="true">×
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <form role="form" method="post"
+                                                              action="{{ route('options.update', $option->id) }}"
+                                                              enctype="multipart/form-data">
+                                                            {{ csrf_field() }}
+                                                            {{ method_field('put') }}
+
+                                                            <div class="form-group">
+                                                                <label for="text">Update Option Text<span
+                                                                            class="text-danger">*</span></label>
+                                                                <input type="text" class="form-control" id="text"
+                                                                       value="{{ $option->text }}" name="text"
+                                                                       required>
+                                                            </div>
+
+                                                            <div class="form-group">
+                                                                <input id="correct" type="checkbox"
+                                                                           name="correct" value="1"/>
+                                                                <label for="correct">Mark this option correct</label>
+                                                            </div>
+
+
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-default "
+                                                                        data-dismiss="modal">Cancel
+                                                                </button>
+                                                                <input type="submit" class="btn btn-primary "
+                                                                       name="btn-add-user" value="Update">
+                                                            </div>
+
+                                                        </form>
+                                                    </div>
+
+                                                </div><!-- /.modal-content -->
+                                            </div><!-- /.modal-dialog -->
+                                        </div>
+                                        <!-- /. end modal -->
+
                                     </tr>
                                 @endforeach
                                 </tbody>

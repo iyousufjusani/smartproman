@@ -7,6 +7,7 @@ use App\Models\Question;
 use App\Models\Topic;
 use http\QueryString;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class QuestionController extends Controller
 {
@@ -59,7 +60,7 @@ class QuestionController extends Controller
         $number = Question::where('topic_id', $request['topic_id'])->count();
 
         $question_id = Question::create([
-            'number' => $number+1,
+            'number' => $number + 1,
             'text' => $request['text'],
             'topic_id' => $request['topic_id'],
         ])->id;
@@ -71,12 +72,11 @@ class QuestionController extends Controller
         $choices[3] = $request['choice3'];
         $choices[4] = $request['choice4'];
 
-        $correct = false;
 
         foreach ($choices as $key => $choice) {
             if ($key == $request['correct']) {
                 $correct = true;
-            }else{
+            } else {
                 $correct = false;
             }
             Option::create([
@@ -107,7 +107,7 @@ class QuestionController extends Controller
         $question = Question::find($question['id']);
         $options = Option::where('question_id', $question['id'])->get();
 
-        return view('Admin.questions.show' , compact('question', 'options'));
+        return view('Admin.questions.show', compact('question', 'options'));
 
 //        return $question;
     }
@@ -124,9 +124,8 @@ class QuestionController extends Controller
 
         $question = Question::find($question['id']);
 
-        $options = Option::where('question_id', $question['id'])->get();
 
-        return view('Admin.questions.edit' , compact('question', 'options' , 'topics'));
+        return view('Admin.questions.edit', compact('question', 'topics'));
 
     }
 
@@ -137,10 +136,31 @@ class QuestionController extends Controller
      * @param  \App\Models\Question $question
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Question $question)
+    public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'text' => [
+                'required',
+                Rule::unique('questions')->ignore($id),
+            ],
+            'correct' => 'required',
+            'topic_id' => 'required',
+        ]);
+
+
+        $question = Question::find($id);
+//        dd($question);
+        $question->text = $request['text'];
+        $question->topic_id = $request['topic_id'];
+        $question->save();
+
+
+        if (!$request->ajax()) {
+            return redirect()->route('questions.index')->with('success', 'Question Updated Successfully!!!');
+        }
+
     }
+
 
     /**
      * Remove the specified resource from storage.
@@ -151,7 +171,7 @@ class QuestionController extends Controller
     public function destroy(Question $question)
     {
 
-        Option::where('question_id', $question['id'] )->delete();
+        Option::where('question_id', $question['id'])->delete();
 
         $question->delete();
 
