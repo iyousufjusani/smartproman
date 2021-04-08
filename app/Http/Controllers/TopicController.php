@@ -44,7 +44,7 @@ class TopicController extends Controller
             'title' => 'required|unique:topics,title',
             'description' => 'required',
             'type_id' => 'required',
-            //'image' => 'required',
+            'image' => 'required',
         ]);
 
         if($request['type_id'] == null){
@@ -93,9 +93,26 @@ class TopicController extends Controller
      * @param  \App\Models\Topic $topic
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Topic $topic)
+    public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'title' => 'required|unique:topics,title',
+            'description' => 'required',
+            'type_id' => 'required',
+            //'image' => 'required',
+        ]);
+
+        $topic = Topic::find($id);
+
+        $topic->title = $request['title'];
+        $topic->description = $request['description'];
+        $topic->type_id = $request['type_id'];
+
+        $topic->save();
+
+        if (!$request->ajax()) {
+            return redirect()->route('topics.index')->with('success', 'Topic Updated Successfully!!!');
+        }
     }
 
     /**

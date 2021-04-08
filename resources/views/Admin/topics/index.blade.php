@@ -49,8 +49,11 @@
                                         {{ csrf_field() }}
                                         {{ method_field('delete') }}
 
-                                        <a href="{{ route('topics.index') }}" type="button"
-                                           class="btn btn-info btn-sm m-t-10">Edit</a>
+                                        <button type="button"
+                                                data-toggle="modal"
+                                                data-target="#edit-topic{{$topic -> id}}"
+                                                class="btn btn-info btn-sm m-t-10">Edit
+                                        </button>
 
                                         <button type="submit" class="btn btn-danger btn-sm m-t-10">Delete
                                         </button>
@@ -64,7 +67,70 @@
 
                         </div>
 
+                        <!-- sample modal content -->
+                        <div id="edit-topic{{$topic -> id}}" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="add-contactLabel"
+                             aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h4 class="modal-title" id="add-contactLabel">Add Topic</h4>
+                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form role="form" method="post" action="{{ route('topics.update' , $topic->id ) }}" enctype="multipart/form-data">
+                                            {{ csrf_field() }}
+                                            {{ method_field('put') }}
+                                            <div class="form-group">
+                                                <label for="title">Topic Name<span
+                                                            class="text-danger">*</span></label>
+                                                <input type="text" class="form-control" id="title"
+                                                       name="title"
+                                                       required value="{{ $topic->title }}">
+                                            </div>
 
+                                            <div class="form-group">
+                                                <label for="description">Topic Description<span
+                                                            class="text-danger">*</span></label>
+                                                <textarea type="text" class="form-control" id="description"
+                                                          name="description"
+                                                          required>{{ $topic->description }}</textarea>
+                                            </div>
+
+
+                                            <div class="form-group">
+                                                <label for="image">Topic New Image</label>
+                                                <input id="image" type="file" style="padding: 3px"
+                                                       class="form-control-file" name="image" value="{{ $topic->image }}"  />
+                                            </div>
+
+
+                                            <div class="form-group">
+                                                <label for="type_id">Topic Type</label>
+                                                <select class="form-control" id="type_id" name="type_id" required>
+                                                    <option selected hidden value="1">Select type</option>
+                                                    @foreach($types as $type)
+                                                        <option value="{{ $type->id }}"
+                                                                {{ $topic->type_id == $type->id ? 'selected' : ''}}>
+                                                            {{$type->title }}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+
+                                            </div>
+
+
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-default " data-dismiss="modal">Cancel</button>
+                                                <input type="submit" class="btn btn-primary " name="btn-add-topic" value="Update">
+                                            </div>
+
+                                        </form>
+                                    </div>
+
+                                </div><!-- /.modal-content -->
+                            </div><!-- /.modal-dialog -->
+                        </div>
+                        <!-- /.modal -->
                     @endforeach
                 </div>
                 <!-- end row -->
@@ -134,7 +200,7 @@
                             <label for="image">Topic Image</label>
 
                             <input id="image" type="file" style="padding: 3px"
-                                   class="form-control-file" name="image" value="{{ old('image') }}">
+                                   class="form-control-file" name="image" value="{{ old('image') }}" required />
                         </div>
 
 
