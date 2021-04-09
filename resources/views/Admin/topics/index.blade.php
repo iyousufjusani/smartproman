@@ -19,27 +19,30 @@
                 @include('Admin.includes.message')
 
                 <div class="row">
+
                     @foreach ($topics as $topic)
+
 
                         <div class="col-md-4">
                             <div class="text-center card-box">
                                 <div class="member-card mt-4">
                                     <span class="user-badge bg-warning">Topic</span>
-                                    <div class="card center-page" style="width: 18rem;">
+                                    <div class="card center-page" >
                                         {{--<img src="{{url('uploads/noImage.png')}}"--}}
                                         {{--class="rounded-circle img-thumbnail"--}}
                                         {{--alt="profile-image">--}}
-                                        <img class="card-img-top" src="{{ url("uploads/topic_images/" , $topic -> image)}}"
+                                        <img class="card-img-top"
+                                             src="{{ url("uploads/topic_images/" , $topic -> image)}}"
                                              alt="Card image cap">
                                     </div>
 
                                     <div class="">
-                                        <h4 class="m-b-5 mt-2 center-page">{{ $topic -> title }}</h4>
+                                        <h4 class="m-b-5 mt-2 center-page text-uppercase">{{ $topic -> title }}</h4>
 
                                     </div>
 
-                                    <p class="text-muted font-13 text-justify">
-                                       {{ $topic -> description }}
+                                    <p class="text-muted font-13 text-center text-capitalize" style="text-transform: capitalize">
+                                        {{ $topic -> description }}
                                     </p>
 
                                     {{--@if($admin -> is_super == 1)--}}
@@ -68,16 +71,20 @@
                         </div>
 
                         <!-- edit modal content -->
-                        <div id="edit-topic{{$topic -> id}}" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="add-contactLabel"
+                        <div id="edit-topic{{$topic -> id}}" class="modal fade" tabindex="-1" role="dialog"
+                             aria-labelledby="add-contactLabel"
                              aria-hidden="true">
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header">
                                         <h4 class="modal-title" id="add-contactLabel">Add Topic</h4>
-                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×
+                                        </button>
                                     </div>
                                     <div class="modal-body">
-                                        <form role="form" method="post" action="{{ route('topics.update' , $topic->id ) }}" enctype="multipart/form-data">
+                                        <form role="form" method="post"
+                                              action="{{ route('topics.update' , $topic->id ) }}"
+                                              enctype="multipart/form-data">
                                             {{ csrf_field() }}
                                             {{ method_field('put') }}
                                             <div class="form-group">
@@ -114,12 +121,15 @@
                                             <div class="form-group">
                                                 <label for="image">Topic New Image</label>
                                                 <input id="image" type="file" style="padding: 3px"
-                                                       class="form-control-file" name="image" />
+                                                       class="form-control-file" name="image"/>
                                             </div>
 
                                             <div class="modal-footer">
-                                                <button type="button" class="btn btn-default " data-dismiss="modal">Cancel</button>
-                                                <input type="submit" class="btn btn-primary " name="btn-add-topic" value="Update">
+                                                <button type="button" class="btn btn-default " data-dismiss="modal">
+                                                    Cancel
+                                                </button>
+                                                <input type="submit" class="btn btn-primary " name="btn-add-topic"
+                                                       value="Update">
                                             </div>
 
                                         </form>
@@ -198,7 +208,7 @@
                             <label for="image">Topic Image</label>
 
                             <input id="image" type="file" style="padding: 3px"
-                                   class="form-control-file" name="image" value="{{ old('image') }}" required />
+                                   class="form-control-file" name="image" value="{{ old('image') }}" required/>
                         </div>
 
 

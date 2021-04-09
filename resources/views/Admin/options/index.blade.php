@@ -80,6 +80,14 @@
                                                             </div>
 
                                                             <div class="form-group">
+                                                                <label for="text">Update Option Text<span
+                                                                            class="text-danger">*</span></label>
+                                                                <input type="text" class="form-control" id="text"
+                                                                       value="{{ $option->question_id }}" name="text"
+                                                                       required disabled>
+                                                            </div>
+
+                                                            <div class="form-group">
                                                                 <input id="correct" type="checkbox"
                                                                            name="correct" value="1"/>
                                                                 <label for="correct">Mark this option correct</label>
@@ -109,6 +117,7 @@
                         </div>
                     </div>
                 </div>
+                {{ $options->links('pagination::bootstrap-4') }}
 
             </div> <!-- container -->
 

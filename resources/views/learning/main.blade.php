@@ -94,7 +94,7 @@
                                                onclick="getResult('{{$option}}' , '{{$collection}}' )"
                                         />
 
-                                        <label for="{{$i}}" class="radio-label">{{ $option->text }}</label>
+                                        <label for="{{$i}}" class="radio-label text-capitalize">{{ $option->text }}</label>
 
                                         {{--<li id="{{$i}}" value="{{ $option->id }}"--}}
 
@@ -104,7 +104,7 @@
                                         {{--onclick="window.location='{{ url("/learning/check") }}'">--}}
                                         {{--@dd($question)--}}
 
-                                        {{--<input id="{{$i}}" class="-load o-hsub -link" type="radio" required--}}
+                                        {{--<span id="{{$i}}" class="-load o-hsub -link" type="radio" required--}}
                                         {{--name="option" value="{{ $option-> id }}">--}}
 
                                         {{--<span class="shine"></span>--}}

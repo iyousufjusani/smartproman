@@ -11,15 +11,24 @@ use Illuminate\Http\Request;
 
 class MainController extends Controller
 {
+
+    private $rightA = 0;
+    private $wrongA = 0;
+    private $skipA = 0;
+
     public function __construct()
     {
         $this->middleware('auth');
+
     }
 
     public function index($topic_id, $question_id)
     {
+
+//        dd($this->right);
+
         $topic = Topic::
-            with('questions.options')
+        with('questions.options')
             ->where('id', '=', $topic_id)
             ->first();
 
@@ -63,9 +72,9 @@ class MainController extends Controller
             where('topic_id', '=', $topic->id)
                 ->get();
 
-            $right = 0;
-            $wrong = 0;
-            $skip = 0;
+            $right = $this->rightA;
+            $wrong = $this->wrongA;
+            $skip = $this->skipA;
 
 //            $right = Session::get('right');;
 //            $wrong = Session::get('wrong');;
@@ -96,9 +105,9 @@ class MainController extends Controller
                 'topic' => 'required',
                 'questionId' => 'required',
                 'number' => 'required',
-                'right' => 'required',
-                'wrong' => 'required',
-                'skip' => 'required',
+//                'right' => 'required',
+//                'wrong' => 'required',
+//                'skip' => 'required',
                 'button' => 'required',
             ]);
         }
@@ -110,12 +119,12 @@ class MainController extends Controller
         $option = $request['option'];
         $next = $number + 1;
 
-        $right = $request['right'];
-        $wrong = $request['wrong'];
-        $skip = $request['skip'];
+        $this->rightA = $request['right'];
+        $this->wrongA = $request['wrong'];
+        $this->skipA = $request['skip'];
 
         if ($request['button'] == 'skip') {
-            $skip += 1;
+            $this->skipA += 1;
         }
 
 //        return $next;
@@ -130,16 +139,20 @@ class MainController extends Controller
         where('question_id', '=', $question_id)
             ->where('is_correct', '=', 1)
             ->first();
-        dd($correct);
+//        dd($correct);
         if ($correct['id'] == $option && $request['button'] == 'next') {
-            $right += 1;
+            $this->rightA += 1;
         } else if ($correct['id'] != $option && $request['button'] == 'next') {
-            $wrong += 1;
+            $this->wrongA += 1;
         }
 
 //        dd($number);
 //        dd($right);
 //        dd($wrong);
+
+        $right = $this->rightA;
+        $wrong = $this->wrongA;
+        $skip = $this->skipA;
 
         if ($number == $total_questions) {
 //            dd('hello');

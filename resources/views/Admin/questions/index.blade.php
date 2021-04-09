@@ -65,6 +65,7 @@
                         </div>
                     </div>
                 </div>
+                {{ $questions->links('pagination::bootstrap-4') }}
 
             </div> <!-- container -->
 

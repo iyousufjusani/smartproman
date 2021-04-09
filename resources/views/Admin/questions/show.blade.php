@@ -26,21 +26,24 @@
 
                 <div class="row">
                     <div class="col-sm-12">
-                        <b>Question ID : </b>{{$question -> id}}
+                        <b><u>Question ID : {{$question -> id}}</u></b>
                     </div>
                     <br>
+                    <br>
+                    <br>
                     <div class="col-sm-12">
+                        <h5><u>Question:</u></h5>
+
                         <p class="lead">
-                            <b>Question Text :</b>
                             {{$question -> text}}
                         </p>
                     </div>
                 </div>
 
-
+                <br>
                 {{--{{ $question -> topic_id }}--}}
                 {{--{{ $question -> created_at }}--}}
-                Options:
+                <h6>Options:</h6>
                 <ul>
                     @foreach($options as $index => $option)
                         <br>
@@ -48,7 +51,6 @@
                         <li>{{ $option -> text }}
                             @if($option -> is_correct == true)
                                 <span class="badge badge-custom" >correct</span>
-
                             @endif
                         </li>
 
