@@ -45,26 +45,27 @@
                                     </div>
 
 
-                                    {{--@if($admin -> is_super == 1)--}}
+                                    @if( Auth::user()-> is_super == 1)
 
 
-                                    <form action="{{ route('admins.destroy', $admin -> id) }}" method="post">
-                                        {{ csrf_field() }}
-                                        {{ method_field('delete') }}
+                                        <form action="{{ route('admins.destroy', $admin -> id) }}" method="post">
+                                            {{ csrf_field() }}
+                                            {{ method_field('delete') }}
 
-                                        <button type="button"
-                                                data-toggle="modal"
-                                                data-target="#edit-admin{{$admin -> id}}"
-                                                class="btn btn-info btn-sm m-t-10">Edit
-                                        </button>
+                                            <button type="button"
+                                                    data-toggle="modal"
+                                                    data-target="#edit-admin{{$admin -> id}}"
+                                                    class="btn btn-info btn-sm m-t-10">Edit
+                                            </button>
 
+                                            @if( $admin -> email != 'admin@smartproman.com')
+                                                <button type="submit" class="btn btn-danger btn-sm m-t-10">Delete
+                                                </button>
+                                            @endif
 
-                                        <button type="submit" class="btn btn-danger btn-sm m-t-10">Delete
-                                        </button>
+                                        </form>
 
-                                    </form>
-
-                                    {{--@endif--}}
+                                    @endif
 
 
                                 </div>

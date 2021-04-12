@@ -80,7 +80,7 @@
                                                             </div>
 
                                                             <div class="form-group">
-                                                                <label for="text">Update Option Text<span
+                                                                <label for="text">Question ID<span
                                                                             class="text-danger">*</span></label>
                                                                 <input type="text" class="form-control" id="text"
                                                                        value="{{ $option->question_id }}" name="text"

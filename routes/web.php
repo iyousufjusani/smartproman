@@ -16,16 +16,13 @@ use App\Http\Controllers;
 
 
 Route::get('/', function () {
+
     $title = 'Smart Pro Man Club';
     $subtitle = 'HVAC Engineering Professional Club';
     return view('index', compact('title', 'subtitle'));
+
 })->middleware('guest');
 
-Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
-
-Route::get('/admin-login', function () {
-    return view('Admin.admin-login');
-});
 
 //Route::resource('topics', 'TopicController');
 
@@ -45,37 +42,43 @@ Route::get('/admin-login', function () {
 
 //Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::get('/home', 'HomeController@index')->name('home');
 
-//Route::middleware('auth')->group(function () {
+Route::middleware('auth')->group(function () {
 
-//Route::get('/learning', 'MainController@')->name('main');
+    Route::get('/home', 'HomeController@index')->name('home');
+    //Route::get('/learning', 'MainController@')->name('main');
+    Route::get('/learning/{topic}/{question}', 'MainController@index')->name('main');
+    Route::post('/learning', 'MainController@nextQuestion')->name('nextQuestion');
+    Route::get('/learning/score')->name('score');
+    //Route::get('/score', 'ScoreController@nextTopic')->name('nextTopic');
+    Route::post('/learning/complete', 'ScoreController@learningCompleted');
 
-Route::get('/learning/{topic}/{question}', 'MainController@index')->name('main');
-
-Route::post('/learning', 'MainController@nextQuestion')->name('nextQuestion');
-
-
-Route::get('/learning/score')->name('score');
-
-
-
-//Route::get('/score', 'ScoreController@nextTopic')->name('nextTopic');
+});
 
 
-Route::post('/learning/complete', 'ScoreController@learningCompleted');
+Route::middleware(['auth', 'admin'])->prefix('dashboard')->group(function () {
 
-//});
+    Route::get('/', 'DashboardController@index')->name('dashboard');
 
-Route::resource('admins', 'AdminController');
-Route::resource('users', 'UserController');
-Route::resource('types', 'TypeController');
-Route::resource('topics', 'TopicController');
-Route::resource('questions', 'QuestionController');
-Route::resource('options', 'OptionController');
-Route::resource('pages', 'PageController');
-Route::resource('videos', 'VideoController');
-Route::resource('messages', 'MessageController');
+
+    Route::resource('admins', 'AdminController');
+    Route::resource('users', 'UserController');
+    Route::resource('types', 'TypeController');
+    Route::resource('topics', 'TopicController');
+    Route::resource('questions', 'QuestionController');
+    Route::resource('options', 'OptionController');
+    Route::resource('pages', 'PageController');
+    Route::resource('videos', 'VideoController');
+    Route::resource('messages', 'MessageController');
+
+});
+
+
+Route::get('/admin-login', function () {
+    return view('Admin.admin-login');
+});
+
+
 
 Auth::routes();
 

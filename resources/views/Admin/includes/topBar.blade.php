@@ -1,6 +1,3 @@
-
-
-
 <div class="topbar">
 
     <!-- LOGO -->
@@ -29,19 +26,17 @@
                     </a>
 
 
-
                 </div>
             </li>
-
-
 
 
             <li class="dropdown notification-list">
                 <a class="nav-link dropdown-toggle waves-effect waves-light nav-user" data-toggle="dropdown"
                    href="#" role="button"
                    aria-haspopup="false" aria-expanded="false">
-                    <img src="{{ asset("uploads/user_images/noImage.png")}}" alt="admin-img" class="rounded-circle"> <span
-                            class="ml-1">Admin Name<i class="mdi mdi-chevron-down"></i> </span>
+                    <img src="{{ asset("uploads/user_images/". Auth::user()->image)}}" alt="admin-img" class="rounded-circle">
+                    <span
+                            class="ml-1">{{ Auth::user()->name }}<i class="mdi mdi-chevron-down"></i> </span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right profile-dropdown ">
                     <!-- item-->
@@ -65,9 +60,15 @@
                     <!--                    </a>-->
 
                     <!-- item-->
-                    <a href="scripts/admin-logoutscript.php" class="dropdown-item notify-item">
-                        <i class="ti-power-off"></i> <span>Logout</span>
+                    <a class="dropdown-item notify-item" href="{{ route('logout') }}" onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                        <i class="ti-power-off"></i> <span>{{ __('Logout') }}</span>
                     </a>
+
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                        @csrf
+                    </form>
+
 
                 </div>
             </li>

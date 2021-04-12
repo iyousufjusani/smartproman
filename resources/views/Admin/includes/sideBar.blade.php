@@ -3,10 +3,10 @@
 <div class="left side-menu">
     <div class="user-details">
         <div class="pull-left">
-            <img src="{{ asset("uploads/user_images/noImage.png")}}" alt="admin-img" class="thumb-md rounded-circle">
+            <img src="{{ asset("uploads/user_images/". Auth::user()->image)}}" alt="admin-img" class="thumb-md rounded-circle">
         </div>
         <div class="user-info">
-            <a href="#">Admin Name</a>
+            <a href="#">{{ Auth::user()->name }}</a>
             <p class="text-muted m-0">Administrator</p>
         </div>
     </div>
