@@ -74,9 +74,9 @@
                                 <tbody>
                                 <tr>
                                     <!--                                        <td>--><?php //echo $attempted_questions = $total_questions - ($right_answers); ?><!--</td>-->
-                                    <td>{{ $right }}</td>
-                                    <td>{{ $wrong }}</td>
-                                    <td>{{ $skip }}</td>
+                                    {{--<td>{{ $right }}</td>--}}
+                                    {{--<td>{{ $wrong }}</td>--}}
+                                    {{--<td>{{ $skip }}</td>--}}
                                     <td>{{ $topic->questions->count() }}</td>
                                 </tr>
                                 </tbody>
@@ -85,9 +85,9 @@
                     </div>
                 </div>
                 <div hidden>
-                    <input type="hidden" name="right" value="{{ $right }}" />
-                    <input type="hidden" name="wrong" value="{{ $wrong }}" />
-                    <input type="hidden" name="skip" value="{{ $skip }}" />
+                    {{--<input type="hidden" name="right" value="{{ $right }}" />--}}
+                    {{--<input type="hidden" name="wrong" value="{{ $wrong }}" />--}}
+                    {{--<input type="hidden" name="skip" value="{{ $skip }}" />--}}
                     <input type="hidden" name="topic" value="{{ $topic->id }}">
                     <input type="hidden" name="number" value="{{'number'}}">
                 </div>

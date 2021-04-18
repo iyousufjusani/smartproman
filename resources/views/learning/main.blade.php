@@ -72,12 +72,12 @@
                                 </div>
 
                                 <div hidden>
-                                    <input type="hidden" name="right" value="{{ $right }}">
-                                    <input type="hidden" name="wrong" value="{{ $wrong }}">
-                                    <input type="hidden" name="skip" value="{{ $skip }}">
-                                    <input type="hidden" name="topic" value="{{$topic->id}}"/>
-                                    <input type="hidden" name="number" value="{{$question->number}}"/>
-                                    <input type="hidden" name="questionId" value="{{$question->id}}"/>
+                                    {{--<input type="hidden" name="right" value="{{ $right }}">--}}
+                                    {{--<input type="hidden" name="wrong" value="{{ $wrong }}">--}}
+                                    {{--<input type="hidden" name="skip" value="{{ $skip }}">--}}
+                                    {{--                                    <input type="hidden" name="topic" value="{{$topic->id}}"/>--}}
+                                    {{--                                    <input type="hidden" name="number" value="{{$question->number}}"/>--}}
+                                    {{--                                    <input type="hidden" name="questionId" value="{{$question->id}}"/>--}}
                                 </div>
 
                                 {{--<ul class='list-home option-container'>--}}
@@ -90,11 +90,11 @@
                                         <input type="radio"
                                                name="option" id="{{$i}}"
                                                value="{{ $option-> id }}"
-                                               required
                                                onclick="getResult('{{$option}}' , '{{$collection}}' )"
                                         />
 
-                                        <label for="{{$i}}" class="radio-label text-capitalize">{{ $option->text }}</label>
+                                        <label for="{{$i}}"
+                                               class="radio-label text-capitalize">{{ $option->text }}</label>
 
                                         {{--<li id="{{$i}}" value="{{ $option->id }}"--}}
 
@@ -128,13 +128,14 @@
                         <div style="display: flex; flex-direction: row; justify-content: center " class="text-center">
 
                             <button type="submit" class="slideshow-slide-caption-subtitle -load o-hsub -link"
-                                    style="background-color: red !important; border-color: red !important; text-transform: uppercase;"
-                                    name="button" value="skip">Skip
-                                {{--<span class="shine"></span>--}}
-                                {{--<span class="slideshow-slide-caption-subtitle-label">{{ __('Back') }}</span>--}}
+                                    formaction="{{ action('MainController@skipQuestion') }}"
+                                    name="skip" value="skip"
+                                    style="background-color: red !important; border-color: red !important; text-transform: uppercase;">
+                                <span class="shine"></span>
+                                <span class="slideshow-slide-caption-subtitle-label">{{ __('Skip') }}</span>
                             </button>&nbsp;&nbsp;
                             <button type="submit" class="slideshow-slide-caption-subtitle -load o-hsub -link"
-                                    name="button" value="next"
+                                    name="next" value="next"
                                     style="background-color: red !important; border-color: red !important; text-transform: uppercase;">
                                 <span class="shine"></span>
                                 <span class="slideshow-slide-caption-subtitle-label">{{ __('Next') }}</span>
@@ -257,7 +258,7 @@
             <div>
                 <br><br>
 
-                <h1 class="text-capitalize">No topics uploaded!!!</h1>
+                <h1 class="text-capitalize">No Content Uploaded!!!</h1>
                 <br><br>
                 <hr style="border-bottom: 4px solid red; margin: 50px">
 

@@ -18,7 +18,8 @@
                                 {{ session('status') }}
                             </div>
                         @endif
-                        <h5 class="text-center"> {{ __('Welcome, ') }} <span class="text-capitalize">{{ Auth::user()->name }}</span>{{ __(' to ') }} <span
+                        <h5 class="text-center"> {{ __('Welcome, ') }} <span
+                                    class="text-capitalize">{{ Auth::user()->name }}</span>{{ __(' to ') }} <span
                                     class="color">{{config('app.name', 'SmartProMan') . __('!') }}</span></h5>
 
                         <hr>
@@ -31,15 +32,27 @@
                                 </li>
                             @endforeach
                         </ol>
-                        {{--@dd($topics)--}}
-                            {{--@dd($topics[0]->questions[0]->id)--}}
 
-                            <div class="text-center">
-                            <a href="/learning/{{$topics[0]->id}}/{{$topics[0]->questions[0]->id }}" class="slideshow-slide-caption-subtitle -load o-hsub -link"
-                               style="background-color: #ffb41d;">
-                                <span class="shine"></span>
-                                <span class="slideshow-slide-caption-subtitle-label">{{ __('Start Learning') }}</span>
-                            </a>
+                        <div class="text-center">
+{{--                            @dd(session('learning'))--}}
+
+                            @if(session('learning'))
+                                {{--<h1>{{session()->get('learning')['question']->id}}</h1>--}}
+                                <a href="/start/{{session()->get('learning')['topic']->title}}/{{ encrypt(session()->get('learning')['question']->id) }}"
+                                   class="slideshow-slide-caption-subtitle -load o-hsub -link"
+                                   style="background-color: #ffb41d;">
+                                    <span class="shine"></span>
+                                    <span class="slideshow-slide-caption-subtitle-label">{{ __('Continue Learning') }}</span>
+                                </a>
+                            @else
+                                <a href="/start/{{$topics[0]->title}}/{{ encrypt($topics[0]->questions[0]->id) }}"
+                                   class="slideshow-slide-caption-subtitle -load o-hsub -link"
+                                   style="background-color: #ffb41d;">
+                                    <span class="shine"></span>
+                                    <span class="slideshow-slide-caption-subtitle-label">{{ __('Start Learning') }}</span>
+                                </a>
+                            @endif
+
                         </div>
 
 

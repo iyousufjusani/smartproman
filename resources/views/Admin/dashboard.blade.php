@@ -60,9 +60,6 @@
                                 </div>
 
 
-
-
-
                             </div>
                         </div>
                     </div>
@@ -86,47 +83,60 @@
                                         </th>
                                         <th>#ID</th>
                                         <th>Name</th>
-                                        <th>Email</th>
+                                        <th colspan="2">Email</th>
                                         <th>Date</th>
                                     </tr>
                                     </thead>
 
                                     <tbody>
 
+                                    @foreach($admins as $admin)
+                                        <tr>
+                                            <td>
+                                                <!--                                            <div class="checkbox checkbox-primary m-r-15">-->
+                                                <!--                                                <input id="checkbox2" type="checkbox">-->
+                                                <!--                                               <label for="checkbox2"></label>-->
+                                                <!--                                            </div>-->
 
-                                    <tr>
-                                        <td>
-                                            <!--                                            <div class="checkbox checkbox-primary m-r-15">-->
-                                            <!--                                                <input id="checkbox2" type="checkbox">-->
-                                            <!--                                               <label for="checkbox2"></label>-->
-                                            <!--                                            </div>-->
+                                                <img src="{{ asset("uploads/user_images/". $admin->image)}}"
+                                                     alt="contact-img"
+                                                     title="contact-img" class="rounded-circle thumb-sm"/>
+                                            </td>
 
-                                            <img src="uploads/" alt="contact-img"
-                                                 title="contact-img" class="rounded-circle thumb-sm"/>
-                                        </td>
+                                            <td>
+                                                {{$admin->id}}
+                                            </td>
 
-                                        <td>
-                                            Admin ID
-                                        </td>
+                                            <td>
+                                                {{$admin->name}}
+                                            </td>
 
-                                        <td>
-                                            Admin Name
-                                        </td>
+                                            <td>
+                                                <a href="#" class="text-muted">{{$admin->email}}</a>
+                                            </td>
 
-                                        <td>
-                                            <a href="#" class="text-muted">Admin email</a>
-                                        </td>
+                                            <td>
+                                                <a>
+                                                    <span class="badge @if($admin -> is_super == 1) {{'badge-info'}} @else {{'badge-warning'}}@endif">
+                                                        @if($admin -> is_super == 1)
+                                                            {{'Super Admin'}}
+                                                        @else
+                                                            {{'Admin'}}
+                                                        @endif
+                                                    </span>
+                                                    {{--{{$admin->is_super}}--}}
+                                                </a>
+                                            </td>
+                                            <!--                                            <td>-->
+                                            <!--                                                <b><a href="" class="text-dark"><b>356</b></a> </b>-->
+                                            <!--                                            </td>-->
 
-                                        <!--                                            <td>-->
-                                        <!--                                                <b><a href="" class="text-dark"><b>356</b></a> </b>-->
-                                        <!--                                            </td>-->
+                                            <td>
+                                                {{$admin->created_at}}
+                                            </td>
 
-                                        <td>
-                                            Admin time
-                                        </td>
-
-                                    </tr>
-
+                                        </tr>
+                                    @endforeach
 
                                     </tbody>
                                 </table>
@@ -143,10 +153,10 @@
 
             <!-- Down Bar Start -->
 
-            @include('Admin.includes.downBar')
+        @include('Admin.includes.downBar')
 
 
-            <!-- Down Bar End -->
+        <!-- Down Bar End -->
 
 
         </div> <!-- content -->

@@ -4,7 +4,35 @@
 
 @section('content')
 
+    <style>
+        ul {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: center;
+            list-style: none;
+            text-align: center;
+        }
 
+        ul > li {
+            /*display: table-cell;*/
+            /*display: inline;*/
+            width: 30px;
+            border: 2px solid black;
+            padding: 5px;
+            margin: 5px;
+            text-align: center;
+
+
+        }
+        .myTable-link {
+            font-size: 12px;
+            font-weight: 600;
+        }
+    </style>
+
+    <br><br>
+    {{--@dd('main2')--}}
     <br>
     {{--    @dd($topic)--}}
     @if($topic)
@@ -29,38 +57,42 @@
                         <div class='dflex-center'>
                             <div class='col-home'>
                                 <div class='heading' style="text-align: center">{{ $topic->title }}</div>
+                                <div class="row" style="display: flex; justify-content: center">
+                                    <img src="uploads/chap5_1.PNG"  alt="chp_5_1">
+
+                                </div>
                                 <div class='content'>
                                     {{--@dd($topic)--}}
                                     <p class="question-number"><b
-                                                style="font-weight: 700">Question {{ $question -> number }}
+                                                style="font-weight: 700">Question question -> number
                                             of {{ $topic -> questions -> count() }} : </b></p>
-                                    <p class="question-text">{{ $question -> text }} </p>
+                                    <p class="question-text"> question -> text  </p>
                                 </div>
 
                                 <div hidden>
-                                    <input type="hidden" name="right" value="{{ $right }}">
-                                    <input type="hidden" name="wrong" value="{{ $wrong }}">
-                                    <input type="hidden" name="skip" value="{{ $skip }}">
-                                    <input type="hidden" name="topic" value="{{$topic->id}}"/>
-                                    <input type="hidden" name="number" value="{{$question->number}}"/>
-                                    <input type="hidden" name="questionId" value="{{$question->id}}"/>
+                                    {{--<input type="hidden" name="right" value="{{ $right }}">--}}
+                                    {{--<input type="hidden" name="wrong" value="{{ $wrong }}">--}}
+                                    {{--<input type="hidden" name="skip" value="{{ $skip }}">--}}
+                                    {{--<input type="hidden" name="topic" value="{{$topic->id}}"/>--}}
+                                    {{--<input type="hidden" name="number" value="{{$question->number}}"/>--}}
+                                    {{--<input type="hidden" name="questionId" value="{{$question->id}}"/>--}}
                                 </div>
 
                                 {{--<ul class='list-home option-container'>--}}
                                 <div>
-                                    @php
-                                        $collection =  $question->options->shuffle()
-                                    @endphp
-                                    @foreach( $collection as $i => $option)
+                                    {{--@php--}}
+                                        {{--$collection =  $question->options->shuffle()--}}
+                                    {{--@endphp--}}
+                                    {{--@foreach( $collection as $i => $option)--}}
                                         {{--<li>{{ $error }}</li>--}}
-                                        <input type="radio"
-                                               name="option" id="{{$i}}"
-                                               value="{{ $option-> id }}"
-                                               required
-                                               onclick="getResult('{{$option}}' , '{{$collection}}' )"
-                                        />
+                                        {{--<input type="radio"--}}
+                                               {{--name="option" id="{{$i}}"--}}
+                                               {{--value="{{ $option-> id }}"--}}
+                                               {{--required--}}
+                                               {{--onclick="getResult('{{$option}}' , '{{$collection}}' )"--}}
+                                        {{--/>--}}
 
-                                        <label for="{{$i}}" class="radio-label text-capitalize">{{ $option->text }}</label>
+                                        {{--<label for="{{$i}}" class="radio-label text-capitalize">{{ $option->text }}</label>--}}
 
                                         {{--<li id="{{$i}}" value="{{ $option->id }}"--}}
 
@@ -81,7 +113,7 @@
                                         {{--value="{{ $option-> id }}">--}}
 
                                         {{--</li>--}}
-                                    @endforeach
+                                    {{--@endforeach--}}
                                 </div>
                                 {{--</ul>--}}
 

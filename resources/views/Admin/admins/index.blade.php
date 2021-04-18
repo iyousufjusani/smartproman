@@ -147,18 +147,18 @@
                 <!-- end row -->
 
 
-                {{--@if($admin -> is_super == 1)--}}
-                <div class="row">
-                    <div class="col-sm-12 text-center">
+                @if( Auth::user()-> is_super == 1)
+                    <div class="row">
+                        <div class="col-sm-12 text-center">
 
+                        </div>
+                        <div class="col-sm-12 text-center">
+                            <button class="btn btn-primary btn-rounded btn-lg m-b-30 center-page" data-toggle="modal"
+                                    data-target="#add-admin">Add Admin
+                            </button>
+                        </div><!-- end col -->
                     </div>
-                    <div class="col-sm-12 text-center">
-                        <button class="btn btn-primary btn-rounded btn-lg m-b-30 center-page" data-toggle="modal"
-                                data-target="#add-admin">Add Admin
-                        </button>
-                    </div><!-- end col -->
-                </div>
-            {{--@endif--}}
+            @endif
             <!-- end row -->
 
             {{ $admins->links('pagination::bootstrap-4') }}

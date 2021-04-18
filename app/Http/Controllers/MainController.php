@@ -8,6 +8,8 @@ use App\Models\Question;
 use App\Models\Topic;
 use App\Models\Video;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
+
 
 class MainController extends Controller
 {
@@ -20,16 +22,170 @@ class MainController extends Controller
     {
         $this->middleware('auth');
 
+        Session::put("right", '0');
+        Session::put("wrong", '0');
+        Session::put("skip", '0');
     }
 
-    public function index($topic_id, $question_id)
+
+    public function startLearning($topicTitle, $questionID)
+    {
+
+        // get req
+        // create season -> save topic id question id
+        $topic = Topic::
+        with('questions')
+            ->where('title', '=', $topicTitle)
+            ->first();
+
+        if ($topic != null) {
+
+            $question_id = decrypt($questionID);
+
+            $question = Question::
+            with('options')
+                ->where('id', '=', $question_id)
+                ->where('topic_id', '=', $topic->id)
+                ->first();
+
+            $pages = Page::
+            where('topic_id', '=', $topic->id)
+                ->get();
+
+            $videos = Video::
+            where('topic_id', '=', $topic->id)
+                ->get();
+
+
+            $obj = [
+                'topic' => $topic,
+                'question' => $question,
+            ];
+            Session::put('learning', $obj);
+
+            //            Session::put("next", $question->id);
+            //        dd($question);
+            return view('learning.main', compact('topic', 'question', 'pages', 'videos'));
+
+        }
+        return view('learning.main', compact('topic'));
+    }
+
+    public function nextQuestion(Request $request)
+    {
+        $this->validate($request, [
+            'option' => 'required',
+            'next' => 'required',
+        ]);
+
+
+        $q_id = Session::get('learning')['question']->id;
+        $q_number = Session::get('learning')['question']->number;
+        $t_id = Session::get('learning')['topic']->id;
+
+        $topic = Topic::
+        where('id', '=', $t_id)
+            ->first();
+        $total_questions = $topic->questions->count();
+
+        if ($q_number == $total_questions) {
+            return view('learning.score', compact('topic'));
+        } else {
+
+            // get the current question
+            $current_question = Question::find($q_id);
+            // get next question id
+            $next = Question::where('topic_id', '=', 1)->where('id', '>', $current_question->id)->min('id');
+            //            dd($next);
+
+            //topic name or encrypt question id
+            return redirect()->route('start', [$topic->title, encrypt($next)]);
+        }
+
+    }
+
+    public function skipQuestion(Request $request)
+    {
+        $skip = Session::get('skip');
+
+        $this->validate($request, [
+            'skip' => 'required',
+        ]);
+
+        $skip+=1;
+
+        $q_id = Session::get('learning')['question']->id;
+        $q_number = Session::get('learning')['question']->number;
+        $t_id = Session::get('learning')['topic']->id;
+
+        $topic = Topic::
+        where('id', '=', $t_id)
+            ->first();
+        $total_questions = $topic->questions->count();
+
+        Session::put('skip', $skip);
+
+        if ($q_number == $total_questions) {
+            return view('learning.score', compact('topic'));
+        } else {
+
+            // get the current question
+            $current_question = Question::find($q_id);
+            // get next question id
+            $next = Question::where('topic_id', '=', 1)->where('id', '>', $current_question->id)->min('id');
+            //            dd($next);
+
+            //topic name or encrypt question id
+            return redirect()->route('start', [$topic->title, encrypt($next)]);
+        }
+
+    }
+
+    public function submitAnswer(Request $request)
+    {
+
+        $right = Session::get('right');
+        $wrong = Session::get('wrong');
+
+        if ($request['button'] == 'next') {
+            $this->validate($request, [
+                'option' => 'required',
+                'button' => 'required',
+            ]);
+        }
+
+        $question = Session::get('learning')['question'];
+//        dd($question);
+
+        $option = Option::
+        where('id', '=', $request['option'])
+            ->where('question_id', '=', $question->id)
+            ->first();
+//        dd($option);
+
+        if ($option->is_correct == 1) {
+            $right += 1;
+        } else {
+            $wrong += 1;
+        }
+
+        Session::put("right", $right);
+        Session::put("wrong", $wrong);
+
+
+    }
+
+
+    public function index($topic_id, $q_id)
     {
 
 //        dd($this->right);
+        $question_id = decrypt($q_id);
+
 
         $topic = Topic::
         with('questions.options')
-            ->where('id', '=', $topic_id)
+            ->where('title', '=', $topic_id)
             ->first();
 
 //        $total_questions = Question::
@@ -43,7 +199,7 @@ class MainController extends Controller
             $question = Question::
             with('options')
                 ->where('id', '=', $question_id)
-                ->where('topic_id', '=', $topic_id)
+                ->where('topic_id', '=', $topic->id)
                 ->first();
 
 //        dd($question);
@@ -68,6 +224,7 @@ class MainController extends Controller
             $pages = Page::
             where('topic_id', '=', $topic->id)
                 ->get();
+
             $videos = Video::
             where('topic_id', '=', $topic->id)
                 ->get();
@@ -88,6 +245,16 @@ class MainController extends Controller
             if ($topic->type_id == 2) {
                 return view('learning.main2', compact('topic', 'question'));
             }
+
+            $obj = [
+
+                'topic' => $topic->title,
+                'question' => $question,
+
+            ];
+
+            Session::put('learning', $obj);
+
             return view('learning.main', compact('topic', 'question', 'pages', 'videos', 'right', 'wrong', 'skip'));
 
         }
@@ -95,7 +262,36 @@ class MainController extends Controller
         return view('learning.main', compact('topic'));
     }
 
-    public function nextQuestion(Request $request)
+    public function type2()
+    {
+
+        $topic = Topic::
+        with('questions.options')
+            ->where('id', '=', 5)
+            ->first();
+
+        if ($topic != null) {
+//            return 'No topics';
+
+            $question = Question::
+            with('options')
+                ->where('topic_id', '=', 5)
+                ->get();
+
+            $pages = Page::
+            where('topic_id', '=', $topic->id)
+                ->get();
+            $videos = Video::
+            where('topic_id', '=', $topic->id)
+                ->get();
+        }
+
+
+        return view('learning.main2', compact('topic', 'question', 'pages', 'videos'));
+
+    }
+
+    public function nextQuestion1(Request $request)
     {
 //        return $request;
 
@@ -164,8 +360,8 @@ class MainController extends Controller
 
         }
 
-
-        return redirect()->route('main', [$topic_id, $next]);
+        //topic name or encrypt question id
+        return redirect()->route('main', [$topic->title, $next]);
 
 
 //        $question = Question::

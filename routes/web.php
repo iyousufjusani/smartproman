@@ -24,41 +24,42 @@ Route::get('/', function () {
 })->middleware('guest');
 
 
-//Route::resource('topics', 'TopicController');
-
-
-//Route::get('/welcome', function (){
-//    return "Laravel app";
-//});
-//
-//
-//Route::get('/home/{name?}', function ($name="Guest"){
-//    return "Welcome, " . $name;
-//});
-
-//Route::redirect('/','home');
-//Route::view('/','welcome');
-
-
-//Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 
 Route::middleware('auth')->group(function () {
 
     Route::get('/home', 'HomeController@index')->name('home');
+
+
+    Route::get('/start/{topic}/{question}', 'MainController@startLearning')->name('start');
+    Route::any('/submitAnswer', 'MainController@submitAnswer')->name('submitAnswer');
+
+
+    Route::any('/nextQuestion', 'MainController@nextQuestion')->name('nextQuestion');
+    Route::any('/skipQuestion', 'MainController@skipQuestion')->name('skipQuestion');
+    Route::get('/score')->name('score');
+
+
+
     //Route::get('/learning', 'MainController@')->name('main');
     Route::get('/learning/{topic}/{question}', 'MainController@index')->name('main');
-    Route::post('/learning', 'MainController@nextQuestion')->name('nextQuestion');
-    Route::get('/learning/score')->name('score');
+
+    Route::post('/learning', 'MainController@nextQuestion1')->name('nextQuestion1');
+
+
+    Route::get('/learning/score')->name('score1');
     //Route::get('/score', 'ScoreController@nextTopic')->name('nextTopic');
     Route::post('/learning/complete', 'ScoreController@learningCompleted');
 
+
+    Route::get('/main2','MainController@type2')->name('main2');
 });
 
 
 Route::middleware(['auth', 'admin'])->prefix('dashboard')->group(function () {
 
     Route::get('/', 'DashboardController@index')->name('dashboard');
+
 
 
     Route::resource('admins', 'AdminController');
@@ -74,9 +75,6 @@ Route::middleware(['auth', 'admin'])->prefix('dashboard')->group(function () {
 });
 
 
-Route::get('/admin-login', function () {
-    return view('Admin.admin-login');
-});
 
 
 
