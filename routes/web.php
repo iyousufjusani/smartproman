@@ -30,14 +30,21 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/home', 'HomeController@index')->name('home');
 
-
     Route::get('/start/{topic}/{question}', 'MainController@startLearning')->name('start');
+
+    Route::get('/start2/{topic}', 'MainController@type2')->name('start2');
+
+
     Route::any('/submitAnswer', 'MainController@submitAnswer')->name('submitAnswer');
 
 
     Route::any('/nextQuestion', 'MainController@nextQuestion')->name('nextQuestion');
     Route::any('/skipQuestion', 'MainController@skipQuestion')->name('skipQuestion');
-    Route::get('/score')->name('score');
+
+    Route::any('/score/{topic}', 'ScoreController@index')->name('score');
+    Route::any('/nextTopic', 'ScoreController@nextTopic')->name('nextTopic');
+
+
 
 
 
@@ -47,7 +54,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/learning', 'MainController@nextQuestion1')->name('nextQuestion1');
 
 
-    Route::get('/learning/score')->name('score1');
+//    Route::get('/learning/score')->name('score1');
     //Route::get('/score', 'ScoreController@nextTopic')->name('nextTopic');
     Route::post('/learning/complete', 'ScoreController@learningCompleted');
 

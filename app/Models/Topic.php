@@ -13,6 +13,11 @@ class Topic extends Model
         return $this->belongsTo(Type::class,'type_id');
     }
 
+    public function details()
+    {
+        return $this->hasMany(TopicDetail::class);
+    }
+
     public function pages()
     {
         return $this->hasMany(Page::class);

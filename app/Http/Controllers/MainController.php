@@ -22,9 +22,7 @@ class MainController extends Controller
     {
         $this->middleware('auth');
 
-        Session::put("right", '0');
-        Session::put("wrong", '0');
-        Session::put("skip", '0');
+
     }
 
 
@@ -89,7 +87,9 @@ class MainController extends Controller
         $total_questions = $topic->questions->count();
 
         if ($q_number == $total_questions) {
-            return view('learning.score', compact('topic'));
+//            dd($topic);
+//            return view('learning.score', compact('topic'));
+            return redirect()->route('score', [$topic]);
         } else {
 
             // get the current question
@@ -112,7 +112,7 @@ class MainController extends Controller
             'skip' => 'required',
         ]);
 
-        $skip+=1;
+        $skip += 1;
 
         $q_id = Session::get('learning')['question']->id;
         $q_number = Session::get('learning')['question']->number;
@@ -126,13 +126,13 @@ class MainController extends Controller
         Session::put('skip', $skip);
 
         if ($q_number == $total_questions) {
-            return view('learning.score', compact('topic'));
+            return redirect()->route('score', [$topic]);
         } else {
 
             // get the current question
             $current_question = Question::find($q_id);
             // get next question id
-            $next = Question::where('topic_id', '=', 1)->where('id', '>', $current_question->id)->min('id');
+            $next = Question::where('topic_id', '=', $t_id)->where('id', '>', $current_question->id)->min('id');
             //            dd($next);
 
             //topic name or encrypt question id
@@ -262,12 +262,12 @@ class MainController extends Controller
         return view('learning.main', compact('topic'));
     }
 
-    public function type2()
+    public function type2($topicTitle)
     {
 
         $topic = Topic::
         with('questions.options')
-            ->where('id', '=', 5)
+            ->where('title', '=', $topicTitle)
             ->first();
 
         if ($topic != null) {
@@ -275,7 +275,7 @@ class MainController extends Controller
 
             $question = Question::
             with('options')
-                ->where('topic_id', '=', 5)
+                ->where('topic_id', '=', $topic->id)
                 ->get();
 
             $pages = Page::
@@ -284,6 +284,7 @@ class MainController extends Controller
             $videos = Video::
             where('topic_id', '=', $topic->id)
                 ->get();
+
         }
 
 
@@ -380,15 +381,6 @@ class MainController extends Controller
 //
 //        return view('learning.main', compact('topic', 'question', 'pages', 'videos', 'right', 'wrong', 'skip'));
 
-    }
-
-
-    public function nextTopic(Request $request, $topic_id)
-    {
-
-//        Session::put('right', 0);
-//        Session::put('wrong', 0);
-//        Session::put('skip', 0);
     }
 
 

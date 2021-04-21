@@ -53,8 +53,9 @@
     <br>
     <section aria-label="section" class='container text-center' style="display: flex ; justify-content: center">
         <div class='row'>
-            <form method="get" action="" >
-
+            <form method="post" action="{{ action('ScoreController@nextTopic') }}">
+                {{ csrf_field() }}
+                {{ method_field('post') }}
                 <div class="col-md-12">
 
                     <div class=''>
@@ -77,6 +78,11 @@
                                     {{--<td>{{ $right }}</td>--}}
                                     {{--<td>{{ $wrong }}</td>--}}
                                     {{--<td>{{ $skip }}</td>--}}
+
+                                    <td>@if(session('right')){{ session()->get('right') }}@else 0 @endif</td>
+                                    <td>@if(session('wrong')){{ session()->get('wrong') }}@else 0 @endif</td>
+                                    <td>@if(session('skip')){{ session()->get('skip') }}@else 0 @endif</td>
+
                                     <td>{{ $topic->questions->count() }}</td>
                                 </tr>
                                 </tbody>
@@ -88,14 +94,14 @@
                     {{--<input type="hidden" name="right" value="{{ $right }}" />--}}
                     {{--<input type="hidden" name="wrong" value="{{ $wrong }}" />--}}
                     {{--<input type="hidden" name="skip" value="{{ $skip }}" />--}}
-                    <input type="hidden" name="topic" value="{{ $topic->id }}">
-                    <input type="hidden" name="number" value="{{'number'}}">
+                    {{--<input type="hidden" name="topic" value="{{ $topic->id }}">--}}
+                    {{--<input type="hidden" name="number" value="{{'number'}}">--}}
                 </div>
 
                 <div class="col-md-12">
                     <div class="button-centr">
                         <br>
-                        <button type="button" class="slideshow-slide-caption-subtitle -load o-hsub -link"
+                        <button type="submit" class="slideshow-slide-caption-subtitle -load o-hsub -link"
                                 name="button" value="nextTopic"
                                 style="background-color: red !important; border-color: red !important; text-transform: uppercase;">
                             <span class="shine"></span>
@@ -103,7 +109,7 @@
                         </button>
 
                         {{--<button class="topic-button" name="next-topic">--}}
-                            {{--Next Topic--}}
+                        {{--Next Topic--}}
                         {{--</button>--}}
 
                     </div>

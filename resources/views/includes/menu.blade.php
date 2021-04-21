@@ -25,22 +25,22 @@
                         <li>
                             <a class="animsition-link" data-animsition-out-class="overlay-slide-out-right"
                                href="/">
-                                About
+                                {{ __('About') }}
                             </a>
                         </li>
                         <li>
                             <a class="animsition-link" data-animsition-out-class="overlay-slide-out-right"
                                href="/">
-                                Contact
+                                {{ __('Contact') }}
                             </a>
                         </li>
                         <li>
                             <a class="animsition-link" data-animsition-out-class="overlay-slide-out-right"
                                href="{{route('login')}}">
-                                Sign Up
+                                {{ __('Sign Up') }}
                             </a>
                         </li>
-                    </ul>
+                    </ul>s
                 @else
                     <ul>
                         <span class="share_title">Welcome, <b class="color text-capitalize">{{ Auth::user()->name }}</b></span>
@@ -55,6 +55,12 @@
                             <a class="animsition-link" data-animsition-out-class="overlay-slide-out-right"
                                href="scoreboard">
                                 {{ __('Scoreboard') }}
+                            </a>
+                        </li>
+                        <li>
+                            <a class="animsition-link" data-animsition-out-class="overlay-slide-out-right"
+                               href="contact">
+                                {{ __('Contact') }}
                             </a>
                         </li>
                         <li>

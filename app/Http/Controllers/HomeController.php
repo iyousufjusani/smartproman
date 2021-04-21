@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Topic;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class HomeController extends Controller
 {
@@ -15,6 +16,9 @@ class HomeController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        Session::put("right", '0');
+        Session::put("wrong", '0');
+        Session::put("skip", '0');
     }
 
     /**

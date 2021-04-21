@@ -13,4 +13,9 @@ class Type extends Model
     {
         return $this->hasMany(Topic::class);
     }
+
+    public function details()
+    {
+        return $this->hasMany(TopicDetail::class);
+    }
 }

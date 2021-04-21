@@ -58,8 +58,7 @@
                     {{ csrf_field() }}
                     {{ method_field('post') }}
                     {{--@dd($topic)--}}
-                    <div class="col-md-12 ">
-
+                    <div class="col-md-10 center">
                         <div class='dflex-center'>
                             <div class='col-home'>
                                 <div class='heading' style="text-align: center">{{ $topic->title }}</div>
@@ -161,33 +160,34 @@
 
                 <div class="col-md-12">
 
+                    @if($pages->count() > 0)
+                        <div id="owl-team" class="owl-carousel owl-theme slick slickteam">
+                            @foreach($pages as $page)
+                                <div class='item'>
 
-                    <div id="owl-team" class="owl-carousel owl-theme slick slickteam">
+                                    <img style="height: 500px"
+                                         id="myImg"
+                                         src="{{ url("uploads/topic_images/" , $page -> image)}}"
+                                         class="img-fluid myImg1"
+                                         alt="topic-img"
+                                         onclick="setImageId('{{$page->id}}');"
+                                    />
 
-                        @foreach($pages as $page)
-                            <div class='item'>
+                                    <div class='desc'>
+                                        <div class='title'
+                                             style="color: red; font-weight: 900">{{$page->title}}</div>
+                                    </div>
 
-                                <img style="height: 500px"
-                                     id="myImg"
-                                     src="{{ url("uploads/topic_images/" , $page -> image)}}"
-                                     class="img-fluid myImg1"
-                                     alt="topic-img"
-                                     onclick="setImageId('{{$page->id}}');"
-                                />
-
-                                <div class='desc'>
-                                    <div class='title'
-                                         style="color: red; font-weight: 900">{{$page->title}}</div>
                                 </div>
+                                {{--$imageId = $row['imageID']--}}
 
-                            </div>
-                            {{--$imageId = $row['imageID']--}}
-
-                        @endforeach
+                            @endforeach
 
 
-                    </div>
-
+                        </div>
+                    @else
+                        No related Text Book Images
+                    @endif
                 </div>
 
             </div>
@@ -204,51 +204,51 @@
                 </div>
 
                 <div class="col-12">
+                    @if($videos->count() > 0)
+                        <div id="owl-news" class="owl-carousel owl-theme slick slicknews">
+                            @foreach($videos as $video)
+                                <div class='item'>
 
-                    <div id="owl-news" class="owl-carousel owl-theme slick slicknews">
+                                    <iframe width="450" height="490" src="{{ $video->link }}" frameborder="0"
+                                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                            allowfullscreen></iframe>
+                                    <!--<div class='bg'>-->
 
-
-                        @foreach($videos as $video)
-                            <div class='item'>
-
-                                <iframe width="450" height="490" src="{{ $video->link }}" frameborder="0"
-                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                        allowfullscreen></iframe>
-                                <!--<div class='bg'>-->
-
-                                <!--&lt;!&ndash;<img-->
-                                <!--src="assets/img/news/img1.jpg"-->
-                                <!--class="img-fluid"-->
-                                <!--alt="Imageteam"-->
-                                <!--/>&ndash;&gt;-->
-                                <!--</div>-->
-                                <div style="color: black; text-align: center">
-                                    <!--                            <div class='date'> Sept 08, 2020</div>-->
-                                    <div class='date'>
-                                        @php
-                                            $time = $video->updated_at;
-                                            $old_date = date($time);
-                                            $old_date_timestamp = strtotime($old_date);
-                                            $new_date = date('F d, Y', $old_date_timestamp);
-                                            echo $new_date;
-                                        @endphp
+                                    <!--&lt;!&ndash;<img-->
+                                    <!--src="assets/img/news/img1.jpg"-->
+                                    <!--class="img-fluid"-->
+                                    <!--alt="Imageteam"-->
+                                    <!--/>&ndash;&gt;-->
+                                    <!--</div>-->
+                                    <div style="color: black; text-align: center">
+                                        <!--                            <div class='date'> Sept 08, 2020</div>-->
+                                        <div class='date'>
+                                            @php
+                                                $time = $video->updated_at;
+                                                $old_date = date($time);
+                                                $old_date_timestamp = strtotime($old_date);
+                                                $new_date = date('F d, Y', $old_date_timestamp);
+                                                echo $new_date;
+                                            @endphp
+                                        </div>
+                                        <div class="name" style="font-weight: 900"> {{ $video-> title }}</div>
                                     </div>
-                                    <div class="name" style="font-weight: 900"> {{ $video-> title }}</div>
+
+                                    <!--<div class='icon'>-->
+                                    <!--<a class="animsition-link" data-animsition-out-class="overlay-slide-out-left"-->
+                                    <!--href="#">-->
+                                    <!--Read More-->
+                                    <!--</a>-->
+                                    <!--</div>-->
                                 </div>
 
-                                <!--<div class='icon'>-->
-                                <!--<a class="animsition-link" data-animsition-out-class="overlay-slide-out-left"-->
-                                <!--href="#">-->
-                                <!--Read More-->
-                                <!--</a>-->
-                                <!--</div>-->
-                            </div>
-
-                        @endforeach
+                            @endforeach
 
 
-                    </div>
-
+                        </div>
+                    @else
+                        No related Videos in this topic
+                    @endif
                 </div>
 
             </div>
