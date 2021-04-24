@@ -45,8 +45,8 @@ class VideoController extends Controller
             //'image' => 'required',
         ]);
 
-        if($request['type_id'] == null){
-            $request['type_id'] = 1;
+        if($request['topic_id'] == null){
+            $request['topic_id'] = 1;
         }
 
         Video::create([

@@ -5,38 +5,41 @@
 @section('content')
 
     <style>
-        /*ul {*/
-            /*display: flex;*/
-            /*flex-direction: row;*/
-            /*flex-wrap: wrap;*/
-            /*justify-content: center;*/
-            /*list-style: none;*/
-            /*text-align: center;*/
-        /*}*/
+        ul.option {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: center;
+            list-style: none;
+            text-align: center;
+        }
 
-        /*ul > li {*/
-            /*!*display: table-cell;*!*/
-            /*!*display: inline;*!*/
-            /*width: 30px;*/
-            /*border: 2px solid black;*/
-            /*padding: 5px;*/
-            /*margin: 5px;*/
-            /*text-align: center;*/
+        ul.option > li {
+            /*display: table-cell;*/
+            /*display: inline;*/
+            width: 30px;
+            border: 2px solid black;
+            padding: 5px;
+            margin: 5px;
+            text-align: center;
+            cursor: pointer;
 
+        }
 
-        /*}*/
+        .myTable-link {
+            font-size: 12px;
+            font-weight: 600;
+            padding-left: 20px;
+        }
 
-        /*.myTable-link {*/
-            /*font-size: 12px;*/
-            /*font-weight: 600;*/
-        /*}*/
     </style>
 
     <br><br>
     {{--@dd('main2')--}}
     <br>
-    {{--    @dd($topic)--}}
-    @if($topic)
+    {{--    @dd($details)--}}
+    {{--    @dd($questions)--}}
+    @if($topic && $details)
 
         <section aria-label="section" class="container-fluid text-center">
             <div>
@@ -62,14 +65,36 @@
                             <div class='col-home'>
                                 <div class='heading' style="text-align: center">{{ $topic->title }}</div>
                                 <div class="row" style="display: flex; justify-content: center">
-                                    <img src="{{ url("uploads/chap5_1.PNG")}}" alt="chp_5_1">
+                                    <img src="{{ url("uploads/topic_images/" , $details -> image)}}" alt="chp_5_1">
                                 </div>
                                 <div class='content'>
                                     {{--@dd($topic)--}}
-                                    <p class="question-number"><b
-                                                style="font-weight: 700">Question question -> number
-                                            of {{ $topic -> questions -> count() }} : </b></p>
-                                    <p class="question-text"> question -> text </p>
+                                    {{--<p class="question-number"><b--}}
+                                    {{--style="font-weight: 700">Question question -> number--}}
+                                    {{--of {{ $topic -> questions -> count() }} : </b></p>--}}
+                                    {{--<p class="question-text"> question -> text </p>--}}
+
+                                    {{--@for ($i = $details -> start_question; $i >= $details -> end_question; $i++)--}}
+                                    {{--<p class="question-text"> question -> text </p>--}}
+                                    {{--@endfor--}}
+
+                                    <div class="row">
+                                        @foreach( $questions as $index =>  $question)
+                                            <div class="col-lg-3 col-md-6 col-xs-12" style="text-align: center">
+                                                {{--<h6 class="myTable-link">1. HIGH PRESS SAFETY</h6>--}}
+                                                <h6 class="myTable-link ">{{ $question -> text }}</h6>
+                                                @php
+                                                    $collection =  $question->options->shuffle()
+                                                @endphp
+                                                <ul class="option">
+                                                    @foreach( $collection as $i => $option)
+                                                        <li>{{$option->text}}</li>
+                                                    @endforeach
+                                                </ul>
+                                            </div>
+                                        @endforeach
+                                    </div>
+
                                 </div>
 
                                 <div hidden>
@@ -81,45 +106,6 @@
                                     {{--<input type="hidden" name="questionId" value="{{$question->id}}"/>--}}
                                 </div>
 
-                                {{--<ul class='list-home option-container'>--}}
-                                <div>
-                                    {{--@php--}}
-                                    {{--$collection =  $question->options->shuffle()--}}
-                                    {{--@endphp--}}
-                                    {{--@foreach( $collection as $i => $option)--}}
-                                    {{--<li>{{ $error }}</li>--}}
-                                    {{--<input type="radio"--}}
-                                    {{--name="option" id="{{$i}}"--}}
-                                    {{--value="{{ $option-> id }}"--}}
-                                    {{--required--}}
-                                    {{--onclick="getResult('{{$option}}' , '{{$collection}}' )"--}}
-                                    {{--/>--}}
-
-                                    {{--<label for="{{$i}}" class="radio-label text-capitalize">{{ $option->text }}</label>--}}
-
-                                    {{--<li id="{{$i}}" value="{{ $option->id }}"--}}
-
-                                    {{--style="color: black !important; border-color: black !important;"--}}
-                                    {{--onclick="getResult('{{$option}}' , '{{$collection}}' )">--}}
-                                    {{--onclick="getResult('{{$i}}','{{ $topic->id }}')">--}}
-                                    {{--onclick="window.location='{{ url("/learning/check") }}'">--}}
-                                    {{--@dd($question)--}}
-
-                                    {{--<span id="{{$i}}" class="-load o-hsub -link" type="radio" required--}}
-                                    {{--name="option" value="{{ $option-> id }}">--}}
-
-                                    {{--<span class="shine"></span>--}}
-                                    {{--<label id="{{$i}}"--}}
-                                    {{--class="slideshow-slide-caption-subtitle-label">{{ $option->text }}</label>--}}
-
-                                    {{--<input hidden id="listTagValue" type="text" name="list"--}}
-                                    {{--value="{{ $option-> id }}">--}}
-
-                                    {{--</li>--}}
-                                    {{--@endforeach--}}
-                                </div>
-                                {{--</ul>--}}
-
                             </div>
                         </div>
                     </div>
@@ -128,13 +114,13 @@
                     <div class="col-md-12 text-center">
                         <div style="display: flex; flex-direction: row; justify-content: center " class="text-center">
 
-                            <button type="submit" class="slideshow-slide-caption-subtitle -load o-hsub -link"
+                            <button type="button" class="slideshow-slide-caption-subtitle -load o-hsub -link"
                                     style="background-color: red !important; border-color: red !important; text-transform: uppercase;"
                                     name="button" value="skip">Skip
                                 {{--<span class="shine"></span>--}}
                                 {{--<span class="slideshow-slide-caption-subtitle-label">{{ __('Back') }}</span>--}}
                             </button>&nbsp;&nbsp;
-                            <button type="submit" class="slideshow-slide-caption-subtitle -load o-hsub -link"
+                            <button type="button" class="slideshow-slide-caption-subtitle -load o-hsub -link"
                                     name="button" value="next"
                                     style="background-color: red !important; border-color: red !important; text-transform: uppercase;">
                                 <span class="shine"></span>

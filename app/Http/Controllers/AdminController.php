@@ -38,7 +38,7 @@ class AdminController extends Controller
 
         if ($request->image) {
             Image::make($request->image)
-                ->resize(160, 160, function ($constraint) {
+                ->resize(250, 250, function ($constraint) {
                     $constraint->aspectRatio();
                 })
                 ->save(
@@ -114,7 +114,7 @@ class AdminController extends Controller
             }
 
             Image::make($request->image)
-                ->resize(160, 160, function ($constraint) {
+                ->resize(250, 250, function ($constraint) {
                     $constraint->aspectRatio();
                 })
                 ->save(

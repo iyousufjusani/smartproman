@@ -23,7 +23,7 @@
                                 <thead>
                                 <tr>
                                     <th class="text-center">#</th>
-                                    <!--                                    <th class="text-center">ID</th>-->
+
                                     <th class="text-center">Name</th>
                                     <th class="text-center">Email</th>
                                     <th class="text-center">Message</th>
@@ -36,8 +36,7 @@
                                 <tbody>
                                 @foreach($messages as $message)
                                     <tr>
-                                        <!--                                        <th scope="row" class="text-center">-->
-                                    <?php //echo $row['customer_sno']?><!--</th>-->
+
                                         <td class="text-center">{{ $message -> id }}</td>
                                         <td class="text-center">{{ $message -> name }}</td>
                                         <td class="text-center">{{ $message -> email }}</td>

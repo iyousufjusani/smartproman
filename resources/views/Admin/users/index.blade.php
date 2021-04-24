@@ -28,7 +28,7 @@
                                 <thead>
                                 <tr>
                                     <th class="text-center">#</th>
-                                    <!--                                    <th class="text-center">ID</th>-->
+                                    <th class="text-center">ID</th>
                                     <th class="text-center">Image</th>
                                     <th class="text-center">Name</th>
                                     <th class="text-center">Email</th>
@@ -41,9 +41,10 @@
                                 <tbody>
                                 @foreach($users as $index => $user)
                                     <tr>
-                                        <!--                                        <th scope="row" class="text-center">-->
-                                    <?php //echo $row['customer_sno']?><!--</th>-->
+
                                         <td class="text-center">{{ $index + 1  }}</td>
+                                        <td class="text-center">{{ $user -> id }}</td>
+
                                         <td class="text-center"><img width="60"
                                                                      src="{{ url("uploads/user_images/" , $user -> image)}}"
                                                                      alt="type-img"></td>
@@ -103,11 +104,12 @@
 
                                                         <div class="form-group">
                                                             <label for="password">Update User Password<span
-                                                                        class="text-danger">*</span> (At least 8 Characters)</label>
+                                                                        class="text-danger">*</span> (At least 8
+                                                                Characters)</label>
                                                             <input type="password" class="form-control" id="password"
                                                                    placeholder="Change user password"
                                                                    name="password" value="{{ $user->password }}"
-                                                            required>
+                                                                   required>
                                                         </div>
 
 

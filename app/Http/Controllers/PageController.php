@@ -45,16 +45,16 @@ class PageController extends Controller
             'title' => 'required|unique:pages,title',
             'image' => 'required',
             'topic_id' => 'required',
-            'image' => 'required',
+
         ]);
 
-        if($request['type_id'] == null){
-            $request['type_id'] = 1;
+        if($request['topic_id'] == null){
+            $request['topic_id'] = 1;
         }
 
         if ($request->image) {
             Image::make($request->image)
-                ->resize(160, 160, function ($constraint) {
+                ->resize(700, 900, function ($constraint) {
                     $constraint->aspectRatio();
                 })
                 ->save(

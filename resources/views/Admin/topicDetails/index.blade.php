@@ -1,20 +1,21 @@
 @extends('Admin.layouts.app')
-@section('title','View Page Images')
+
+@section('title','View Topic Details')
 
 @section('admin-content')
+
     <div class="content-page">
         <!-- Start content -->
         <div class="content">
             <div class="container-fluid">
 
                 <div class="row">
-
                     <div class="col-sm-12">
                         <div class="header-title m-t-0 m-b-20" style="display: flex; justify-content: space-between">
-                            <h4 class="">Page Images Table</h4>
+                            <h4 class="">Topic Details Table</h4>
                             <div class="text-right">
                                 <button class="btn btn-primary btn-rounded btn-lg m-b-30" data-toggle="modal"
-                                        data-target="#add-page">Add Page Image
+                                        data-target="#add-video">Add Topic Details
                                 </button>
                             </div>
                         </div>
@@ -30,27 +31,32 @@
                                 <thead>
                                 <tr>
                                     <th class="text-center">#ID</th>
-                                    <th class="text-center">Title</th>
                                     <th class="text-center">Image</th>
+                                    {{--<th class="text-center">Starting Question #</th>--}}
+                                    {{--<th class="text-center">Ending Question #</th>--}}
+                                    <th class="text-center">Total Questions</th>
                                     <th class="text-center">Topic ID</th>
-                                    <th class="text-center">Created At</th>
-                                    <th class="text-center" >Action</th>
+                                    <th class="text-center">Type ID</th>
+                                    <th class="text-center">Created Date</th>
+                                    <th class="text-center">Action</th>
 
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @foreach($pages as $page)
+                                @foreach($details as $detail)
                                     <tr>
-                                        <td class="text-center">{{ $page -> id }}</td>
-                                        <td class="text-center">{{ $page -> title }}</td>
+                                        <td class="text-center">{{ $detail -> id }}</td>
                                         <td class="text-center"><img width="200"
-                                                                     src="{{ url("uploads/topic_images/" , $page -> image)}}"
-                                                                     alt="topic-page-img"></td>
-                                        <td class="text-center">{{ $page -> topic_id }}</td>
-                                        <td class="text-center">{{ $page -> created_at }}</td>
-
+                                                                     src="{{ url("uploads/topic_images/" , $detail -> image)}}"
+                                                                     alt="topic-detail-img"></td>
+                                        {{--<td class="text-center">{{ $detail -> start_question }}</td>--}}
+                                        {{--<td class="text-center">{{ $detail -> end_question }}</td>--}}
+                                        <td class="text-center">{{ $detail -> total_questions }}</td>
+                                        <td class="text-center">{{ $detail -> topic_id }}</td>
+                                        <td class="text-center">{{ $detail -> type_id }}</td>
+                                        <td class="text-center">{{ $detail -> created_at  }}</td>
                                         <td class="text-center">
-                                            <form action="{{ route('pages.destroy', $page -> id) }}"
+                                            <form action="{{ route('topicDetails.destroy', $detail -> id) }}"
                                                   method="post">
                                                 {{ csrf_field() }}
                                                 {{ method_field('delete') }}
@@ -67,11 +73,18 @@
                     </div>
                 </div>
 
+            {{ $details->links('pagination::bootstrap-4') }}
+
+            <!-- end row -->
+
+
             </div> <!-- container -->
+
 
             <!-- Down Bar Start -->
 
         @include('Admin.includes.downBar')
+
 
         <!-- Down Bar End -->
 
@@ -79,38 +92,46 @@
 
     </div>
 
+
 @endsection
 
-
 @section('admin-modal')
-
     <!-- sample modal content -->
-    <div id="add-page" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="add-contactLabel"
+    <div id="add-video" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="add-contactLabel"
          aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title" id="add-contactLabel">Add Topic Image</h4>
+                    <h4 class="modal-title" id="add-contactLabel">Add Topic Details</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                 </div>
                 <div class="modal-body">
-                    <form role="form" method="post" action="{{ route('pages.store') }}" enctype="multipart/form-data">
+                    <form role="form" method="post" action="{{ route('topicDetails.store') }}"
+                          enctype="multipart/form-data">
                         {{ csrf_field() }}
                         {{ method_field('post') }}
-                        <div class="form-group">
-                            <label for="title">Image Title</label>
-                            <input type="text" class="form-control" id="title" placeholder="Enter Video Title"
-                                   name="title" value="{{ old('title') }}"
-                                   required>
-                        </div>
-
 
                         <div class="form-group">
-                            <label for="image">Topic Image</label>
+                            <label for="image">Topic Detail Image</label>
 
                             <input id="image" type="file" style="padding: 3px"
                                    class="form-control" name="image" required value="{{ old('image') }}">
                         </div>
+
+                        <div class="form-group">
+                            <label for="start">Starting Question Number</label>
+                            <input type="number" class="form-control" id="start" placeholder="example: 1"
+                                   name="start" value="{{ old('start') }}"
+                                   required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="end">Ending Question Number</label>
+                            <input type="number" class="form-control" id="end" placeholder="example: 30"
+                                   name="end" value="{{ old('end') }}"
+                                   required>
+                        </div>
+
 
                         <div class="form-group">
                             <label for="topic">Topic it belongs</label>
@@ -128,6 +149,20 @@
 
                         </div>
 
+                        <div class="form-group">
+                            <label for="type">Type it belongs</label>
+                            <select class="form-control" id="type" name="type_id" required>
+                                <option selected hidden value="1">Select type</option>
+                                @foreach($types as $type)
+                                    <option value="{{ $type->id }}"
+                                            {{ old('type_id') == $topic->id ? 'selected' : ''}}>
+                                        {{$type->title }}
+                                    </option>
+                                @endforeach
+                            </select>
+
+                        </div>
+
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default " data-dismiss="modal">Cancel</button>
                             <input type="submit" class="btn btn-primary " name="btn-add" value="Add">
@@ -139,4 +174,6 @@
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
+
 @endsection
+

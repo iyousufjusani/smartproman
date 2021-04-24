@@ -32,7 +32,7 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/start/{topic}/{question}', 'MainController@startLearning')->name('start');
 
-    Route::get('/start2/{topic}', 'MainController@type2')->name('start2');
+    Route::get('/start2/{topic}/{detail}', 'MainController@type2')->name('start2');
 
 
     Route::any('/submitAnswer', 'MainController@submitAnswer')->name('submitAnswer');
@@ -59,7 +59,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/learning/complete', 'ScoreController@learningCompleted');
 
 
-    Route::get('/main2','MainController@type2')->name('main2');
+//    Route::get('/main2','MainController@type2')->name('main2');
 });
 
 
@@ -67,12 +67,11 @@ Route::middleware(['auth', 'admin'])->prefix('dashboard')->group(function () {
 
     Route::get('/', 'DashboardController@index')->name('dashboard');
 
-
-
     Route::resource('admins', 'AdminController');
     Route::resource('users', 'UserController');
     Route::resource('types', 'TypeController');
     Route::resource('topics', 'TopicController');
+    Route::resource('topicDetails', 'TopicDetailController');
     Route::resource('questions', 'QuestionController');
     Route::resource('options', 'OptionController');
     Route::resource('pages', 'PageController');

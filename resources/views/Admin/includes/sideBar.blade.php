@@ -45,24 +45,22 @@
                 </a>
             </li>
 
+
+
             <li>
-                <a href="{{ route('topics.index') }}">
-                    <i class="ti-crown"></i><span class="badge badge-custom pull-right">0</span>
-                    <span> Topics </span>
-                </a>
+                <a href="javascript: void(0);"><i class="ti-crown"></i> <span> Topics </span> <span
+                            class="menu-arrow"></span></a>
+                <ul class="nav-second-level" aria-expanded="false">
+                    <li><a href="{{ route('topics.index') }}"><span
+                                    class="badge badge-custom pull-right">0</span> <span> VIEW TOPICS</span>
+
+                    <li><a href="{{ route('topicDetails.index') }}"> <span> TOPIC DETAILS</span> </a></li>
+
+                </ul>
             </li>
 
 
-
-
-            <!--            <li>-->
-            <!--                <a href="ui-elements.html">-->
-            <!--                    <i class="ti-paint-bucket"></i><span class="badge badge-custom pull-right">11</span> <span> UI Elements </span>-->
-            <!--                </a>-->
-            <!--            </li>-->
-
             <li>
-
                 <a href="javascript: void(0);"><i class="ti-marker"></i> <span> Questions </span> <span
                             class="menu-arrow"></span></a>
                 <ul class="nav-second-level" aria-expanded="false">

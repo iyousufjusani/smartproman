@@ -35,11 +35,11 @@
                                     <th class="text-center">Video Link</th>
                                     <th class="text-center">Topic ID</th>
                                     <th class="text-center">Created Date</th>
-                                    <!--                                    <th class="text-center">Edit</th>-->
+
                                     <th class="text-center">Action</th>
 
 
-                                    <!--                                    <th class="text-center">REMOVE</th>-->
+
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -50,17 +50,6 @@
                                         <td class="text-center">{{ $video -> link }}</td>
                                         <td class="text-center">{{ $video -> topic_id }}</td>
                                         <td class="text-center">{{ $video -> created_at  }}</td>
-                                        <!--                                        <td class="text-center">-->
-                                        <!--                                            <button>Edit</button>-->
-                                        <!--                                        </td>-->
-                                        <!--                                        <td class="text-center">-->
-                                        <!--                                            <form action="scripts/videos-scripts.php?update=--><?php //echo $row['videoID']; ?><!--"-->
-                                        <!--                                                  method="post" enctype="multipart/form-data">-->
-                                        <!--                                                <button type="submit" class="btn btn-success btn-rounded"-->
-                                        <!--                                                        name="btn-update">Update-->
-                                        <!--                                                </button>-->
-                                        <!--                                            </form>-->
-                                        <!--                                        </td>-->
                                         <td class="text-center">
                                             <form action="{{ route('videos.destroy', $video -> id) }}" method="post">
                                                 {{ csrf_field() }}

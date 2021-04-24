@@ -6,6 +6,7 @@ use App\Models\Option;
 use App\Models\Page;
 use App\Models\Question;
 use App\Models\Topic;
+use App\Models\TopicDetail;
 use App\Models\Video;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
@@ -68,6 +69,7 @@ class MainController extends Controller
         }
         return view('learning.main', compact('topic'));
     }
+
 
     public function nextQuestion(Request $request)
     {
@@ -176,6 +178,57 @@ class MainController extends Controller
     }
 
 
+    public function type2($topicTitle , $detailID)
+    {
+        $type = 2;
+        $topic = Topic::
+        with('questions.options')
+            ->where('title', '=', $topicTitle)
+            ->first();
+
+        if ($topic != null) {
+//            return 'No topics';
+
+            $details = TopicDetail::
+            where('topic_id', '=', $topic->id)
+                ->where('type_id', '=', $type)
+                ->first();
+
+            $questions = Question::
+            with('options')
+                ->where('topic_id', '=', $topic->id)
+                ->offset($details->start_question - 1)
+                ->limit($details->end_question)
+                ->get();
+
+            $pages = Page::
+            where('topic_id', '=', $topic->id)
+                ->get();
+            $videos = Video::
+            where('topic_id', '=', $topic->id)
+                ->get();
+
+        }
+
+
+        return view('learning.main2', compact('topic', 'details', 'questions', 'pages', 'videos'));
+
+    }
+
+    public function nextType2(Request $request)
+    {
+        $this->validate($request, [
+            'option' => 'required',
+            'next' => 'required',
+        ]);
+
+//        $q_id = Session::get('learning')['question']->id;
+//        $q_number = Session::get('learning')['question']->number;
+//        $t_id = Session::get('learning')['topic']->id;
+
+
+    }
+
     public function index($topic_id, $q_id)
     {
 
@@ -262,35 +315,6 @@ class MainController extends Controller
         return view('learning.main', compact('topic'));
     }
 
-    public function type2($topicTitle)
-    {
-
-        $topic = Topic::
-        with('questions.options')
-            ->where('title', '=', $topicTitle)
-            ->first();
-
-        if ($topic != null) {
-//            return 'No topics';
-
-            $question = Question::
-            with('options')
-                ->where('topic_id', '=', $topic->id)
-                ->get();
-
-            $pages = Page::
-            where('topic_id', '=', $topic->id)
-                ->get();
-            $videos = Video::
-            where('topic_id', '=', $topic->id)
-                ->get();
-
-        }
-
-
-        return view('learning.main2', compact('topic', 'question', 'pages', 'videos'));
-
-    }
 
     public function nextQuestion1(Request $request)
     {

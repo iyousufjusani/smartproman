@@ -28,9 +28,7 @@
                                 <div class="member-card mt-4">
                                     <span class="user-badge bg-warning">Topic</span>
                                     <div class="card center-page" >
-                                        {{--<img src="{{url('uploads/noImage.png')}}"--}}
-                                        {{--class="rounded-circle img-thumbnail"--}}
-                                        {{--alt="profile-image">--}}
+
                                         <img class="card-img-top"
                                              src="{{ url("uploads/topic_images/" , $topic -> image)}}"
                                              alt="Card image cap">
