@@ -33,7 +33,7 @@ class MainController extends Controller
         // get req
         // create season -> save topic id question id
         $topic = Topic::
-        with('questions')
+        with('questions.options')
             ->where('title', '=', $topicTitle)
             ->first();
 
@@ -143,42 +143,69 @@ class MainController extends Controller
 
     }
 
+
     public function submitAnswer(Request $request)
     {
 
-        $right = Session::get('right');
-        $wrong = Session::get('wrong');
+//        $right = Session::get('right');
+//        $wrong = Session::get('wrong');
+//
+////        $this->validate($request, [
+////            'option' => 'required',
+////            'choice' => 'required',
+////            'question' => 'required'
+////        ]);
+//
+//        $option = Option::
+//        where('id', '=', $request['option'])
+//            ->where('question_id', '=', 1)
+//            ->first();
+//
+//        if ($option->is_correct == 1) {
+//            $right += 1;
+//        } else {
+//            $wrong += 1;
+//        }
+//
+//        Session::put("right", $right);
+//        Session::put("wrong", $wrong);
 
-        if ($request['button'] == 'next') {
-            $this->validate($request, [
-                'option' => 'required',
-                'button' => 'required',
-            ]);
-        }
+//        return 'hello';
+        return response()->json(['result' => $request['option']]);
 
-        $question = Session::get('learning')['question'];
-//        dd($question);
-
-        $option = Option::
-        where('id', '=', $request['option'])
-            ->where('question_id', '=', $question->id)
-            ->first();
-//        dd($option);
-
-        if ($option->is_correct == 1) {
-            $right += 1;
-        } else {
-            $wrong += 1;
-        }
-
-        Session::put("right", $right);
-        Session::put("wrong", $wrong);
+//        $right = Session::get('right');
+//        $wrong = Session::get('wrong');
+//
+//        if ($request['button'] == 'next') {
+//            $this->validate($request, [
+//                'option' => 'required',
+//                'button' => 'required',
+//            ]);
+//        }
+//
+//        $question = Session::get('learning')['question'];
+////        dd($question);
+//
+//        $option = Option::
+//        where('id', '=', $request['option'])
+//            ->where('question_id', '=', $question->id)
+//            ->first();
+////        dd($option);
+//
+//        if ($option->is_correct == 1) {
+//            $right += 1;
+//        } else {
+//            $wrong += 1;
+//        }
+//
+//        Session::put("right", $right);
+//        Session::put("wrong", $wrong);
 
 
     }
 
 
-    public function type2($topicTitle , $detailID)
+    public function type2($topicTitle, $detailID)
     {
         $type = 2;
         $topic = Topic::

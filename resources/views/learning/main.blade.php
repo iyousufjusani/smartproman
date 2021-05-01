@@ -34,6 +34,107 @@
             font-weight: 600;
         }
 
+        input[type="submit"].answer-submit {
+            background-color: transparent;
+            position: relative;
+            color: black;
+            width: 100%;
+            font-size: 30px;
+            border: 3px solid black;
+            border-radius: 5px;
+            padding: 10px 50px;
+            margin: 5px;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            text-align: center;
+        }
+
+        .option-container .option {
+            position: relative;
+            color: black;
+            font-size: 30px;
+            border: 3px solid black;
+            border-radius: 5px;
+            padding: 10px 50px;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            margin-bottom: 5px;
+        }
+
+
+        .option-container .option.correct::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 100%;
+            background-color: green;
+            z-index: -1;
+
+        }
+
+        .correct::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 100%;
+            background-color: green;
+            z-index: -1;
+
+        }
+
+        .option-container .option.wrong::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 100%;
+            background-color: red;
+            z-index: -1;
+
+        }
+
+        .wrong::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 100%;
+            background-color: red;
+            z-index: -1;
+
+        }
+
+        .option-container .option.correct {
+            color: white;
+        }
+
+        .correct {
+            color: white;
+        }
+
+        .option-container .option.wrong {
+            color: white;
+        }
+
+        .wrong {
+            color: white;
+        }
+
+        .option-container .option.already-answered {
+            pointer-events: none;
+        }
+
+        .already-answered {
+            pointer-events: none;
+        }
 
     </style>
 
@@ -53,6 +154,7 @@
                 {{--<label for="large" class="radio-label">Large</label>--}}
                 {{--</div>--}}
 
+
                 <form role="form" method="post" action="{{ action('MainController@nextQuestion') }}" class="text-center"
                       enctype="multipart/form-data">
                     {{ csrf_field() }}
@@ -64,63 +166,164 @@
                                 <div class='heading' style="text-align: center">{{ $topic->title }}</div>
                                 <div class='content'>
                                     {{--@dd($topic)--}}
-                                    <p class="question-number"><b
+                                    <p class="question-number1"><b
                                                 style="font-weight: 700">Question {{ $question -> number }}
                                             of {{ $topic -> questions -> count() }} : </b></p>
-                                    <p class="question-text">{{ $question -> text }} </p>
+                                    <p class="question-text1">{{ $question -> text }} </p>
                                 </div>
 
-                                <div hidden>
-                                    {{--<input type="hidden" name="right" value="{{ $right }}">--}}
-                                    {{--<input type="hidden" name="wrong" value="{{ $wrong }}">--}}
-                                    {{--<input type="hidden" name="skip" value="{{ $skip }}">--}}
-                                    {{--                                    <input type="hidden" name="topic" value="{{$topic->id}}"/>--}}
-                                    {{--                                    <input type="hidden" name="number" value="{{$question->number}}"/>--}}
-                                    {{--                                    <input type="hidden" name="questionId" value="{{$question->id}}"/>--}}
-                                </div>
+                                {{--<div hidden>--}}
+                                {{--<input type="hidden" name="right" value="{{ $right }}">--}}
+                                {{--<input type="hidden" name="wrong" value="{{ $wrong }}">--}}
+                                {{--<input type="hidden" name="skip" value="{{ $skip }}">--}}
+                                {{--<input type="hidden" name="topic" value="{{$topic->id}}"/>--}}
+                                {{--<input type="hidden" name="number" value="{{$question->number}}"/>--}}
+                                {{--<input type="hidden" name="questionId" value="{{$question->id}}"/>--}}
+                                {{--</div>--}}
 
-                                {{--<ul class='list-home option-container'>--}}
-                                <div>
+                                <ul class='list-home option-container'>
+                                    {{--<div>--}}
                                     @php
                                         $collection =  $question->options->shuffle()
                                     @endphp
+                                    {{--<form method="POST" enctype="multipart/form-data">--}}
+                                    {{--{{ csrf_field() }}--}}
+                                    {{--{{ method_field('post') }}--}}
                                     @foreach( $collection as $i => $option)
                                         {{--<li>{{ $error }}</li>--}}
-                                        <input type="radio"
-                                               name="option" id="{{$i}}"
-                                               value="{{ $option-> id }}"
-                                               onclick="getResult('{{$option}}' , '{{$collection}}' )"
-                                        />
 
-                                        <label for="{{$i}}"
-                                               class="radio-label text-capitalize">{{ $option->text }}</label>
+                                        <li class="option" id="{{$option->id}}"
+                                            value="{{$option->id}}"
+                                            onclick="getResult('{{$option}}' , '{{$collection}}' )"
+                                        >
+                                            {{$option->text}}
+                                        </li>
 
-                                        {{--<li id="{{$i}}" value="{{ $option->id }}"--}}
 
-                                        {{--style="color: black !important; border-color: black !important;"--}}
-                                        {{--onclick="getResult('{{$option}}' , '{{$collection}}' )">--}}
-                                        {{--onclick="getResult('{{$i}}','{{ $topic->id }}')">--}}
-                                        {{--onclick="window.location='{{ url("/learning/check") }}'">--}}
-                                        {{--@dd($question)--}}
+                                        {{--<input type="hidden"--}}
+                                        {{--name="choice"--}}
+                                        {{--value="{{$i}}"--}}
+                                        {{--id="{{$i}}"--}}
+                                        {{--required/>--}}
+                                        {{--<input type="hidden"--}}
+                                        {{--name="question"--}}
+                                        {{--value="{{$question->id}}"--}}
+                                        {{--required/>--}}
 
-                                        {{--<span id="{{$i}}" class="-load o-hsub -link" type="radio" required--}}
-                                        {{--name="option" value="{{ $option-> id }}">--}}
+                                        {{--<input type="radio"--}}
+                                        {{--name="option"--}}
+                                        {{--id="{{$i}}"--}}
+                                        {{--id="{{ $option-> id }}"--}}
+                                        {{--value="{{ $option-> id }}"--}}
+                                        {{--onclick="getResult('{{$option}}' , '{{$collection}}' )"--}}
 
-                                        {{--<span class="shine"></span>--}}
-                                        {{--<label id="{{$i}}"--}}
-                                        {{--class="slideshow-slide-caption-subtitle-label">{{ $option->text }}</label>--}}
+                                        {{--/>--}}
 
-                                        {{--<input hidden id="listTagValue" type="text" name="list"--}}
-                                        {{--value="{{ $option-> id }}">--}}
+                                        {{--<button type="submit" id="ajax-submit">--}}
+                                        {{--<label for="{{$i}}"--}}
+                                        {{--class="radio-label text-capitalize">{{ $option->text }}</label>--}}
+                                        {{--</button>--}}
 
-                                        {{--</li>--}}
                                     @endforeach
-                                </div>
-                                {{--</ul>--}}
+
+                                    {{--</form>--}}
+                                    {{--<input type="submit"--}}
+                                    {{--name="option"--}}
+                                    {{--class="answer-submit"--}}
+                                    {{--id="ajax-submit"--}}
+                                    {{--value="{{ $option-> text }}"--}}
+                                    {{--onclick="getResult('{{$option}}' , '{{$collection}}' )"--}}
+                                    {{--/>--}}
+                                    {{--<input type="text" hidden--}}
+                                    {{--name="option1"--}}
+                                    {{--id="option1"--}}
+                                    {{--value="{{ $option-> id }}"--}}
+                                    {{--/>--}}
+                                    {{--<input type="radio"--}}
+                                    {{--name="option"--}}
+                                    {{--id="{{$i}}"--}}
+                                    {{--id="ajax-submit"--}}
+                                    {{--value="{{ $option-> id }}"--}}
+                                    {{--onclick="getResult('{{$option}}' , '{{$collection}}' )"--}}
+                                    {{--/>--}}
+
+                                    {{--<input type="submit"--}}
+                                    {{--id="ajax-submit"--}}
+                                    {{--id="option1"--}}
+                                    {{--name="option1"--}}
+                                    {{--value="{{ $option-> id }}"--}}
+                                    {{-->--}}
+
+                                    {{--<label for="{{$i}}"--}}
+                                    {{--class="radio-label text-capitalize">{{ $option->text }}</label>--}}
+
+                                    {{--<li id="{{$i}}" value="{{ $option->id }}"--}}
+
+                                    {{--style="color: black !important; border-color: black !important;"--}}
+                                    {{--onclick="getResult('{{$option}}' , '{{$collection}}' )">--}}
+                                    {{--onclick="getResult('{{$i}}','{{ $topic->id }}')">--}}
+                                    {{--onclick="window.location='{{ url("/learning/check") }}'">--}}
+                                    {{--@dd($question)--}}
+
+                                    {{--<span id="{{$i}}" class="-load o-hsub -link" type="radio" required--}}
+                                    {{--name="option" value="{{ $option-> id }}">--}}
+
+                                    {{--<span class="shine"></span>--}}
+                                    {{--<label id="{{$i}}"--}}
+                                    {{--class="slideshow-slide-caption-subtitle-label">{{ $option->text }}</label>--}}
+
+                                    {{--<input hidden id="listTagValue" type="text" name="list"--}}
+                                    {{--value="{{ $option-> id }}">--}}
+
+                                    {{--</li>--}}
+                                    {{--@endforeach--}}
+                                    {{--</div>--}}
+                                </ul>
 
                             </div>
                         </div>
                     </div>
+
+
+                    {{--<div class="col-md-10 center">--}}
+                    {{--<div class="dflex-center">--}}
+                    {{--<div class="col-home  quiz-box">--}}
+                    {{--<div class="heading" style="text-align: center">{{ $topic->title }}</div>--}}
+                    {{--<div class="content">--}}
+                    {{--@dd($topic)--}}
+                    {{--<div class="question-number" style="font-weight: 700"></div>--}}
+                    {{--<div class="question-text"></div>--}}
+                    {{--</div>--}}
+
+
+                    {{--<div class="option-container">--}}
+
+                    {{--</div>--}}
+
+
+                    {{--</div>--}}
+                    {{--</div>--}}
+                    {{--</div>--}}
+
+                    {{--<div class="col-md-12 text-center">--}}
+                    {{--<div style="display: flex; flex-direction: row; justify-content: center " class="text-center">--}}
+                    {{--<div class="skip-question-btn">--}}
+                    {{--<button type="button" onclick="skip()"--}}
+                    {{--class="slideshow-slide-caption-subtitle -load o-hsub -link"--}}
+                    {{--style="background-color: red !important; border-color: red !important; text-transform: uppercase;"--}}
+                    {{-->Skip--}}
+                    {{--</button>--}}
+                    {{--</div>--}}
+                    {{--&nbsp;&nbsp;&nbsp;--}}
+                    {{--<div class="next-question-btn">--}}
+                    {{--<button type="button" onclick="next()"--}}
+                    {{--class="slideshow-slide-caption-subtitle -load o-hsub -link"--}}
+                    {{--style="background-color: red !important; border-color: red !important; text-transform: uppercase;"--}}
+                    {{-->Next--}}
+                    {{--</button>--}}
+                    {{--</div>--}}
+                    {{--</div>--}}
+                    {{--</div>--}}
 
 
                     <div class="col-md-12 text-center">
@@ -150,7 +353,6 @@
 
 
         <hr style="border-bottom: 4px solid red; margin: 50px">
-
         {{--related topic page image--}}
         <section aria-label="section" class='container-fluid'>
             <div class='row m-2-hor'>
@@ -192,10 +394,7 @@
 
             </div>
         </section>
-
-
         <hr style="border-bottom: 4px solid red; margin: 50px">
-
         {{--related Videos Sections--}}
         <section aria-label="section" class='container-fluid onStep' data-animation="fadeInUp" data-time="0">
             <div class='row m-2-hor'>
@@ -253,6 +452,7 @@
 
             </div>
         </section>
+
     @else
         <section aria-label="section" class="container-fluid text-center">
             <div>
@@ -283,11 +483,223 @@
 
 
 @section('script')
+
+    <script type="text/javascript">
+                {{--console.log(<?= json_encode($topic); ?>);--}}
+        const quiz = <?= $topic->questions; ?>;
+
+        {{--var x = "<?php echo "$topic"?>";--}}
+        // console.log(x);
+
+        const questionNumber = document.querySelector(".question-number");
+        const questionText = document.querySelector(".question-text");
+        const optionContainer = document.querySelector(".option-container");
+
+        let questionCounter = 0;
+        let currentQuestion;
+        let availableQuestions = [];
+        let availableOptions = [];
+        let correctAnswers = 0;
+        let attempt = 0;
+        let skipQuestions = 0;
+
+        //push the questions into availableQuestions Array
+        function setAvailableQuestions() {
+
+            // console.log('setAvailableQuestions');
+            const totalQuestions = quiz.length;
+
+            for (let i = 0; i < totalQuestions; i++) {
+                availableQuestions.push(quiz[i]);
+            }
+        }
+
+        // set question number and question and options
+        function getNewQuestion() {
+
+            // set question number
+            questionNumber.innerHTML = "Question " + (questionCounter + 1) + " of " + quiz.length;
+
+            // set question text
+            //get random question
+            const questionIndex = availableQuestions[Math.floor(Math.random() * availableQuestions.length)];
+            currentQuestion = questionIndex;
+            questionText.innerHTML = currentQuestion.text;
+            //get the position of 'questionIndex' from the availableQuestions Array;
+            const index1 = availableQuestions.indexOf(questionIndex);
+            //remove the 'questionIndex' from the availableQuestions array, so that it not repeat
+            availableQuestions.splice(index1, 1);
+
+            // console.log(questionIndex);
+            // console.log(availableQuestions);
+
+
+            //set options
+            //get options
+            const optionLen = currentQuestion.options.length;
+
+            //push option into availableOptions array
+            for (let i = 0; i < optionLen; i++) {
+                availableOptions.push(currentQuestion.options[i]);
+            }
+            // console.log(availableOptions);
+
+            optionContainer.innerHTML = '';
+            //create options in html
+            for (let i = 0; i < optionLen; i++) {
+                //random options
+                const optionIndex = availableOptions[Math.floor(Math.random() * availableOptions.length)];
+                //get the position of 'optionIndex' from the availableOptions array
+                // console.log(optionIndex.id);
+                const index2 = availableOptions.indexOf(optionIndex);
+
+                // console.log(index2);
+                //remove the 'optionIndex from the availableOption, so that option does not repeat
+                availableOptions.splice(index2, 1);
+                // console.log(optionIndex);
+
+                const option = document.createElement("div");
+                option.innerHTML = currentQuestion.options[i].text;
+                option.id = currentQuestion.options[i].id;
+                option.className = "option";
+                optionContainer.appendChild(option);
+                option.setAttribute("onclick", "checkResult(this)");
+
+            }
+
+            questionCounter++;
+        }
+
+        //get the result of current attempt question
+        function checkResult(optionElement) {
+            // console.log(optionElement);
+            const id = parseInt(optionElement.id);
+            var correct_id;
+
+            const optionLen = currentQuestion.options.length;
+            for (let i = 0; i < optionLen; i++) {
+
+                if (currentQuestion.options[i].is_correct === 1) {
+                    correct_id = currentQuestion.options[i].id;
+                }
+
+            }
+            // console.log(correct_id);
+            if (id === correct_id) {
+                // set green color
+                optionElement.classList.add("correct");
+                // console.log("Answer is correct");
+                correctAnswers++;
+
+                console.log("Correct: " + correctAnswers);
+
+            } else {
+                //set red color
+                optionElement.classList.add("wrong");
+                // console.log("Answer is wrong");
+
+                //show the correct option
+                const optionLen = optionContainer.children.length;
+                for (let i = 0; i < optionLen; i++) {
+                    if (parseInt(optionContainer.children[i].id) === correct_id) {
+                        optionContainer.children[i].classList.add("correct");
+                    }
+                }
+            }
+            attempt++;
+            unClickableOptions();
+        }
+
+        //make all options unClickable once the user select one option
+        function unClickableOptions() {
+            const optionLen = optionContainer.children.length;
+            for (let i = 0; i < optionLen; i++) {
+                optionContainer.children[i].classList.add("already-answered");
+            }
+        }
+
+        function skip() {
+            if (questionCounter === quiz.length) {
+                console.log("quiz over");
+                quizResult();
+            } else {
+                skipQuestions++;
+                getNewQuestion();
+            }
+        }
+
+        function next() {
+            if (questionCounter === quiz.length) {
+                console.log("quiz over");
+                quizResult();
+            } else {
+                getNewQuestion();
+            }
+        }
+
+        function quizResult() {
+
+
+            console.log("we here;");
+
+            {{--var ss = <?= session()->get('learning')['topic']; ?>;--}}
+            {{--var rr = <?= session()->get('right'); ?>;--}}
+
+            //     console.log(ss);
+            // console.log('Right: ' + rr);
+
+
+        }
+
+        window.onload = function () {
+            //first set all questions in availableQuestions Array
+            // setAvailableQuestions();
+            //second: we cll getNextQuestion(); function
+            // getNewQuestion();
+        };
+
+    </script>
+
+
+    {{--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>--}}
+
     <script type="text/javascript">
 
-        function getResult($option, $array) {
 
+        {{--$(document).ready(function () {--}}
+        {{--console.log('working');--}}
+        {{--$('#ajax-submit').on('submit', function (e) {--}}
+        {{--console.log('clicked');--}}
+        {{--e.preventDefault();--}}
+        {{--document.getElementById("ajax-submit").disabled = true;--}}
+        {{--$.ajaxSetup({--}}
+        {{--headers: {--}}
+        {{--'X-CSRF-TOKEN': $("meta[name='csrf-token']").attr('content')--}}
+        {{--}--}}
+        {{--});--}}
+
+        {{--$.ajax({--}}
+        {{--url: "{{url('/submitAnswer')}}",--}}
+        {{--method: 'POST',--}}
+        {{--data: {option: $("#option").val()},--}}
+        {{--success: function (result) {--}}
+        {{--console.log(result);--}}
+        {{--alert('hello');--}}
+        {{--}--}}
+        {{--});--}}
+        {{--e.preventDefault();--}}
+        {{--});--}}
+        {{--});--}}
+
+        function getResult($option, $array) {
+            // e.preventDefault();
             console.log('function');
+
+            // console.log($option);
+            // console.log($array);
+
+            var option = JSON.parse($option);
+            console.log("Click option: " + option.id + " : " + option.text);
 
             var options = JSON.parse($array);
 
@@ -296,17 +708,30 @@
                 return item.is_correct === 1
             });
 
-            console.log("Right: " + result[0].id);
 
             console.log("===>");
-            for (var i = 0; i < 4; i++) {
 
-                var ovalue = document.getElementById(i).value;
-                console.log(ovalue);
-                if (ovalue == result[0].id) {
-                    var const_id = ovalue;
+            console.log("Right option : " + result[0].id + " : " + result[0].text);
 
-                }
+            console.log("===>");
+
+
+            if (option.id == result[0].id) {
+                console.log('Correct answer');
+
+                document.getElementById(option.id).classList.add("correct");
+            } else {
+                console.log('Wrong answer');
+
+                document.getElementById(option.id).classList.add("wrong");
+                document.getElementById(result[0].id).classList.add("correct");
+
+            }
+
+
+            for (var i = 0; i < options.length; i++) {
+
+                document.getElementById(options[i].id).classList.add("already-answered");
 
                 // $('#i :input:checked').css({'background-color': 'red', 'color': 'white'});
                 // $('label').css({'background-color': 'red', 'color': 'white'});
@@ -321,14 +746,18 @@
                 // };
                 // this.disabled = true;
             }
-            var my_css_class = {backgroundColor: 'green', color: '#000'};
-            console.log("Right ansewr id: " + const_id);
-            $('#' + const_id).css(my_css_class);
+            // var my_css_class = {backgroundColor: 'green', color: '#000'};
+
+            // console.log("Right answer id: " + const_id);
+
+            // $('#' + const_id).css(my_css_class);
 
             // $('label#' + const_id).css({'background-color': 'green'});
 
-            console.log('we here')
-            document.getElementById(const_id).style.background = "green";
+            console.log('we here');
+            // document.getElementById(const_id).style.background = "green";
+            // document.getElementById(const_id).style.color = "white";
+
             // document.getElementById(const_id).style.color = "white";
             // console.log("Right Answer");
 
@@ -344,4 +773,5 @@
         // });
 
     </script>
+
 @endsection

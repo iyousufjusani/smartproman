@@ -28,10 +28,29 @@
     <link href="{{asset('assets/plugin/css/owl.theme.css')}}" rel="stylesheet">
     <link href="{{asset('assets/main/css/main.css')}}" rel="stylesheet">
     <link href="{{asset('assets/main/css/media.css')}}" media="all" rel="stylesheet">
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- CSRF Token -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
+    <title>{{ config('app.name', 'Laravel') }}</title>
+
+    <!-- Scripts -->
+    <script src="{{ asset('js/app.js') }}" defer></script>
+
+    <!-- Fonts -->
+    <link rel="dns-prefetch" href="//fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+
+    <!-- Styles -->
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
 </head>
 
 
-<body class="@yield('header')" >
+<body class="@yield('header')">
 
 <!-- preloader -->
 <div id="preloader">
