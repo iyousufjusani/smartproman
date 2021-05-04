@@ -165,7 +165,7 @@
                             <div class='col-home'>
                                 <div class='heading' style="text-align: center">{{ $topic->title }}</div>
                                 <div class='content'>
-                                    {{--@dd($topic)--}}
+                                    {{--@dd($question)--}}
                                     <p class="question-number1"><b
                                                 style="font-weight: 700">Question {{ $question -> number }}
                                             of {{ $topic -> questions -> count() }} : </b></p>
@@ -180,6 +180,9 @@
                                 {{--<input type="hidden" name="number" value="{{$question->number}}"/>--}}
                                 {{--<input type="hidden" name="questionId" value="{{$question->id}}"/>--}}
                                 {{--</div>--}}
+                                {{--<p>Right: {{ session()->get('right') }}</p>--}}
+                                {{--<p>Wrong: {{ session()->get('wrong') }}</p>--}}
+                                {{--<p>Skip: {{ session()->get('skip') }}</p>--}}
 
                                 <ul class='list-home option-container'>
                                     {{--<div>--}}
@@ -195,6 +198,7 @@
                                         <li class="option" id="{{$option->id}}"
                                             value="{{$option->id}}"
                                             onclick="getResult('{{$option}}' , '{{$collection}}' )"
+
                                         >
                                             {{$option->text}}
                                         </li>
@@ -331,7 +335,7 @@
 
                             <button type="submit" class="slideshow-slide-caption-subtitle -load o-hsub -link"
                                     formaction="{{ action('MainController@skipQuestion') }}"
-                                    name="skip" value="skip"
+                                    name="skip" value="skip" id="skip-button"
                                     style="background-color: red !important; border-color: red !important; text-transform: uppercase;">
                                 <span class="shine"></span>
                                 <span class="slideshow-slide-caption-subtitle-label">{{ __('Skip') }}</span>
@@ -484,212 +488,198 @@
 
 @section('script')
 
+    {{--<script type="text/javascript">--}}
+    {{--console.log(<?= json_encode($topic); ?>);--}}
+    {{--const quiz = <?= $topic->questions; ?>;--}}
+
+    {{--var x = "<?php echo "$topic"?>";--}}
+    {{--// console.log(x);--}}
+
+    {{--const questionNumber = document.querySelector(".question-number");--}}
+    {{--const questionText = document.querySelector(".question-text");--}}
+    {{--const optionContainer = document.querySelector(".option-container");--}}
+
+    {{--let questionCounter = 0;--}}
+    {{--let currentQuestion;--}}
+    {{--let availableQuestions = [];--}}
+    {{--let availableOptions = [];--}}
+    {{--let correctAnswers = 0;--}}
+    {{--let attempt = 0;--}}
+    {{--let skipQuestions = 0;--}}
+
+    {{--//push the questions into availableQuestions Array--}}
+    {{--function setAvailableQuestions() {--}}
+
+    {{--// console.log('setAvailableQuestions');--}}
+    {{--const totalQuestions = quiz.length;--}}
+
+    {{--for (let i = 0; i < totalQuestions; i++) {--}}
+    {{--availableQuestions.push(quiz[i]);--}}
+    {{--}--}}
+    {{--}--}}
+
+    {{--// set question number and question and options--}}
+    {{--function getNewQuestion() {--}}
+
+    {{--// set question number--}}
+    {{--questionNumber.innerHTML = "Question " + (questionCounter + 1) + " of " + quiz.length;--}}
+
+    {{--// set question text--}}
+    {{--//get random question--}}
+    {{--const questionIndex = availableQuestions[Math.floor(Math.random() * availableQuestions.length)];--}}
+    {{--currentQuestion = questionIndex;--}}
+    {{--questionText.innerHTML = currentQuestion.text;--}}
+    {{--//get the position of 'questionIndex' from the availableQuestions Array;--}}
+    {{--const index1 = availableQuestions.indexOf(questionIndex);--}}
+    {{--//remove the 'questionIndex' from the availableQuestions array, so that it not repeat--}}
+    {{--availableQuestions.splice(index1, 1);--}}
+
+    {{--// console.log(questionIndex);--}}
+    {{--// console.log(availableQuestions);--}}
+
+
+    {{--//set options--}}
+    {{--//get options--}}
+    {{--const optionLen = currentQuestion.options.length;--}}
+
+    {{--//push option into availableOptions array--}}
+    {{--for (let i = 0; i < optionLen; i++) {--}}
+    {{--availableOptions.push(currentQuestion.options[i]);--}}
+    {{--}--}}
+    {{--// console.log(availableOptions);--}}
+
+    {{--optionContainer.innerHTML = '';--}}
+    {{--//create options in html--}}
+    {{--for (let i = 0; i < optionLen; i++) {--}}
+    {{--//random options--}}
+    {{--const optionIndex = availableOptions[Math.floor(Math.random() * availableOptions.length)];--}}
+    {{--//get the position of 'optionIndex' from the availableOptions array--}}
+    {{--// console.log(optionIndex.id);--}}
+    {{--const index2 = availableOptions.indexOf(optionIndex);--}}
+
+    {{--// console.log(index2);--}}
+    {{--//remove the 'optionIndex from the availableOption, so that option does not repeat--}}
+    {{--availableOptions.splice(index2, 1);--}}
+    {{--// console.log(optionIndex);--}}
+
+    {{--const option = document.createElement("div");--}}
+    {{--option.innerHTML = currentQuestion.options[i].text;--}}
+    {{--option.id = currentQuestion.options[i].id;--}}
+    {{--option.className = "option";--}}
+    {{--optionContainer.appendChild(option);--}}
+    {{--option.setAttribute("onclick", "checkResult(this)");--}}
+
+    {{--}--}}
+
+    {{--questionCounter++;--}}
+    {{--}--}}
+
+    {{--//get the result of current attempt question--}}
+    {{--function checkResult(optionElement) {--}}
+    {{--// console.log(optionElement);--}}
+    {{--const id = parseInt(optionElement.id);--}}
+    {{--var correct_id;--}}
+
+    {{--const optionLen = currentQuestion.options.length;--}}
+    {{--for (let i = 0; i < optionLen; i++) {--}}
+
+    {{--if (currentQuestion.options[i].is_correct === 1) {--}}
+    {{--correct_id = currentQuestion.options[i].id;--}}
+    {{--}--}}
+
+    {{--}--}}
+    {{--// console.log(correct_id);--}}
+    {{--if (id === correct_id) {--}}
+    {{--// set green color--}}
+    {{--optionElement.classList.add("correct");--}}
+    {{--// console.log("Answer is correct");--}}
+    {{--correctAnswers++;--}}
+
+    {{--console.log("Correct: " + correctAnswers);--}}
+
+    {{--} else {--}}
+    {{--//set red color--}}
+    {{--optionElement.classList.add("wrong");--}}
+    {{--// console.log("Answer is wrong");--}}
+
+    {{--//show the correct option--}}
+    {{--const optionLen = optionContainer.children.length;--}}
+    {{--for (let i = 0; i < optionLen; i++) {--}}
+    {{--if (parseInt(optionContainer.children[i].id) === correct_id) {--}}
+    {{--optionContainer.children[i].classList.add("correct");--}}
+    {{--}--}}
+    {{--}--}}
+    {{--}--}}
+    {{--attempt++;--}}
+    {{--unClickableOptions();--}}
+    {{--}--}}
+
+    {{--//make all options unClickable once the user select one option--}}
+    {{--function unClickableOptions() {--}}
+    {{--const optionLen = optionContainer.children.length;--}}
+    {{--for (let i = 0; i < optionLen; i++) {--}}
+    {{--optionContainer.children[i].classList.add("already-answered");--}}
+    {{--}--}}
+    {{--}--}}
+
+    {{--function skip() {--}}
+    {{--if (questionCounter === quiz.length) {--}}
+    {{--console.log("quiz over");--}}
+    {{--quizResult();--}}
+    {{--} else {--}}
+    {{--skipQuestions++;--}}
+    {{--getNewQuestion();--}}
+    {{--}--}}
+    {{--}--}}
+
+    {{--function next() {--}}
+    {{--if (questionCounter === quiz.length) {--}}
+    {{--console.log("quiz over");--}}
+    {{--quizResult();--}}
+    {{--} else {--}}
+    {{--getNewQuestion();--}}
+    {{--}--}}
+    {{--}--}}
+
+    {{--function quizResult() {--}}
+
+
+    {{--console.log("we here;");--}}
+
+    {{--var ss = <?= session()->get('learning')['topic']; ?>;--}}
+    {{--var rr = <?= session()->get('right'); ?>;--}}
+
+    {{--//     console.log(ss);--}}
+    {{--// console.log('Right: ' + rr);--}}
+
+
+    {{--}--}}
+
+    {{--window.onload = function () {--}}
+    {{--//first set all questions in availableQuestions Array--}}
+    {{--// setAvailableQuestions();--}}
+    {{--//second: we cll getNextQuestion(); function--}}
+    {{--// getNewQuestion();--}}
+    {{--};--}}
+
+    {{--</script>--}}
+    {{----}}
+    {{----}}
+    {{----}}
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
     <script type="text/javascript">
-                {{--console.log(<?= json_encode($topic); ?>);--}}
-        const quiz = <?= $topic->questions; ?>;
 
-        {{--var x = "<?php echo "$topic"?>";--}}
-        // console.log(x);
-
-        const questionNumber = document.querySelector(".question-number");
-        const questionText = document.querySelector(".question-text");
-        const optionContainer = document.querySelector(".option-container");
-
-        let questionCounter = 0;
-        let currentQuestion;
-        let availableQuestions = [];
-        let availableOptions = [];
-        let correctAnswers = 0;
-        let attempt = 0;
-        let skipQuestions = 0;
-
-        //push the questions into availableQuestions Array
-        function setAvailableQuestions() {
-
-            // console.log('setAvailableQuestions');
-            const totalQuestions = quiz.length;
-
-            for (let i = 0; i < totalQuestions; i++) {
-                availableQuestions.push(quiz[i]);
-            }
-        }
-
-        // set question number and question and options
-        function getNewQuestion() {
-
-            // set question number
-            questionNumber.innerHTML = "Question " + (questionCounter + 1) + " of " + quiz.length;
-
-            // set question text
-            //get random question
-            const questionIndex = availableQuestions[Math.floor(Math.random() * availableQuestions.length)];
-            currentQuestion = questionIndex;
-            questionText.innerHTML = currentQuestion.text;
-            //get the position of 'questionIndex' from the availableQuestions Array;
-            const index1 = availableQuestions.indexOf(questionIndex);
-            //remove the 'questionIndex' from the availableQuestions array, so that it not repeat
-            availableQuestions.splice(index1, 1);
-
-            // console.log(questionIndex);
-            // console.log(availableQuestions);
-
-
-            //set options
-            //get options
-            const optionLen = currentQuestion.options.length;
-
-            //push option into availableOptions array
-            for (let i = 0; i < optionLen; i++) {
-                availableOptions.push(currentQuestion.options[i]);
-            }
-            // console.log(availableOptions);
-
-            optionContainer.innerHTML = '';
-            //create options in html
-            for (let i = 0; i < optionLen; i++) {
-                //random options
-                const optionIndex = availableOptions[Math.floor(Math.random() * availableOptions.length)];
-                //get the position of 'optionIndex' from the availableOptions array
-                // console.log(optionIndex.id);
-                const index2 = availableOptions.indexOf(optionIndex);
-
-                // console.log(index2);
-                //remove the 'optionIndex from the availableOption, so that option does not repeat
-                availableOptions.splice(index2, 1);
-                // console.log(optionIndex);
-
-                const option = document.createElement("div");
-                option.innerHTML = currentQuestion.options[i].text;
-                option.id = currentQuestion.options[i].id;
-                option.className = "option";
-                optionContainer.appendChild(option);
-                option.setAttribute("onclick", "checkResult(this)");
-
-            }
-
-            questionCounter++;
-        }
-
-        //get the result of current attempt question
-        function checkResult(optionElement) {
-            // console.log(optionElement);
-            const id = parseInt(optionElement.id);
-            var correct_id;
-
-            const optionLen = currentQuestion.options.length;
-            for (let i = 0; i < optionLen; i++) {
-
-                if (currentQuestion.options[i].is_correct === 1) {
-                    correct_id = currentQuestion.options[i].id;
+        $(document).ready(function () {
+            // console.log('ajax working');
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $("meta[name='csrf-token']").attr('content')
                 }
+            });
 
-            }
-            // console.log(correct_id);
-            if (id === correct_id) {
-                // set green color
-                optionElement.classList.add("correct");
-                // console.log("Answer is correct");
-                correctAnswers++;
-
-                console.log("Correct: " + correctAnswers);
-
-            } else {
-                //set red color
-                optionElement.classList.add("wrong");
-                // console.log("Answer is wrong");
-
-                //show the correct option
-                const optionLen = optionContainer.children.length;
-                for (let i = 0; i < optionLen; i++) {
-                    if (parseInt(optionContainer.children[i].id) === correct_id) {
-                        optionContainer.children[i].classList.add("correct");
-                    }
-                }
-            }
-            attempt++;
-            unClickableOptions();
-        }
-
-        //make all options unClickable once the user select one option
-        function unClickableOptions() {
-            const optionLen = optionContainer.children.length;
-            for (let i = 0; i < optionLen; i++) {
-                optionContainer.children[i].classList.add("already-answered");
-            }
-        }
-
-        function skip() {
-            if (questionCounter === quiz.length) {
-                console.log("quiz over");
-                quizResult();
-            } else {
-                skipQuestions++;
-                getNewQuestion();
-            }
-        }
-
-        function next() {
-            if (questionCounter === quiz.length) {
-                console.log("quiz over");
-                quizResult();
-            } else {
-                getNewQuestion();
-            }
-        }
-
-        function quizResult() {
-
-
-            console.log("we here;");
-
-            {{--var ss = <?= session()->get('learning')['topic']; ?>;--}}
-            {{--var rr = <?= session()->get('right'); ?>;--}}
-
-            //     console.log(ss);
-            // console.log('Right: ' + rr);
-
-
-        }
-
-        window.onload = function () {
-            //first set all questions in availableQuestions Array
-            // setAvailableQuestions();
-            //second: we cll getNextQuestion(); function
-            // getNewQuestion();
-        };
-
-    </script>
-
-
-    {{--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>--}}
-
-    <script type="text/javascript">
-
-
-        {{--$(document).ready(function () {--}}
-        {{--console.log('working');--}}
-        {{--$('#ajax-submit').on('submit', function (e) {--}}
-        {{--console.log('clicked');--}}
-        {{--e.preventDefault();--}}
-        {{--document.getElementById("ajax-submit").disabled = true;--}}
-        {{--$.ajaxSetup({--}}
-        {{--headers: {--}}
-        {{--'X-CSRF-TOKEN': $("meta[name='csrf-token']").attr('content')--}}
-        {{--}--}}
-        {{--});--}}
-
-        {{--$.ajax({--}}
-        {{--url: "{{url('/submitAnswer')}}",--}}
-        {{--method: 'POST',--}}
-        {{--data: {option: $("#option").val()},--}}
-        {{--success: function (result) {--}}
-        {{--console.log(result);--}}
-        {{--alert('hello');--}}
-        {{--}--}}
-        {{--});--}}
-        {{--e.preventDefault();--}}
-        {{--});--}}
-        {{--});--}}
+        });
 
         function getResult($option, $array) {
             // e.preventDefault();
@@ -699,7 +689,7 @@
             // console.log($array);
 
             var option = JSON.parse($option);
-            console.log("Click option: " + option.id + " : " + option.text);
+            // console.log("Click option: " + option.id + " : " + option.text);
 
             var options = JSON.parse($array);
 
@@ -709,20 +699,18 @@
             });
 
 
-            console.log("===>");
-
-            console.log("Right option : " + result[0].id + " : " + result[0].text);
-
-            console.log("===>");
+            // console.log("===>");
+            //
+            // console.log("Right option : " + result[0].id + " : " + result[0].text);
+            //
+            // console.log("===>");
 
 
             if (option.id == result[0].id) {
                 console.log('Correct answer');
-
                 document.getElementById(option.id).classList.add("correct");
             } else {
                 console.log('Wrong answer');
-
                 document.getElementById(option.id).classList.add("wrong");
                 document.getElementById(result[0].id).classList.add("correct");
 
@@ -733,44 +721,33 @@
 
                 document.getElementById(options[i].id).classList.add("already-answered");
 
-                // $('#i :input:checked').css({'background-color': 'red', 'color': 'white'});
-                // $('label').css({'background-color': 'red', 'color': 'white'});
-                // $('label').css('background-color', 'red');
-
-                // document.getElementById(i).style.background = "red";
-                // document.getElementById(i).style.color = "white";
-                // console.log("Wrong Answer");
-
-                // document.getElementById(i).onclick = function () {
-                //     this.disabled = true;
-                // };
-                // this.disabled = true;
             }
-            // var my_css_class = {backgroundColor: 'green', color: '#000'};
-
-            // console.log("Right answer id: " + const_id);
-
-            // $('#' + const_id).css(my_css_class);
-
-            // $('label#' + const_id).css({'background-color': 'green'});
-
+            const optionContainer = document.querySelector(".option-container");
             console.log('we here');
-            // document.getElementById(const_id).style.background = "green";
-            // document.getElementById(const_id).style.color = "white";
+            $.ajax({
+                url: "{{url('/submitAnswer')}}",
+                method: 'POST',
+                data: {option: option.id},
+                success: function (result) {
+                    console.log(result.result.id);
+                    // alert('hello');
+                    const option = document.createElement("input");
+                    option.setAttribute("type", "text");
+                    option.setAttribute("value", result.result.id);
+                    option.setAttribute("name", "option");
+                    option.setAttribute("hidden", "hidden");
+                    option.setAttribute("required", "required");
+                    optionContainer.appendChild(option);
+                    document.getElementById("skip-button").disabled = true;
+                },
+                error: function (xhr, ajaxOptions, thrownError) {}
+            });
+            //         e.preventDefault();
+            //     });
+            // });
 
-            // document.getElementById(const_id).style.color = "white";
-            // console.log("Right Answer");
-
-            // var radioName = $(this).attr("option"); //Get radio name
-            // $(":radio[name='"+radioName+"']").attr("disabled", true); //Disable all with the same name
-
-            // $('input[name=option]').attr("disabled", true);
         }
 
-        // $(":radio").click(function(){
-        //     var radioName = $(this).attr("option"); //Get radio name
-        //     $(":radio[name='"+radioName+"']").attr("disabled", true); //Disable all with the same name
-        // });
 
     </script>
 

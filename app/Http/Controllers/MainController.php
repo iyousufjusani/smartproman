@@ -78,10 +78,11 @@ class MainController extends Controller
             'next' => 'required',
         ]);
 
-
         $q_id = Session::get('learning')['question']->id;
         $q_number = Session::get('learning')['question']->number;
         $t_id = Session::get('learning')['topic']->id;
+
+//        dd($q_id);
 
         $topic = Topic::
         where('id', '=', $t_id)
@@ -97,7 +98,7 @@ class MainController extends Controller
             // get the current question
             $current_question = Question::find($q_id);
             // get next question id
-            $next = Question::where('topic_id', '=', 1)->where('id', '>', $current_question->id)->min('id');
+            $next = Question::where('topic_id', '=', $t_id)->where('id', '>', $current_question->id)->min('id');
             //            dd($next);
 
             //topic name or encrypt question id
@@ -147,59 +148,33 @@ class MainController extends Controller
     public function submitAnswer(Request $request)
     {
 
-//        $right = Session::get('right');
-//        $wrong = Session::get('wrong');
-//
-////        $this->validate($request, [
-////            'option' => 'required',
-////            'choice' => 'required',
-////            'question' => 'required'
-////        ]);
-//
-//        $option = Option::
-//        where('id', '=', $request['option'])
-//            ->where('question_id', '=', 1)
-//            ->first();
-//
-//        if ($option->is_correct == 1) {
-//            $right += 1;
-//        } else {
-//            $wrong += 1;
-//        }
-//
-//        Session::put("right", $right);
-//        Session::put("wrong", $wrong);
+        $right = Session::get('right');
+        $wrong = Session::get('wrong');
+
+        $this->validate($request, [
+            'option' => 'required',
+//            'choice' => 'required',
+//            'question' => 'required'
+        ]);
+
+        $q_id = Session::get('learning')['question']->id;
+
+        $option = Option::
+        where('id', '=', $request['option'])
+            ->where('question_id', '=', $q_id)
+            ->first();
+
+        if ($option->is_correct == 1) {
+            $right += 1;
+        } else {
+            $wrong += 1;
+        }
+
+        Session::put("right", $right);
+        Session::put("wrong", $wrong);
 
 //        return 'hello';
-        return response()->json(['result' => $request['option']]);
-
-//        $right = Session::get('right');
-//        $wrong = Session::get('wrong');
-//
-//        if ($request['button'] == 'next') {
-//            $this->validate($request, [
-//                'option' => 'required',
-//                'button' => 'required',
-//            ]);
-//        }
-//
-//        $question = Session::get('learning')['question'];
-////        dd($question);
-//
-//        $option = Option::
-//        where('id', '=', $request['option'])
-//            ->where('question_id', '=', $question->id)
-//            ->first();
-////        dd($option);
-//
-//        if ($option->is_correct == 1) {
-//            $right += 1;
-//        } else {
-//            $wrong += 1;
-//        }
-//
-//        Session::put("right", $right);
-//        Session::put("wrong", $wrong);
+        return response()->json(['result' => $option]);
 
 
     }
@@ -255,6 +230,15 @@ class MainController extends Controller
 
 
     }
+
+
+
+
+
+
+
+
+
 
     public function index($topic_id, $q_id)
     {

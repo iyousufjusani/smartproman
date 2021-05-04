@@ -76,7 +76,7 @@ class ScoreController extends Controller
         ];
 
         Session::put('learning', $obj);
-
+//dd($obj);
 
         if (!$request->ajax()) {
 //            return redirect()->route('options.index')->with('success', 'Option Updated Successfully!!!');

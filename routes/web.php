@@ -32,10 +32,6 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/start/{topic}/{question}', 'MainController@startLearning')->name('start');
 
-//    Route::get('/start/{topic}', 'MainController@startLearning')->name('start');
-
-
-
     Route::get('/start2/{topic}/{detail}', 'MainController@type2')->name('start2');
 
 
